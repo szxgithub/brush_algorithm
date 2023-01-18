@@ -12,3 +12,4 @@
 *.rar
 *.classpath .project .settings target .idea
 *.iml
+/out/
