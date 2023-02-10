@@ -2,9 +2,12 @@ package od;
 
 import java.util.*;
 
-/**
- *
- * 小朋友编号和是否同班的标志
+/*
+
+ 分班
+ 小朋友编号和是否同班的标志
+
+
  */
 public class Main {
 

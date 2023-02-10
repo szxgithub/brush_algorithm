@@ -2,9 +2,11 @@ package od;
 
 import java.util.Scanner;
 
-/**
- *
- * 计算面积
+/*
+
+计算面积
+绘图机器的绘图笔初始位置在原点(0,0)，机器启动后其绘笔按下面规则绘制直线
+
  */
 public class Main1 {
 
