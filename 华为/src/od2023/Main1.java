@@ -6,8 +6,15 @@ public class Main1 {
 
     /*
 
-    简单的压缩算法
+    简单的解压缩算法
 
+    需要实现一种算法，将一组压缩字符串还原成原始字符串
+
+
+    输入：
+    {A3B1{C}3}3
+    输出：
+    AAABCCCAAABCCCAAABCCC
 
 
      */
