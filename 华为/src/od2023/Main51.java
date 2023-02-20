@@ -11,6 +11,14 @@ public class Main51 {
 
     异常的打卡记录
 
+    以下两种情况，被认为异常打卡：
+    1、实际设备 与 注册设备号不一致
+    2、同一个员工两个打卡时间小于60分钟，且打卡距离超过5km
+
+    给定打卡记录的字符串数组checkRecords
+
+    要求输出异常的打卡记录
+
      */
 
     public static void main(String[] args) {

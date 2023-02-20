@@ -1,0 +1,141 @@
+package od2023;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class Main95 {
+
+    /*
+
+     最多几个直角三角形
+
+     输入：
+     1
+     7 3 4 5 6 5 12 13
+     输出：
+     2
+
+     1
+     7 3 4 5 12 13 84 85
+     2
+
+     */
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int T = sc.nextInt();
+        int[][] cases = new int[T][];
+
+        for (int i = 0; i<T; i++){
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            for (int j = 0; j<n; j++){
+                arr[j] = sc.nextInt();
+            }
+            cases[i] = arr;
+        }
+
+        getResult(cases);
+
+    }
+
+    private static void getResult(int[][] cases) {
+
+        for (int[] arr : cases){
+            Arrays.sort(arr);
+            ArrayList<Integer[]> res = new ArrayList<>();
+
+            dfs(arr,0,new LinkedList<>(),res);
+
+            int[] count = new int[100];
+            for (int i : arr){
+                count[i]++;
+            }
+
+            ArrayList<Integer> ans = new ArrayList<>();
+            canCombine(res,0,count,0,ans);
+            System.out.println(ans.stream().max((a,b) -> a-b).orElse(0));
+
+        }
+
+    }
+
+    /**
+     *
+     * @param res  所有组合结果
+     * @param index 起始位置
+     * @param count  每个字符出现次数统计
+     * @param num
+     * @param ans
+     */
+    private static void canCombine(ArrayList<Integer[]> res, int index, int[] count, int num, ArrayList<Integer> ans) {
+
+        // 扫描完所有的组合结果
+        if (index >= res.size()){
+            ans.add(num);
+            return;
+        }
+
+        for (int i = index; i < res.size(); i++){
+            Integer[] integers = res.get(i);
+            int a = integers[0];
+            int b = integers[1];
+            int c = integers[2];
+
+            if (count[a] > 0 && count[b] > 0 && count[c] > 0){
+                count[a]--;
+                count[b]--;
+                count[c]--;
+                num++;
+                canCombine(res,i+1,count,num,ans);
+                num--;
+                count[a]++;
+                count[b]++;
+                count[c]++;
+            }
+
+        }
+
+        ans.add(num);
+
+    }
+
+    /**
+     *
+     * 从n个数里面选3个组合
+     *
+     * @param arr
+     * @param index
+     * @param path
+     * @param res
+     */
+    private static void dfs(int[] arr, int index, LinkedList<Integer> path, ArrayList<Integer[]> res) {
+
+        if (path.size() == 3){
+            if (isRightTriangle(path)){
+                res.add(path.toArray(new Integer[3]));
+            }
+            return;
+        }
+
+        for (int i = index; i<arr.length; i++){
+            path.add(arr[i]);
+            dfs(arr,i+1,path,res);
+            path.removeLast();
+        }
+    }
+
+    public static boolean isRightTriangle(LinkedList<Integer> path){
+        int x = path.get(0);
+        int y = path.get(1);
+        int z = path.get(2);
+
+        return x*x + y*y == z*z;
+
+    }
+
+}

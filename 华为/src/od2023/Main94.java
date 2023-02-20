@@ -1,15 +1,20 @@
 package od2023;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main94 {
 
     /*
 
     士兵过河II
+
+    1、首先让用时最短的两个士兵A、B划船过河到对岸，用时A<=B
+    2、然后让B留在对岸，让最快的士兵划船回来本岸
+    3、然后让本岸用时最长的两个士兵划船过河到对岸
+    4、然后再让对岸用时最短的士兵B划船回来本岸
+
+    按以上逻辑循环，直到用时达到上限T，或者士兵全部运输完
+
      */
 
 
@@ -117,6 +122,62 @@ public class Main94 {
         System.out.println(count + " " + time);
     }
 
+
+    /*
+    这道题是经典的吊桥谜题的变种题
+
+    这道题非常难， 采用动态规划思想可解决
+
+     */
+    public static void main2(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int t = sc.nextInt();
+
+        int[] times = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            times[i] = sc.nextInt();
+        }
+
+        System.out.println(getResult(n, t, times));
+    }
+
+    public static String getResult(int n, int t, int[] times) {
+        Arrays.sort(times);
+
+        // dp[i] 的含义是0-i士兵全部过河所需要的最短时间
+        int[] dp = new int[n];
+
+        dp[0] = times[0];
+        if (dp[0] > t){
+            return "0 0";
+        }
+
+        dp[1] = getMax(times[0], times[1]);
+        if (dp[1] > t){
+            return 1 + " " + dp[0];
+        }
+
+        for (int i = 2; i < n; i++) {
+            dp[i] = Math.min(dp[i - 1] + times[0] + getMax(times[0], times[i]),
+                    dp[i - 2] + times[0] + getMax(times[i - 1], times[i]) + times[1] + getMax(times[0], times[1]));
+
+            if (dp[i] > t) {
+                return i + " " + dp[i - 1];
+            }
+        }
+
+        return n + " " + dp[n - 1];
+    }
+
+    public static int getMax(int t1, int t2) {
+        if (t1 * 10 < t2) {
+            return t1 * 10;
+        }
+        return t2;
+    }
 
 
 

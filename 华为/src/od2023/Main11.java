@@ -22,7 +22,9 @@ public class Main11 {
 
         Scanner sc = new Scanner(System.in);
 
+        // 商品的数量
         int number = sc.nextInt();
+        // 售货天数
         int days = sc.nextInt();
 
         // 仓库中每件商品的最大持有量
@@ -31,6 +33,7 @@ public class Main11 {
             item[i] = sc.nextInt();
         }
 
+        // 每种商品每天的价格
         int[][] item_price = new int[number][days];
         for (int i = 0; i<item_price.length; i++){
             for (int j = 0; j<item_price[i].length; j++){
