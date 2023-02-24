@@ -1,15 +1,22 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main24 {
+public class Main9 {
 
     /*
 
-    字母组合
+    字母组合(过滤组合字符串)
+
+    数字0、1、2、3、4、5、6、7、8、9分别关联a~z 26个英文字母
+
+    0 关联 a、b、c
+    1 关联 d、e、f
+    ...
+
 
     输入：
     78

@@ -1,12 +1,14 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.*;
 
-public class Main15 {
+public class Main4 {
 
     /*
 
     字符串重新排序
+
+    给定一个字符串s, s包括以空格分隔的若干个单词
 
     输入：
     This is an apple
@@ -43,7 +45,7 @@ public class Main15 {
             }else if (o1.getValue() < o2.getValue()){
                 return 1;
             }else {
-                // 按照单词的长度升序排序
+                // 出现次数相同时，按照单词的长度升序排序
                 return o1.getKey().length() - o2.getKey().length();
             }
         });

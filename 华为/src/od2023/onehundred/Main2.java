@@ -1,15 +1,20 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main26 {
+public class Main2 {
 
     /*
 
-    AI处理器组合
+    AI处理器组合(处理器问题)
+
+    给定服务器可用的处理器编号数组，以及任务申请的处理器数量num，找出符合下列亲和性调度原则的芯片组合
+    如果不存在符合要求的组合，返回空列表
+
+
 
      */
 
@@ -23,10 +28,13 @@ public class Main26 {
 
         Scanner sc = new Scanner(System.in);
 
+        // 可用的处理器编号数组
         String[] strings = sc.nextLine().replace("[","")
                 .replace("]","")
                 .split(",");
-        int num = sc.nextInt();     //申请处理器的数量
+
+        //申请处理器的数量  任务申请处理器的数量只能是1、2、4、8
+        int num = sc.nextInt();
 
         // 第一链路
         first = new ArrayList<>();

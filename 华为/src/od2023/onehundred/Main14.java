@@ -1,11 +1,11 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Main12 {
+public class Main14 {
 
     /*
 
@@ -87,6 +87,5 @@ public class Main12 {
         System.out.println(res);
 
     }
-
 
 }

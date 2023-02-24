@@ -1,13 +1,14 @@
 package od2023;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main73 {
 
     /*
         网上商城优惠活动（一）
+        有三种优惠券可以用，满减卷，打折卷，和 无门槛卷
+
+
      */
 
     /*
@@ -30,13 +31,21 @@ public class Main73 {
         manjian = sc.nextInt();
         dazhe = sc.nextInt();
         wumenkan = sc.nextInt();
+        sc.nextLine();
 
+        // 表示有n个人购物
         int n = sc.nextInt();
+        sc.nextLine();
 
+        List<int[]> list = new ArrayList<>();
         for(int i=0; i<n; i++){
-            double money = sc.nextInt();
 
-            int quanMJ = money/100 > manjian ? manjian : (int) (money / 100);   //首先使用满减的张数
+            // 打折之前的商品总价
+            double money = sc.nextInt();
+            sc.nextLine();
+
+            //首先使用满减的张数
+            int quanMJ = money/100 > manjian ? manjian : (int) (money / 100);
 
             /**
              * key：活动后的价格
@@ -80,8 +89,11 @@ public class Main73 {
 
             double min = Math.min( Math.min(manjianToDz, dzToManjian), Math.min(manjianWMK, dazheWMK)); //求出最小价格
 
-            System.out.println((int) Math.floor(min) + " " + map.get(min));
+            list.add(new int[]{(int) Math.floor(min),map.get(min)});
+        }
 
+        for (int[] ans : list){
+            System.out.println(ans[0] + " " + ans[1]);
         }
 
     }

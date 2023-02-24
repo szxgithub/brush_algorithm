@@ -1,13 +1,14 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.Scanner;
 
-public class Main10 {
+public class Main12 {
 
     /*
 
     狼羊过河
-
+    羊、狼、农夫都在岸边，当羊的数量小于狼时，狼会攻击羊，农夫有一艘容量固定的船
+    要求不损失羊的情况下，将羊和狼运到对岸的最小次数
 
      */
     public static int min = Integer.MAX_VALUE;
@@ -24,7 +25,7 @@ public class Main10 {
         int m = sc.nextInt();
         // 狼的数量
         int n = sc.nextInt();
-        // 可载的数量
+        // 小船可载的数量
         int x = sc.nextInt();
 
         countY = m;
