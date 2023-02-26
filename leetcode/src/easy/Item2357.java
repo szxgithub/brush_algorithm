@@ -13,10 +13,12 @@ public class Item2357 {
 
     public int minimumOperations(int[] nums){
 
-        List<Integer> list = Arrays.stream(nums).mapToObj(value -> Integer.valueOf(value))
+      /*  List<Integer> list = Arrays.stream(nums).mapToObj(value -> Integer.valueOf(value))
                                                 .filter(value -> value != 0)
                                                 .sorted()
-                                                .collect(Collectors.toList());
+                                                .collect(Collectors.toList());*/
+
+        List<Integer> list = Arrays.stream(nums).boxed().filter(value -> value != 0).sorted().collect(Collectors.toList());
 
         if (list.size() == 0){
             return 0;
