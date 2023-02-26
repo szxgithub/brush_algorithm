@@ -1,11 +1,13 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main80 {
+public class Main20 {
     /*
     关联端口组合并
+
+    如果端口组间存在2个及以上不同端口相同，则认为这两个端口组互相关联，可以合并
 
     输入：
     6
@@ -22,6 +24,7 @@ public class Main80 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        // 1<= M <= 10
         int M = Integer.parseInt(sc.nextLine());
 
         if (M >10){
@@ -38,6 +41,7 @@ public class Main80 {
             list.add(set);
         }
 
+        // 遍历端口组
         for (int i =0; i<list.size(); i++){
             TreeSet<Integer> treeSet1 = list.get(i);
             for (int j = 0; j <list.size(); j++){

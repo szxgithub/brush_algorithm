@@ -1,12 +1,20 @@
-package od2023;
+package od2023.onehundred;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main75 {
+public class Main17 {
 
     /*
     数组的中心位置
+
+    数组的中心位置是数组的一个下标，其左侧所有元素相乘的积等于右侧所有元素相乘的积，数组中第一个元素的左侧积为1， 最后一个元素的右侧积为1
+
+    如果数组有多个中心位置，返回最靠近左边的哪一个，如果不存在，则返回-1
+
+    中心位置的值为数组的下标索引
+
      */
 
     public static void main2(String[] args) {
@@ -35,7 +43,6 @@ public class Main75 {
                     leftMulti *= ints[left];
                     right--;
                     left++;
-                    continue;
                 }else {
                     res = left;
                     break;
@@ -88,4 +95,35 @@ public class Main75 {
         }
         System.out.println(res);
     }
+
+    /*
+    由于  1< nums.length < 1024   1<= nums[i] <=10
+    也就是说单边积最大可以是10^1024， 这远远超过了int、long的范围
+   应该用大数来处理
+     */
+    public int getResult(int[] nums){
+        BigInteger fact = BigInteger.valueOf(1);
+        for (Integer num : nums){
+            fact = fact.multiply(BigInteger.valueOf(num));
+        }
+
+        BigInteger left = BigInteger.valueOf(1);
+        BigInteger right = fact.divide(BigInteger.valueOf(nums[0]));
+
+        if (left.compareTo(right) == 0){
+            return 0;
+        }
+
+        for (int i = 1; i < nums.length; i++){
+            left = left.multiply(BigInteger.valueOf(nums[i-1]));
+            right = right.divide(BigInteger.valueOf(nums[i]));
+            if (left.compareTo(right) == 0){
+                return i;
+            }
+        }
+
+        return -1;
+
+    }
+
 }

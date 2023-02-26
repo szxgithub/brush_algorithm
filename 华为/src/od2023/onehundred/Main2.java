@@ -1,7 +1,7 @@
 package od2023.onehundred;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,154 +9,56 @@ public class Main2 {
 
     /*
 
-    AI处理器组合(处理器问题)
+    单向链表中间节点(寻找链表的中间结点)
 
-    给定服务器可用的处理器编号数组，以及任务申请的处理器数量num，找出符合下列亲和性调度原则的芯片组合
-    如果不存在符合要求的组合，返回空列表
+    求单向链表中间的节点值，如果奇数个节点取中间，偶数个取偏右边的那个值
 
+    输入：
+    00010 4
+    00000 3 -1
+    00010 5 12309
+    11451 6 00000
+    12309 7 11451
+    输出：6
 
+    输入：
+    10000 3
+    76892 7 12309
+    12309 5 -1
+    10000 1 76892
+    输出:7
 
      */
 
-    public static List<Integer> first;    //第一个链路
-    public static List<Integer> second;    //第二个链路
-    public static int remainFirst;    //第一个链路的可用处理器个数
-    public static int remainSecond;    //第二个链路的可用处理器个数
-    public static List<List<Integer>> tempLists = new ArrayList<>();
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        String[] s = sc.nextLine().split(" ");
 
-        // 可用的处理器编号数组
-        String[] strings = sc.nextLine().replace("[","")
-                .replace("]","")
-                .split(",");
+        // 头结点地址
+        String headAddr = s[0];
 
-        //申请处理器的数量  任务申请处理器的数量只能是1、2、4、8
-        int num = sc.nextInt();
+        // 后续输入的节点数
+        Integer N = Integer.valueOf(s[1]);
 
-        // 第一链路
-        first = new ArrayList<>();
-        // 第二链路
-        second = new ArrayList<>();
-        for(String s : strings){
-
-            int i = Integer.valueOf(s.trim());
-            if( i < 4){
-                first.add(i);
-            }else {
-                second.add(i);
-            }
-        }
-        remainFirst = first.size();
-        remainSecond = second.size();
-
-        if(num == 1){
-            oneCpu();
-        }else if(num == 2){
-            twoCpu();
-        }if(num == 4){
-            if(remainFirst == 4){
-                tempLists.add(Arrays.asList( 0, 1, 2, 3));
-            }
-            if(remainSecond == 4){
-                tempLists.add(Arrays.asList( 4, 5, 6, 7));
-            }
-        }if(num == 8){
-            if(remainSecond == 4 && remainSecond == 4){
-                tempLists.add(Arrays.asList( 0, 1, 2, 3, 4, 5, 6, 7));
-            }
+        HashMap<String,String[]> nodes = new HashMap<>();
+        for (int i = 0; i<N; i++){
+            String[] tmp = sc.nextLine().split(" ");
+            nodes.put(tmp[0],new String[]{tmp[1], tmp[2]});
         }
 
-        System.out.println(tempLists.size() == 0 ? "[]" : tempLists);
-    }
-
-    /**
-     *申请处理器个数为1
-     * 则选择同一链路，剩余可用的处理器数量为1个的最佳
-     * 其次是剩余3个的为次佳
-     * 然后是剩余2个
-     * 最后是剩余4个
-     */
-    public static void oneCpu(){
-
-        List<List<Integer>> lists = new ArrayList<>();
-        int[] ints = new int[]{ 1, 3, 2, 4};    //可用处理器数量的优先级
-        boolean isFit = false;      //是否有了满足的链路
-
-        for(int i : ints){
-            if(i == remainFirst){
-                lists.add(first);
-                isFit = true;
-            }
-            if(i == remainSecond){
-                lists.add(second);
-                isFit = true;
-            }
-            if(isFit){
-                break;
-            }
+        List<String> valList = new ArrayList<>();
+        String[] head = nodes.get(headAddr);
+        while (head != null){
+            String val = head[0];
+            String next = head[1];
+            valList.add(val);
+            head = nodes.get(next);
         }
 
-        for(int i=0; i<lists.size(); i++){
-            handle( lists.get(i), new ArrayList<>(), 0, 1);
-        }
-    }
-
-    /**
-     * 申请处理器个数为2
-     * 则选择同一链路,剩余可用的处理器数量2个的为最佳
-     * 其次是剩余4个
-     * 最后是剩余3个
-     */
-    public static void twoCpu(){
-
-        List<List<Integer>> lists = new ArrayList<>();
-        int[] ints = new int[]{ 2, 4, 3};   //可用处理器数量的优先级
-        boolean isFit = false;  //是否有了满足的链路
-
-        for(int i : ints){
-            if(i == remainFirst){
-                lists.add(first);
-                isFit = true;
-            }
-            if(i == remainSecond){
-                lists.add(second);
-                isFit = true;
-            }
-            if(isFit){
-                break;
-            }
-        }
-
-        for(int i=0; i<lists.size(); i++){
-            handle( lists.get(i), new ArrayList<>(), 0, 2);
-        }
-
-    }
-
-    /**
-     * 申请n个处理器的所有可能性
-     * @param firstOrSecond 选中的链路
-     * @param list          申请的处理器
-     * @param index         处理器的索引
-     * @param n             申请处理器的个数
-     */
-    public static void handle(List<Integer> firstOrSecond, List<Integer> list, int index, int n){
-
-        if(list.size() == n){
-            List<Integer> tempList = new ArrayList<>();
-            tempList.addAll(list);
-            tempLists.add(tempList);
-        }else {
-            for( int i=index; i<firstOrSecond.size(); i++){
-
-                list.add(firstOrSecond.get(i));
-                handle(firstOrSecond, list, i +1, n);
-                list.remove(list.size()-1);
-            }
-        }
+        int mid = valList.size() / 2;
+        System.out.println(valList.get(mid));
 
     }
 

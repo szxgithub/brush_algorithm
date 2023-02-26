@@ -1,11 +1,12 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.Scanner;
 
-public class Main20 {
+public class Main25 {
     /*
 
     机器人活动区域
+    现有一个机器人，可放置在MxN的网格
 
      */
 

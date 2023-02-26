@@ -1,8 +1,8 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.Scanner;
 
-public class Main82 {
+public class Main19 {
 
     /*
 

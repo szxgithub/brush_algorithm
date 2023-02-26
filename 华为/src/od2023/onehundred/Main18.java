@@ -1,11 +1,14 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.*;
 
-public class Main34 {
+public class Main18 {
     /*
 
-    寻找密码
+    寻找密码(最长的密码)
+
+    从密码本中寻找一个最长的密码
+    从它的末尾开始依次去掉一位得到的新密码，也在密码本中存在，如果有多个符合要求，返回字典序最大的密码
 
     输入：b eredderd bw bww bwwl bwwlm bwwln
     输出：bwwln
@@ -53,9 +56,8 @@ public class Main34 {
         }
 
         // 按照长度大小升序排序
-        Collections.sort(list , (a,b) -> {
-            return a.length() - b.length();
-        });
+        Collections.sort(list , Comparator.comparingInt(String::length));
+
         String res = "";
         for(int i=list.size()-1; i>=0; i--){
             String str = list.get(i);

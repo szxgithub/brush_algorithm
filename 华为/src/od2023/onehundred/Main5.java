@@ -1,150 +1,84 @@
 package od2023.onehundred;
 
-import javax.swing.plaf.IconUIResource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main5 {
 
     /*
 
-    获得完美走位
+    找出通过车辆最多颜色（最多颜色的车辆）
 
-    在第一人称射击游戏中，玩家通过ASDW四个按键控制人物移动方向
-
-    玩家在操作一定次数的键盘并且各个方向的步数相同时，此时游戏任务必定回到原点，则称此次走位为 完美走位
-
-    请通过更换其中一段连续走位的方式使得成为一个完美走位，请返回待更换的连续走位的最小长度
-
-    输入：WASDAASD
-    输出：1
-
-    输入：AAAA
-    输出：3
+    车辆的颜色只有三种，编号为0，1，2
+    找出N秒内经过的最多颜色的车辆
 
      */
 
-    public static void main2(String[] args) {
+    /**
+     * 两层循环，据说满分
+     * @param args
+     */
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        // 通过的车辆颜色信息
+        String[] strs = sc.nextLine().split(" ");
+        // 统计时间窗
+        int n = sc.nextInt();
 
-        String str = sc.nextLine();
-
-        int len = str.length();
-
-        // 求出各个方向所需要的个数
-        int count = len/4;
-
-        Map<Character,Integer> map = new HashMap<>();
-        for (int i = 0; i <len; i++){
-            map.put(str.charAt(i),map.getOrDefault(str.charAt(i),0) + 1);
-        }
-
-        // 计算各个方向多余的个数
-        for (Map.Entry<Character,Integer> entry : map.entrySet()){
-            entry.setValue(entry.getValue() - count);
-        }
-
-        int min = Integer.MAX_VALUE;
-        for (int i = 0; i<len; i++){
-            char c = str.charAt(i);
-            int res = 0;
-            Map<Character,Integer> copyMap = new HashMap<>(map);
-            if (copyMap.get(c) > 0){
-                for (int j = i; j <len; j++){
-                    char tmp = str.charAt(j);
-                    copyMap.put(tmp,copyMap.get(tmp) - 1);
-                    res++;
-                    if (isTrue(copyMap)){
-                        break;
-                    }
-                }
+        int res = 0;
+        for(int i=0; i<strs.length - n + 1; i++){
+            //只有3种颜色，可以转化成长度3的数组
+            int[] ints = new int[3];
+            for(int j=i; j<i+n; j++){
+                int index = Integer.valueOf(strs[j]);
+                ints[index] ++;
             }
-
-            if (isTrue(copyMap)){
-                min = Math.min(min,res);
-            }
+            int maxCount = Arrays.stream(ints).max().getAsInt();
+            res = Math.max(res,maxCount);
         }
 
-        System.out.println(min);
+        System.out.println(res);
 
     }
 
-    public static boolean isTrue(Map<Character,Integer> map){
-        for (Integer i : map.values()){
-            if (i > 0){
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    public static void main(String[] args) {
-        // String str = "WASDAASD";
-        String str = "AAAA";
-        int result = getResult(str);
-        System.out.println(result);
-    }
-    /*
-
-    滑动窗口解法
-
+    /**
+     *
+     * 采用滑动窗口方法
+     *
+     * @param arr 通过的车辆颜色信息
+     * @param n 统计时间窗口
+     * @return
      */
-    static public int getResult(String str){
-        HashMap<Character,Integer> map = new HashMap<>();
-        for (int i = 0; i < str.length(); i++){
-            char c = str.charAt(i);
-            map.put(c,map.getOrDefault(c,0) + 1);
+    public int getResult(Integer[] arr, int n){
+        HashMap<Integer,Integer> map = new HashMap<>();
+        map.put(0,0);
+        map.put(1,0);
+        map.put(2,0);
+
+        // 滑动窗口的左右边界
+        int l = 0;
+        int r = l + n;
+
+        // 记录窗口内部最多的颜色数量
+        int max= 0;
+
+        for (int i = l; i < r; i++){
+            Integer integer = arr[i];
+            map.put(integer,map.get(integer) + 1);
+            max = Math.max(max,map.get(integer));
         }
 
-        // 平衡时 ASWD的数量
-        int avg = str.length()/4;
+        while (r < arr.length){
+            Integer add = arr[r++];
+            Integer remove = arr[l++];
+            map.put(add,map.get(add) + 1);
+            map.put(remove,map.get(remove) - 1);
 
-        // 记录多余字母的总数
-        int total = 0;
-
-        // 当前是否平衡的标志
-        boolean flag = true;
-        for (Character c : map.keySet()){
-            if (map.get(c) > avg){
-                flag = false;
-                map.put(c,map.get(c) - avg);
-                total += map.get(c);
-            }else {
-                map.put(c,0);
-            }
+            max = Math.max(max,map.get(add));
         }
 
-        if (flag){
-            return 0;
-        }
-
-        int i = 0; // 代表滑窗左边界
-        int j = 0; // 代表滑窗右边界
-        int minLen = str.length() + 1;
-        while (j < str.length()){
-            char c = str.charAt(j);
-            if (map.get(c) > 0){
-                total--;
-            }
-            map.put(c,map.get(c) - 1);
-            while (total == 0){
-                minLen = Math.min(minLen,j - i + 1);
-                char c1 = str.charAt(i);
-                if (map.get(c1) >= 0){
-                    total++;
-                }
-                map.put(c1,map.get(c1) + 1);
-                i++;
-            }
-            j++;
-        }
-
-        return minLen;
+        return max;
 
     }
-
 
 }

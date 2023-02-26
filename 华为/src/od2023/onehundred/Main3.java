@@ -1,64 +1,66 @@
 package od2023.onehundred;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main3 {
 
     /*
 
-    单向链表中间节点(寻找链表的中间结点)
+    字符串重新排序
 
-    求单向链表中间的节点值，如果奇数个节点取中间，偶数个取偏右边的那个值
-
-    输入：
-    00010 4
-    00000 3 -1
-    00010 5 12309
-    11451 6 00000
-    12309 7 11451
-    输出：6
+    给定一个字符串s, s包括以空格分隔的若干个单词
 
     输入：
-    10000 3
-    76892 7 12309
-    12309 5 -1
-    10000 1 76892
-    输出:7
+    This is an apple
+    输出：
+    an is This aelpp
 
      */
-
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String[] s = sc.nextLine().split(" ");
 
-        // 头结点地址
-        String headAddr = s[0];
+        String str = sc.nextLine();
 
-        // 后续输入的节点数
-        Integer N = Integer.valueOf(s[1]);
+        String[] s = str.split(" ");
 
-        HashMap<String,String[]> nodes = new HashMap<>();
-        for (int i = 0; i<N; i++){
-            String[] tmp = sc.nextLine().split(" ");
-            nodes.put(tmp[0],new String[]{tmp[1], tmp[2]});
+        TreeMap<String,Integer> map= new TreeMap<>();
+
+        // 对每个单词内部字母按字典排序
+        for (int i =0; i <s.length; i++){
+            char[] array = s[i].toCharArray();
+            Arrays.sort(array);
+            s[i] = new String(array);
+            // 单词间按字典顺序放进map中统计
+            map.put(s[i],map.getOrDefault(s[i],0) + 1);
         }
 
-        List<String> valList = new ArrayList<>();
-        String[] head = nodes.get(headAddr);
-        while (head != null){
-            String val = head[0];
-            String next = head[1];
-            valList.add(val);
-            head = nodes.get(next);
+        ArrayList<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+
+        list.sort((o1, o2) -> {
+            // 按次数降频排序
+            if (o1.getValue() > o2.getValue()){
+                return -1;
+            }else if (o1.getValue() < o2.getValue()){
+                return 1;
+            }else {
+                // 出现次数相同时，按照单词的长度升序排序
+                return o1.getKey().length() - o2.getKey().length();
+            }
+        });
+
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String,Integer> entry : list){
+            for (int i = 0; i < entry.getValue(); i++){
+                sb.append(entry.getKey());
+                sb.append(" ");
+            }
         }
 
-        int mid = valList.size() / 2;
-        System.out.println(valList.get(mid));
+        String substring = sb.substring(0, sb.length() - 1);
+        System.out.println(substring);
+
 
     }
 
