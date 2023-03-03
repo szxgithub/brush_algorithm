@@ -1,15 +1,20 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Main95 {
+public class Main74 {
 
     /*
 
      最多几个直角三角形
+     有N条线段，长度分别为a[1] - a[N]
+      现在要求你计算这N条线段最多可以组合成几个直角三角形
+      每条线段只能使用一次，每个三角形包含三条线段
+
+
 
      输入：
      1
@@ -27,6 +32,7 @@ public class Main95 {
 
         Scanner sc = new Scanner(System.in);
 
+        // T组测试用例
         int T = sc.nextInt();
         int[][] cases = new int[T][];
 
@@ -47,6 +53,7 @@ public class Main95 {
 
         for (int[] arr : cases){
             Arrays.sort(arr);
+            // 所有能组合成直角三角形的组合
             ArrayList<Integer[]> res = new ArrayList<>();
 
             dfs(arr,0,new LinkedList<>(),res);
@@ -65,6 +72,8 @@ public class Main95 {
     }
 
     /**
+     *
+     *  求解当前组合中不超用线段数的最多组合数
      *
      * @param res  所有组合结果
      * @param index 起始位置

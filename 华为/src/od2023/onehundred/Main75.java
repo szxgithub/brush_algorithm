@@ -13,12 +13,22 @@ public class Main75 {
 
      选择最佳的服务中心位置为location，请返回最佳的服务中心位置到所有区域的距离总和的最小值
 
+     输入描述：
+        第一行，一个整数N表示区域个数
+        后面N行，每行两个整数，表示区域的左右起点终点
+     输出描述：
+        输出结果为一个整数，表示服务中心位置到所有区域的距离总和的最小值
+
      */
 
+    /*
+    逻辑分析  暴力解法
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
+        // N个区域
         int N = Integer.valueOf(sc.nextLine());
 
         double[][] regions = new double[N][2];
@@ -28,8 +38,7 @@ public class Main75 {
         }
 
         double res = getResult(N,regions);
-
-        System.out.println(res);
+        System.out.println(Math.round(res));
     }
 
     private static double getResult(int n, double[][] regions) {
@@ -47,6 +56,11 @@ public class Main75 {
         double ans = Double.MAX_VALUE;
 
         // 遍历最小点和最大点之间的每一个点作为服务中心的地址
+        /*
+        因为目前这题所给的区域边界都是整数，
+        因此根据中位数原则，任意两个整数点的中间点要么是整数，要么是带0.5小数。
+        因此服务中心选址位置要么是整数，要么是带0.5的小数，所以在二分查找时，步长选0.5。
+         */
         for (double i = min; i<= max; i+=0.5){
             // 求每个服务中心地址到各个区域的距离之和dis
             double dis = 0;
@@ -68,7 +82,7 @@ public class Main75 {
 
     /*
 
-        采用二分法求解
+        应该采用二分法求解  推荐这个方法
 
      */
     double getResult2(int n, double[][] regions){

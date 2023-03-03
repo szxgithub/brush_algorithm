@@ -1,12 +1,17 @@
-package od2023;
+package od2023.onehundred;
 
 import java.util.Scanner;
 
-public class Main96 {
+public class Main76 {
 
     /*
 
      最快到达医院的方法
+     距离自己家的医院有两家，其中：
+        医院A和自己的距离是X公里
+        医院B和自己的距离是Y公里
+     到达医院A只能搭乘计程车，已知车的速度是M米/分钟， 上车平均等待时间为L分钟
+     到达医院B只能步行，平均速度为N米/分钟
 
      给出X、Y、M、L、N的数据，请问大壮到达哪家医院最快
 

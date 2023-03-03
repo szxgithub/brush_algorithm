@@ -1,0 +1,79 @@
+package od2023.onehundred;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main70 {
+
+    /*
+    日志限流
+
+
+    输入描述：
+        第一行为系统某一天运行的单位时间数N
+        第二行为这一天每单位时间产生的日志数量的数组records[]
+        第三行为系统一天可以保存的日志总条数total
+    输出描述：
+        每单位时间内可以保存最大日志条数limit,如果不需要启动限流机制，返回-1
+
+     */
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        sc.nextLine();
+
+        int[] records = new int[N];
+        for (int i = 0; i<records.length; i++){
+            records[i] = sc.nextInt();
+        }
+
+        int total = sc.nextInt();
+
+        int result = getResult(N, records, total);
+        System.out.println(result);
+
+
+    }
+
+    /*
+
+    二分查找方法
+
+     */
+    private static int getResult(int n, int[] records, int total) {
+
+        int sum = Arrays.stream(records).reduce(Integer::sum).getAsInt();
+
+        if (sum <= total){
+            return - 1;
+        }
+
+        int max_limit = Arrays.stream(records).max().getAsInt();
+        int min_limit = total/n;
+
+        int ans = min_limit;
+        while (max_limit - min_limit > 1){
+            int limit = (max_limit + min_limit)/2;
+            int tmp = 0;
+            for (int record : records){
+                // 如果record数量小于等于limit，则不做限流，如果大于limit，则限流limit条
+                tmp += Math.min(record,limit);
+            }
+
+            if (tmp > total){
+                max_limit = limit;
+            }else if (tmp < total){
+                min_limit = limit;
+                ans = limit;
+            }else {
+                return limit;
+            }
+        }
+
+        return ans;
+
+    }
+
+}
