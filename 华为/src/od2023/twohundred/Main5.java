@@ -1,17 +1,35 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.Scanner;
 
-public class Main67 {
+public class Main5 {
 
     /*
 
     Excel单元格数值统计
 
-    复杂字符串处理
-    //todo
-     */
+    仿照Excel的功能，对给定表格选中区域中的单元格进行求和统计，并输出统计结果
+    单元格内容仅为数字或公式两中国
+    如果为数字，则是一个非负整数
+    如果为公式，则固定以=开头，且仅包含下面三种情况：
+        等于单元格的值，如=B12
+        两个单元格的双目运算，仅为+或-，如=C1-C2
+        单元格和数字的双目运算，形如 =B1+1
 
+    输入描述：
+        第一行，输入表格区域的行row和列col
+        接下来row行，每行col列个以空格分割的字符串
+        最后一行输入的字符串，表示选中的给定区域,形如A1:C2  冒号左侧单元格表示区域的左上角，右侧表示右下角
+
+    输出描述：
+        一个整数，表示给定区域各单元格中数字的累加总和
+
+
+
+
+    /*
+    复杂字符串处理
+     */
 
     public static String[][] strings;
 
@@ -29,7 +47,9 @@ public class Main67 {
         }
 
         String[] nums = sc.nextLine().split(":");
+        // 选中区域的左上角坐标
         int[] start = zuobiao(nums[0]);
+        // 选中区域的右下角坐标
         int[] end = zuobiao(nums[1]);
 
         int sum = 0;
@@ -37,6 +57,7 @@ public class Main67 {
             for(int j=start[1]; j<=end[1]; j++){
                 String temp = strings[i][j];
                 if(temp.contains("=")){
+                    // 处理公式
                     sum += jisuan(temp);
                 }else {
                     sum += Integer.valueOf(temp);

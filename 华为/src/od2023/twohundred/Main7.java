@@ -1,11 +1,11 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main48 {
+public class Main7 {
 
     /*
     最少数量线段覆盖

@@ -1,12 +1,17 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.*;
 
-public class Main43 {
+public class Main6 {
 
     /*
 
     区间连接器
+
+    有一组区间[a0,b0]，[a1,b1],...区间有可能重叠、相邻、重叠或相邻则可以合并为更大的区间
+    给定一组连接器，[x1,x2,x3...]，用于将分离的区间连接起来，但两个分离区间之间只能使用一个连接器
+
+    请编程实现，使用连接器后，最少区间数结果
 
     输入：
     [1,10],[15,20],[18,30],[33,40]
@@ -15,6 +20,9 @@ public class Main43 {
 
      */
 
+    /*
+    暴力解法
+     */
     public static void main3(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -66,6 +74,14 @@ public class Main43 {
         System.out.println(map.size());
     }
 
+    /*
+    首先区间排序
+    然后相邻区间合并
+    再统计新区间集合之间的距离
+    遍历距离，从连接器中判断是否有可用的，若可用设置距离为0
+    最后统计非零的个数，再加1 ，即为最少区间结果
+
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);

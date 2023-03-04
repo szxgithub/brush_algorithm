@@ -1,10 +1,10 @@
-package od2022I;
+package od2023.twohundred;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class Main95 {
+public class Main3 {
 
     /*
 
@@ -13,6 +13,12 @@ public class Main95 {
     有taskNum项任务，每个任务都有开始时间startTime、结束时间endTime、并行度parallelism三个属性
 
     请计算完成一批任务，最少需要多少服务器，从而最大化控制资源成本
+
+    输入描述：
+        taskNum
+        接下来taskNum行，每行三个数 ，开始时间，结束时间，并行度
+    输出描述：
+        一个整数，表示最少需要的服务器数量
 
      */
 
@@ -66,10 +72,15 @@ public class Main95 {
 
     }
 
+    /*
+    类似求解最大区间重叠个数的问题
+     */
     private static int getResult(int[][] ranges) {
 
+        // 先按起始点排序
         Arrays.sort(ranges,(a,b) -> a[0] - b[0]);
 
+        // 存放每个区间的结束位置和权重
         PriorityQueue<Integer[]> queue = new PriorityQueue<>((a,b) -> a[0] - b[0]);
 
         int max = 0;
