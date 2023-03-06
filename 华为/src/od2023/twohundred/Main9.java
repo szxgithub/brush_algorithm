@@ -1,15 +1,44 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.*;
 
-public class Main2 {
+public class Main9 {
 
     /*
 
-    垃圾信息拦截
+    垃圾信息拦截(垃圾短信识别)
+    发送者A符合以下条件，则认为A是垃圾短信发送者:
+        A发送的接受者中，没有给A发过短信的人数 L>5
+        A发送的短信数 - A接收的短信数 M>10
+        如果存在X，A发送给X的短信数 - A接收到X的短信数 N>5；
+
+输入：
+15
+1 2
+1 3
+1 4
+1 5
+1 6
+1 7
+1 8
+1 9
+1 10
+1 11
+1 12
+1 13
+1 14
+14 1
+1 15
+1
+输出：
+true 13 13
+
 
      */
 
+    /*
+    逻辑分析
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -23,7 +52,8 @@ public class Main2 {
             list.add(new int[]{ idFrom, idTo});
         }
 
-        int id = sc.nextInt();      //A的ID
+        //指定的ID
+        int id = sc.nextInt();
 
         Set<Integer> sendMailPersons = new HashSet<>();   //接收A短信的人集合
         Set<Integer> getMailPersons = new HashSet<>();   //发送短信给A的人集合
@@ -52,6 +82,7 @@ public class Main2 {
         }else if(M > 10){
             isLaji = true;
         }else {
+            // 判断指定的id，发送给它的短信数 - 接收到的短信数 是否大于5
             for(Map.Entry<Integer, Integer> map : sendMail.entrySet()){
                 int getId = map.getKey();
                 int send = map.getValue();

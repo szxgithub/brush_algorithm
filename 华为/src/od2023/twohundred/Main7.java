@@ -1,14 +1,12 @@
 package od2023.twohundred;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main7 {
 
     /*
-    最少数量线段覆盖
+    最少数量线段覆盖（区间交叠问题）
+    给定坐标轴上的一组线段，线段的起点和终点均为整数，并且长度不小于1，请从中找到最少数量的线段，这些线段可以覆盖所有线段
 
     排序贪心
 
@@ -26,6 +24,7 @@ public class Main7 {
 
         Scanner sc = new Scanner(System.in);
 
+        // 线段数量
         int n = sc.nextInt();
         sc.nextLine();
 
@@ -89,6 +88,51 @@ public class Main7 {
             }
             return this.left - o.left;
         }
+    }
+
+    /*
+    贪心排序
+     */
+    public int getResult(Integer[][] ranges){
+        Arrays.sort(ranges,(a,b)->a[0]-b[0]);
+        LinkedList<Integer[]> stack = new LinkedList<>();
+        stack.add(ranges[0]);
+        for (int i = 1; i < ranges.length; i++){
+            Integer[] range = ranges[i];
+            while (true){
+                if (stack.size() == 0){
+                    stack.add(range);
+                    break;
+                }
+                Integer[] top = stack.getLast();
+                int s0 = top[0];
+                int e0 = top[1];
+
+                int s1 = range[0];
+                int e1 = range[1];
+
+                if (s1 <= s0){
+                    if (e1 <= s0){
+                        break;
+                    }else if (e1 < e0){
+                        break;
+                    }else {
+                        stack.removeLast();
+                    }
+                }else if (s1 < e0){
+                    if (e1 <= e0){
+                        break;
+                    }else {
+                        stack.add(new Integer[]{e0,e1});
+                        break;
+                    }
+                }else {
+                    stack.add(range);
+                    break;
+                }
+            }
+        }
+        return stack.size();
     }
 
 }

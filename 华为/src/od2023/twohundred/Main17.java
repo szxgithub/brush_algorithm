@@ -1,14 +1,23 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main57 {
+public class Main17 {
 
     /*
 
     数字加减游戏
+    使用加法或者减法，将一个数字s变成数字t
+    每个回合可以在当前数字上加上或减去一个数字
+    现在有两种数字可以用来加减，分别为a，b，(a != b) ，其中b没有使用次数限制
+    请问最少可以用多少次a，才能将数字s变成t
 
+    输入描述：
+        四个正整数，s t a b
+
+    输出描述：
+        输出一个整数
 
 
      */

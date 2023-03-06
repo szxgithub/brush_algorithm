@@ -1,12 +1,15 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.*;
 
-public class Main94 {
+public class Main13 {
 
     /*
 
     士兵过河II
+    本题是经典的吊桥谜题（过河问题，四人过桥）的变种题
+    吊桥谜题的关键在：
+        让最慢的两个人浪费的时间最小化
 
     1、首先让用时最短的两个士兵A、B划船过河到对岸，用时A<=B
     2、然后让B留在对岸，让最快的士兵划船回来本岸
@@ -15,9 +18,17 @@ public class Main94 {
 
     按以上逻辑循环，直到用时达到上限T，或者士兵全部运输完
 
+
+    输出描述：
+        最多存活士兵数的最短用时
+
      */
 
 
+    /*
+        这道题非常难，最好的解法是动态规划，这里用的是逻辑分析
+
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -129,21 +140,6 @@ public class Main94 {
     这道题非常难， 采用动态规划思想可解决
 
      */
-    public static void main2(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int n = sc.nextInt();
-        int t = sc.nextInt();
-
-        int[] times = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            times[i] = sc.nextInt();
-        }
-
-        System.out.println(getResult(n, t, times));
-    }
-
     public static String getResult(int n, int t, int[] times) {
         Arrays.sort(times);
 

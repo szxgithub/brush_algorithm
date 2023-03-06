@@ -1,21 +1,18 @@
-package od2023;
+package od2023.twohundred;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.ToIntFunction;
 
-public class Main6 {
+public class Main12 {
 
     /*
 
     查找树中元素
 
-    根据输入的坐标，将查询到的内容输出，{内容}，若查不到，输出{}
-
-     通过回溯法求出所有数据加入集合中，再求出集合中索引为y的值
+    根据输入的坐标x,y，将查询到的内容输出，{内容}，若查不到，输出{}
 
     输入：
     6
@@ -32,10 +29,18 @@ public class Main6 {
 
      */
 
+
+    /*
+
+    这道题是个多叉树
+
+    通过深度优先搜索 求出所有数据加入集合中，再求出集合中索引为y的值
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
+        // 节点的数量
         int size = Integer.parseInt(sc.nextLine());
 
         int[][] nodes = new int[size][];
@@ -45,6 +50,7 @@ public class Main6 {
         }
 
         int[] xy = parseOneLine(sc.nextLine());
+
         String result = doQuery(nodes,xy[0],xy[1]);
         System.out.println(result);
 
@@ -94,7 +100,7 @@ public class Main6 {
         }
 
         for (int i = 1; i < node.length; i++){
-            // 各数组中的0元素代表其值 后面的代表子节点， 所以从1开始遍历
+            // 各数组中下标为0的元素代表其值 后面的代表子节点， 所以从1开始遍历
             handle(nodes,node[i],n-1,list);
         }
 
