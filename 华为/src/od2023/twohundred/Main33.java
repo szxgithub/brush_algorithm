@@ -1,18 +1,28 @@
-package od2023;
+package od2023.twohundred;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class Main93 {
+public class Main33 {
 
     /*
 
     几何平均值最大子数组
+    从一个长度为N的正数数组numbers中找出长度至少为L且几何平均值最大的子数组，并输出其位置和大小。（K个数的几何平均值为K个数的乘积的K次方）
+    若有多个子数组的几何平均值为最大值，则输出长度最小的子数组
+    若有多个长度相同的子数组的几何平均值为最大值，则输出最前面的子数组
 
-    //todo
+    输入描述：
+        第一行输入N、L，N表示numbers的大小， L表示子数组的最小长度
+        之后N行表示数组中的N个数
+    输出描述：
+        输出子数组的位置，中间用空格隔开
+
      */
 
+    // 最大几何平均值
     public static double max;
+    // 正在处理数据的索引
     public static int index;
 
     public static void main(String[] args) {
@@ -30,9 +40,9 @@ public class Main93 {
         }
 
         // K个数的几何平均值为K个数的乘积的K次方
-
         int resIndex = 0;
         int resLen = 0;
+        // 最小长度为L，最大为N
         for (int i = L; i <=N; i++){
             if (handle(i,numbers)){
                 resIndex = index;
@@ -52,7 +62,8 @@ public class Main93 {
      */
     public static boolean handle(int len, double[] doubles){
 
-        double maxInLen = 1;    //len长度数组的最大乘积
+        //len长度数组的最大乘积
+        double maxInLen = 1;
         for(int i=0; i<len; i++){
             BigDecimal num1 = new BigDecimal(String.valueOf(maxInLen));
             BigDecimal num2 = new BigDecimal(String.valueOf(doubles[i]));
