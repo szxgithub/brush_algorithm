@@ -1,11 +1,18 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main27 {
+public class Main29 {
     /*
-    不爱施肥的小布
+    不爱施肥的小布（农场施肥）
+    输入描述：
+        第一行输入m和n， m表示fields中元素的个数，n表示施肥任务必须在n天内完成
+        第二行输入fields,fields[i]表示果林i的面积
+    输出描述：
+
+
+
      */
 
     public static void main(String[] args) {

@@ -1,16 +1,29 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Main37 {
+public class Main22 {
 
     /*
     优雅数组
+    一个数组中出现次数最多的元素出现大于等于K次，被称为K-优雅数组
+
+    给定一个数组A和K，请求出A有多少子数组是K-优雅数组
+
+    输入描述：
+        第一行，A数组的长度  及K值
+        第二行A数组元素，以空格隔开
+        数组A中的元素满足： 1<=A[i] <= n
+    输出描述：
+        输出A有多少个子数组是K-优雅数组
 
      */
 
+    /*
+    滑动窗口的解题思想
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -31,16 +44,20 @@ public class Main37 {
         int right = 0;
         for (int i =0; i <n; i++){
             if (i > 0){
+                // 相当于左滑
                 lenInts[nums[i-1]]--;
             }else {
                 lenInts[nums[i]]++;
             }
+
             // 最大值为数组中元素出现的次数最多
             int max = Arrays.stream(lenInts).max().getAsInt();
             if (max == k){
                 res += n -right;
                 continue;
             }
+
+            // 相当于右滑
             for (int j = right + 1; j<n; j++){
                 lenInts[nums[j]]++;
                 max = Arrays.stream(lenInts).max().getAsInt();
@@ -54,6 +71,33 @@ public class Main37 {
 
         System.out.println(res);
 
+    }
+
+    /*
+    双指针  推荐这个方法
+     */
+    public Integer getResult(Integer[] arr, Integer n, Integer k){
+        int ans = 0;
+        int l = 0;
+        int r = 0;
+        HashMap<Integer,Integer> count = new HashMap<>();
+
+        while (l <n && r <n){
+            Integer c = arr[r];
+            count.put(c,count.getOrDefault(c,0) + 1);
+            if (count.get(c) >= k){
+                ans += n -r;
+
+                count.put(arr[l],count.get(arr[l]) - 1);
+                l++;
+
+                // 右指针右移前，做一次左移
+                count.put(c,count.get(c) - 1);
+                r--;
+            }
+            r++;
+        }
+        return ans;
     }
 
 }

@@ -19,6 +19,12 @@ public class Main17 {
     输出描述：
         输出一个整数
 
+      输入：  1 10 5 2
+       输出： 1
+
+       输入：11 33 4 10
+       输出： 2
+
 
      */
 
@@ -36,23 +42,24 @@ public class Main17 {
         int b = ints[3];
 
         int res = 0;
-        int add = s;
-        int sub = s;
-        // (t- (s + a*i)) %b == 0
-        // (t - (s - a*i))%b == 0
-        while (true){
-            if ((t-add)%b == 0){
-                break;
-            }
-            if ((t-sub)%b == 0){
-                break;
-            }
-            add += a;
-            sub -= a;
-            res++;
-        }
-
+        res = getResult(s, t, a, b);
         System.out.println(res);
+    }
+
+    /*
+    这道题有点像数学题
+
+     */
+    public static int getResult(int s, int t, int a, int b){
+        int x = 0;
+        int diff = t - s;
+
+        while (true){
+            if ((diff - a*x)%b == 0 || (diff + a*x)%b == 0){
+                return Math.abs(x);
+            }
+            x++;
+        }
     }
 
 }

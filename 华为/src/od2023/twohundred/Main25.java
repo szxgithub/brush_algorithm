@@ -1,13 +1,38 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main32 {
+public class Main25 {
 
     /*
     上班之路
+
+    地图由以下元素组成：
+        “.“ ：空地
+        "*"：路障
+        ”S“：jungle的家
+        ”T“： 公司
+
+    输入描述：
+        输入第一行为两个整数 t、c， t代表拐弯的次数， c代表可以清除的路障个数
+        输入的第二行为两个整数n,m  代表地图的大小
+        接下来是n行包含m个字符的地图，
+    输出描述：
+        是否可以从家里出发到公司，是则输出YES，不能则输出NO
+
+输入：
+2 0
+5 5
+..S..
+****.
+T....
+*****
+.....
+输出：
+YES
+
      */
 
 
@@ -31,8 +56,10 @@ public class Main32 {
         map = new char[n][m];
         char[][] mapCopy = new char[n][m];
 
+        // 家的位置
         int x = 0;
         int y = 0;
+
         for(int i=0; i<n; i++){
             String string = sc.nextLine();
             for(int j=0; j<m; j++){

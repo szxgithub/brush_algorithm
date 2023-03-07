@@ -1,13 +1,23 @@
-package od2023;
+package od2023.twohundred;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main30 {
+public class Main27 {
 
     /*
 
         查找充电设备组合
+        充电站，可提供n个充电设备，任意个充电设备组合的输出功率的总和，构成功率集合P的一个元素。
+        功率集合P的最优元素，表示最接近充电站最大输出功率p_max的元素
+
+        输入描述：
+            第一行为充电设备个数n
+            第二行为每个充电设备的输出功率
+            第三行为充电站最大输出功率p_max
+        输出描述：
+            功率集合P的最优元素
+
 
      */
 
@@ -41,6 +51,9 @@ public class Main30 {
 
     }
 
+    /*
+    通过回溯算法对所有充电设备求和
+     */
     public static int p_max;
     public static int max;
     public static void main2(String[] args) {
@@ -72,9 +85,11 @@ public class Main30 {
      * @param index     索引
      */
     public static void dfs(int[] ints, int sum, int index){
-        if (sum >= p_max){
+        if (sum >= p_max || index == ints.length){
             if (sum == p_max){
                 max = sum;
+            }else if (sum < p_max){
+                max = Math.max(max,sum);
             }else {
                 max = Math.max(max,sum - ints[index-1]);
             }
