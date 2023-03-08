@@ -1,6 +1,7 @@
 package od2022II.onehundred;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main5 {
@@ -46,7 +47,35 @@ public class Main5 {
     滑动窗口解法 待补充
      */
     public int getResult(String str){
-        return 0;
+
+        int maxLen = -1;
+
+        int l = 0;
+        int r = 0;
+
+        // 在right指针扫描过程中，需要记录字母所在的索引
+        LinkedList<Integer> letterIdx = new LinkedList<>();
+
+        while (r <str.length()){
+            char c = str.charAt(r);
+            if (Character.isLetter(c)){
+                letterIdx.add(r);
+                if (letterIdx.size() > 1){
+                    if (Character.isLetter(str.charAt(l))){
+                        l++;
+                        letterIdx.removeFirst();
+                    }else {
+                        l = letterIdx.removeFirst() + 1;
+                    }
+                }
+            }else {
+                maxLen = Math.max(maxLen,r - l + 1);
+            }
+
+            r++;
+        }
+
+        return maxLen;
     }
 
 }

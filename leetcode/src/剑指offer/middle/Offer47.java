@@ -1,5 +1,8 @@
 package 剑指offer.middle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Offer47 {
 
     /*
