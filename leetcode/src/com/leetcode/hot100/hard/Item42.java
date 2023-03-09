@@ -1,6 +1,7 @@
 package com.leetcode.hot100.hard;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Item42 {
@@ -12,13 +13,49 @@ public class Item42 {
      * @param height
      * @return
      */
-    public int trap(int[] height){
+
+    /*
+    暴力破解，通过率100%
+     */
+    public int trap1(int[] height){
+        int n = height.length;
+        int res = 0;
+
+        // 数组充当备忘录
+        int[] l_max = new int[n];
+        int[] r_max = new int[n];
+
+        l_max[0] = height[0];
+        r_max[n-1] = height[n-1];
+
+        for (int i = 1; i < n; i++){
+            l_max[i] = Math.max(l_max[i-1],height[i]);
+        }
+        for (int i = n-2; i >= 0; i--){
+            r_max[i] = Math.max(r_max[i+1],height[i]);
+        }
+
+        for (int i = 1; i <n; i++){
+            res += Math.min(l_max[i],r_max[i]) - height[i];
+        }
+        return res;
+    }
+
+
+    /*
+    按行求解
+    先求高度为1的水，再求高度为2的水，再求高度为3的水。。。
+
+    该方法通过测试用例99%
+     */
+    public int trap2(int[] height){
         int sum = 0;
-        int max = getMax(height); //找到最大高度，以便遍历
-        for (int i = 1; i<=max; i++){
+        int max = Arrays.stream(height).max().getAsInt();
+        for (int i = 1; i <= max; i++){
+            // 标记是否开始更新
             boolean isStart = false;
             int temp_sum = 0;
-            for (int j = 0; j<height.length;j++){
+            for (int j = 0; j < height.length; j++){
                 if (isStart && height[j] < i){
                     temp_sum++;
                 }
@@ -30,73 +67,6 @@ public class Item42 {
             }
         }
         return sum;
-    }
-
-    private int getMax(int[] height){
-        int max = 0;
-        for (int i = 0; i< height.length;i++){
-            if (height[i] > max){
-                max = height[i];
-            }
-        }
-        return max;
-    }
-
-    public int trap2(int[] height){
-        int sum = 0;
-
-        // 最两端的列不用考虑，因为一定不会有水，所以下标从1到length-2
-        for (int i = 1; i<height.length - 1;i++){
-            int max_left = 0;
-            // 找出左边最高
-            for (int j = i - 1; j >= 0; j--){
-                if (height[j] > max_left){
-                    max_left = height[j];
-                }
-            }
-
-            int max_right = 0;
-            for (int j = i+1;j<height.length;j++){
-                if (height[j] > max_right){
-                    max_right = height[j];
-                }
-            }
-
-            // 找出两端较小的
-            int min = Math.min(max_left,max_right);
-            if (min > height[i]){
-                sum = sum + (min - height[i]);
-            }
-        }
-        return sum;
-    }
-
-    /**
-     * 动态规划
-     *
-     * @param height
-     * @return
-     */
-    public int trap3(int[] height){
-        int sum = 0;
-        int[] max_left = new int[height.length];
-        int[] max_right = new int[height.length];
-
-        for (int i = 1; i < height.length - 1; i++) {
-            max_left[i] = Math.max(max_left[i - 1], height[i - 1]);
-        }
-        for (int i = height.length - 2; i >= 0; i--) {
-            max_right[i] = Math.max(max_right[i + 1], height[i + 1]);
-        }
-
-        for (int i = 1; i < height.length - 1; i++) {
-            int min = Math.min(max_left[i], max_right[i]);
-            if (min > height[i]) {
-                sum = sum + (min - height[i]);
-            }
-        }
-        return sum;
-
     }
 
     /**
