@@ -12,11 +12,12 @@ public class Main15 {
     统计匹配的二元组个数
 
     给定两个数组a,b 若a[i] = b[j] 则称[i,j]为一个二元组，求在给定的数组中，二元组的个数
+    若不存在相等的值，则输出0，所采用的算法时间复杂度需要小于O(n^2)，否则会超时
 
      */
 
     /*
-    双层for循环，暴力求解
+    简单双层for循环，暴力求解
      */
     public static void main(String[] args) {
 
@@ -44,7 +45,6 @@ public class Main15 {
         for (int i =0; i<A.length; i++){
             for (int j = 0;j<B.length; j++){
                 if (A[i] > B[j]){
-                    continue;
                 }else if (A[i] < B[j]){
                     break;
                 }else {

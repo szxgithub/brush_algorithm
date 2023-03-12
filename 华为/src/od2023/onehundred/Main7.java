@@ -25,35 +25,12 @@ public class Main7 {
         int n = sc.nextInt();
 
         // 部门每个人的体重 体重都小于等于自行车限重m
-        Integer[] people = new Integer[n];
+        int[] people = new int[n];
         for (int i=0; i<n; i++){
             people[i] = sc.nextInt();
         }
 
-        // 降序排序
-        Arrays.sort(people, (o1, o2) -> o2- o1);
-
-        int res = 0;
-        for (int i = 0; i< people.length; i++){
-            if (people[i] == 0){
-                continue;
-            }
-            if (people[i] == m){
-                res++;
-                continue;
-            }
-            for (int j = i+1; j < people.length; j++){
-                if (people[j] != 0 && people[j] + people[i] <= m){
-                    people[i] = 0;
-                    people[j] = 0;
-                    res++;
-                    break;
-                }
-            }
-            if (people[i] != 0){
-                res++;
-            }
-        }
+        int res = getResult(people, m);
 
         System.out.println(res);
 
@@ -61,7 +38,7 @@ public class Main7 {
 
     /**
      *
-     * 双指针
+     * 双指针  满分答案
      *
      * @param arr  部门每个人的体重
      * @param m 自行车最大载重

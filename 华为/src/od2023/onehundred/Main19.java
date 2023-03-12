@@ -35,6 +35,11 @@ public class Main19 {
     red
      */
 
+    /*
+        这道题随着n的增大，到第64个字符串时，长度已经达到2^64 - 1,
+        这个长度要是用字符串存储，肯定爆内存
+        因此只能通过找规律，来推导
+     */
     public static void main4(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -88,6 +93,7 @@ public class Main19 {
     }
 
     /*
+    满分答案
     该方法所有测试用例可行
      */
     public static void main(String[] args) {

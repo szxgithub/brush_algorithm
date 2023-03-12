@@ -16,7 +16,7 @@ public class Main28 {
 
     输入有若干行，每一行有四个数字，分别为任务ID, 任务优先级， 执行时间 和 到达时间
 
-    输出，按照任务执行结束的顺序
+    输出，按照任务执行结束的顺序  任务ID，任务结束时间
 
      */
 
@@ -37,6 +37,8 @@ public class Main28 {
     }
 
     /**
+     *
+     * 优先队列
      * @param tasks 任务列表
      */
     public static void getResult(LinkedList<Task> tasks) {

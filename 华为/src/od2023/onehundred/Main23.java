@@ -15,6 +15,9 @@ public class Main23 {
 
      */
 
+    /*
+    暴力求解 双层循环
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -52,6 +55,7 @@ public class Main23 {
     }
 
     /*
+    满分答案
      中位数定理 ： 中位数的性质，给定一个数列，所有数与中位数的差的绝对值之和最小
      将学校建立在所有学生家庭位置的共同中心点位置的距离最短
      */

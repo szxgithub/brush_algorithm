@@ -11,11 +11,18 @@ public class Main29 {
 
     只需要满足每个单词中字母数量一致即可，不关注每个字母的顺序，求报纸内容是否可以拼成匿名信
 
-    第一行输入newspaper内容，包括1-N个字符串，用空格分开
-    第二行输入anonymousLetter内容，包括1-N个字符串，用空格分开
+    输入描述：
+        第一行输入newspaper内容，包括1-N个字符串，用空格分开
+        第二行输入anonymousLetter内容，包括1-N个字符串，用空格分开
+
+    输出描述：
+        如果报纸可以拼成匿名信，返回true, 否则返回false
 
      */
 
+    /*
+    暴力解法，逻辑分析
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -24,16 +31,16 @@ public class Main29 {
         // 匿名信的
         String str2 = sc.nextLine();
 
-        String[] s1 = str1.split(" ");
-        String[] s2 = str2.split(" ");
+        String[] newspaper = str1.split(" ");
+        String[] letter = str2.split(" ");
 
         int count = 0;
-        for (int i = 0; i<s2.length; i++){
-            char[] chars2 = s2[i].toCharArray();
+        for (int i = 0; i<letter.length; i++){
+            char[] chars2 = letter[i].toCharArray();
             Arrays.sort(chars2);
             String tmpS2 = Arrays.toString(chars2);
-            for (int j = 0; j <s1.length; j++){
-                char[] chars1 = s1[j].toCharArray();
+            for (int j = 0; j <newspaper.length; j++){
+                char[] chars1 = newspaper[j].toCharArray();
                 if (chars1.length != chars2.length){
                     continue;
                 }else {
@@ -47,7 +54,7 @@ public class Main29 {
             }
         }
 
-        if (count == s2.length){
+        if (count == letter.length){
             System.out.println(true);
         }else {
             System.out.println(false);
@@ -56,6 +63,8 @@ public class Main29 {
     }
 
     /*
+    逻辑分析
+    推荐这种解法， 利用一个map统计报纸中单词的个数
     时间复杂度O(n)
      */
     public static boolean getResult(String[] newspaper, String[] anonymousLetter) {

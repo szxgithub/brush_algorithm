@@ -47,19 +47,19 @@ public class Main9 {
         noContain = sc.nextLine();
 
         // 按照数字的顺序组合字母字符串
-        handle(0,numStr,"");
+        handle(numStr,0,"");
         System.out.println(res);
 
     }
 
     /**
-     * 深度优先搜索
+     * 深度优先搜索  这里没有回溯
      *
      * @param index  字母索引
      * @param numStr 输入的数字字符串
      * @param temp  字母组合
      */
-    private static void handle(int index, String numStr, String temp){
+    private static void handle(String numStr, int index, String temp){
         if (temp.length() == numStr.length()){
             if (isTrue(temp)){
                 res.append(temp + ",");
@@ -68,11 +68,16 @@ public class Main9 {
             int digitsIndex = numStr.charAt(index) - '0';
             char[] chars = digits[digitsIndex];
             for (int i = 0; i < chars.length; i++){
-                handle(index+1,numStr,temp + chars[i]);
+                handle(numStr,index+1,temp + chars[i]);
             }
         }
     }
 
+    /**
+     * 屏蔽字符中的所有字母是否同时出现
+     * @param str
+     * @return
+     */
     public static boolean isTrue(String str){
         for (int i =0; i < noContain.length(); i++){
             String s = String.valueOf(noContain.charAt(i));

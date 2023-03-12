@@ -27,6 +27,9 @@ public class Main8 {
         System.out.println(getResult(link, m));
     }
 
+    /*
+    回溯算法思想
+     */
     public static int getResult(LinkedList<Integer> link, int m) {
         link.sort((a, b) -> b - a);
 

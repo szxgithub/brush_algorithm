@@ -14,7 +14,7 @@ public class Main5 {
      */
 
     /**
-     * 两层循环，据说满分
+     * 暴力破解 两层循环，据说满分
      * @param args
      */
     public static void main(String[] args) {

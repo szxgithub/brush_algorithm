@@ -13,37 +13,44 @@ public class Main18 {
     输入：b eredderd bw bww bwwl bwwlm bwwln
     输出：bwwln
 
+    这道题和 “真正的密码” 这题基本一样
+
      */
 
+    /*
+    满分
+     */
     public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        String str = sc.nextLine();
-
-        String[] s = str.split(" ");
-
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i<s.length; i++){
-            String tmp = s[i];
-            while (tmp.length() > 0){
-                tmp = tmp.substring(0, tmp.length() - 1);
-                if (!tmp.isEmpty()){
-                    for (int j = 0; j != i && j < s.length; j++){
-                        if (s[j].contains(tmp)){
-                            list.add(s[i]);
-                        }
-                    }
+        Scanner input = new Scanner(System.in);
+        String[] pwds = input.nextLine().split(" ");
+        String ans = "";
+        Set<String> all = new HashSet<>();
+        for (String s : pwds) {
+            all.add(s);
+        }
+        for (String s : pwds) {
+            if (check(s, all)) {
+                if (s.length() > ans.length()) {
+                    ans = s;
+                } else if (s.length() == ans.length() && s.compareTo(ans) > 0) {
+                    ans = s;
                 }
             }
         }
-
-        Collections.sort(list);
-        System.out.println(list.get(list.size()-1));
-
+        System.out.println(ans);
+    }
+    public static boolean check(String s, Set<String> all) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!all.contains(s.substring(0, i + 1))) {
+                return false;
+            }
+        }
+        return true;
     }
 
-
+    /*
+    满分
+     */
     public static void main2(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -64,7 +71,6 @@ public class Main18 {
             boolean isTrue = true;
             for(int j=str.length()-1; j>0; j--){
                 if(list.contains(str.substring(0, j))){
-                    continue;
                 }else {
                     isTrue = false;
                     break;

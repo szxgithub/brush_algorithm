@@ -33,40 +33,39 @@ public class Main22 {
     CD
      */
 
+
+    /*
+    逻辑分析 通过率100%
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
         String[] strings = sc.nextLine().split(" ");
 
-        // 箱子字符串
         String box = strings[0];
-        // 空地的宽度
         int n = Integer.valueOf(strings[1]);
 
         Map<Integer, StringBuffer> map = new HashMap<>();
         for(int i=0; i<box.length(); i++){
-            int index = i%n;
-            int flag = i/n%2;  //用索引取余来确定箱子的位置
-            char c = box.charAt(i);
-            if (flag == 0){
-                if(map.containsKey(index)){
-                    map.get(index).append(c);
-                }else {
-                    map.put(index, new StringBuffer().append(c));
-                }
+
+            int index;    //用索引取余来确定箱子的位置
+            if(i/n%2 == 0){     //偶数列为正序，奇数列为倒序
+                index = i%n;
             }else {
-                if (map.containsKey(n - index - 1)) {
-                    map.get(n-index-1).append(c);
-                }else {
-                    map.put(n-index-1,new StringBuffer().append(c));
-                }
+                index = n - 1 - i%n;
+            }
+
+            char c = box.charAt(i);
+            if(map.containsKey(index)){
+                map.get(index).append(c);
+            }else {
+                map.put(index, new StringBuffer().append(c));
             }
         }
 
         for(StringBuffer sb : map.values()){
             System.out.println(sb);
         }
-
     }
 }

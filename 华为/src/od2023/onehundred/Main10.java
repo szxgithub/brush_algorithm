@@ -24,6 +24,7 @@ public class Main10 {
 
         HashSet<String> hashSet = new HashSet<>(Arrays.asList(arr));
 
+        // 字符串先按长度升序，长度相同按照字典升序
         Arrays.sort(arr, (o1, o2) -> o1.length() == o2.length() ? o1.compareTo(o2) : o1.length() - o2.length());
 
         outer:

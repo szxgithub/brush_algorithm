@@ -14,6 +14,10 @@ public class Main25 {
 
      */
 
+
+    /*
+    采用了DFS，深度优先搜索
+     */
     public static int M;
     public static int N;
     public static int[][] region;
@@ -72,7 +76,7 @@ public class Main25 {
 
     /*
 
-    上面的方法采用了DFS，也可也采用并查集，求最大连通分量
+    采用并查集，求最大连通分量
 
      */
 

@@ -86,6 +86,7 @@ public class Main4 {
         int result = getResult(str);
         System.out.println(result);
     }
+
     /*
 
     滑动窗口解法

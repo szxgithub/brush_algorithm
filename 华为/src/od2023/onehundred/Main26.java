@@ -23,6 +23,9 @@ public class Main26 {
 
      */
 
+    /*
+    第一种解法 逻辑分析 暴力求解
+     */
     public static int[] ints;
     public static void main(String[] args) {
 
@@ -65,6 +68,38 @@ public class Main26 {
             score += ints[i]*(index - i);
         }
         return score;
+    }
+
+    /*
+    动态规划思想
+     */
+    public int getResult(Integer[] arr){
+        int n = arr.length;
+
+        // dp[i]表示第i时刻可得正向得分
+        int[] dp = new int[n];
+        dp[0] = arr[0];
+
+        // 第i时刻被扣除的负向分
+        int[] delay = new int[n];
+        delay[0] = 0;
+
+        // 第i时刻最终得分
+        int[] score = new int[n];
+
+        for (int i = 1; i <n; i++){
+            dp[i] = Math.min(100, dp[i-1] + arr[i]);
+            delay[i] = delay[i-1] + dp[i-1];
+            score[i] = dp[i] - delay[i];
+
+            // 达到100条必须上报，此时首次上报已经完成
+            if (dp[i] >= 100){
+                break;
+            }
+        }
+
+        int asInt = Arrays.stream(score).max().getAsInt();
+        return asInt;
     }
 
 }

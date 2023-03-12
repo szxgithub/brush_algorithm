@@ -25,12 +25,12 @@ public class Main14 {
     135 8
     275 8
 
-Process finished with exit code 0
-
 
      */
 
-
+    /*
+    逻辑分析
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -119,6 +119,7 @@ Process finished with exit code 0
      */
     public static int[] N(int price, int n){
         if (n >= 1){
+            // 打折之后向下取整
             price = (int)Math.floor((price*0.92));
             n--;
         }

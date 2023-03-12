@@ -1,6 +1,7 @@
 package od2023.onehundred;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class Main16 {
      */
 
     /*
-    时间复杂度为O(n^2)
+    暴力求解  时间复杂度为O(n^2)
      */
     public static void main(String[] args) {
 
@@ -48,29 +49,25 @@ public class Main16 {
     /*
     时间复杂度为O(n)  推荐这个方法
      */
-    static int res = -1;
-    public static void main2(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n =sc.nextInt();
-        Map<Integer,int[]> map = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            int jimu = sc.nextInt();
-            if(!map.containsKey(jimu)){
-                int[] ints = new int[2];
-                ints[0] = i;
-                map.put(jimu,ints);
-            }else {
-                map.get(jimu)[1] = i;
+    public static int getResult(int[] arr) {
+        HashMap<Integer, LinkedList<Integer>> idx = new HashMap<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            int num = arr[i];
+            idx.putIfAbsent(num, new LinkedList<>());
+            idx.get(num).add(i);
+        }
+
+        int ans = -1;
+
+        for (Integer k : idx.keySet()) {
+            LinkedList<Integer> link = idx.get(k);
+            if (link.size() > 1) {
+                ans = Math.max(ans, link.getLast() - link.getFirst());
             }
         }
-        sc.close();
 
-        map.forEach((k,v) -> {
-            if(v[1] != 0){
-                res = Math.max(res,v[1] - v[0]);
-            }
-        });
-        System.out.println(res);
+        return ans;
     }
 
 }

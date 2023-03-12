@@ -22,6 +22,7 @@ public class Main1 {
     public static List<Integer> second;    //第二个链路
     public static int remainFirst;    //第一个链路的可用处理器个数
     public static int remainSecond;    //第二个链路的可用处理器个数
+    // 存放最终的组合列表
     public static List<List<Integer>> tempLists = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -139,9 +140,9 @@ public class Main1 {
     /**
      * 申请n个处理器的所有可能性
      * @param firstOrSecond 选中的链路
-     * @param list          申请的处理器
-     * @param index         处理器的索引
-     * @param n             申请处理器的个数
+     * @param list          存放申请的处理器结果列表
+     * @param index         起始索引
+     * @param n             需要达到的申请处理器的个数
      */
     public static void handle(List<Integer> firstOrSecond, List<Integer> list, int index, int n){
 

@@ -9,7 +9,8 @@ public class Main11 {
     最小的调整次数
 
     小A依次执行2n个指令往队列中添加数据 和 移除数据，
-    其中n个指令是添加数据（可能从头部添加，也可能从尾部添加），依次添加1-n，n个指令是移除数据, 移除只能从头部移除
+    其中n个指令是添加数据（可能从头部添加，也可能从尾部添加），依次添加1-n
+        n个指令是移除数据, 移除只能从头部移除
     现要求移除数据顺序为1-n
 
     指令为：
@@ -35,6 +36,9 @@ public class Main11 {
 
      */
 
+    /*
+    逻辑分析
+     */
     public static void main(String[] args) {
 
         Scanner sc= new Scanner(System.in);
@@ -54,6 +58,7 @@ public class Main11 {
             if (strings.length == 1){
                 if (deque.peekFirst() != index){
 
+                    // 移除元素不满足要求，调整队列顺序一次
                     Object[] objects = deque.toArray();
                     Arrays.sort(objects);
                     deque.clear();

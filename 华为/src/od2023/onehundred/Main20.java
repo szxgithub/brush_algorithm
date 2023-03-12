@@ -21,6 +21,9 @@ public class Main20 {
 
      */
 
+    /*
+    逻辑分析
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);

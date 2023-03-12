@@ -97,6 +97,8 @@ public class Main17 {
     }
 
     /*
+    满分答案
+
     由于  1< nums.length < 1024   1<= nums[i] <=10
     也就是说单边积最大可以是10^1024， 这远远超过了int、long的范围
    应该用大数来处理

@@ -14,13 +14,25 @@ public class Main21 {
     s[i][j] = 1表示可达，为0表示不可达
     用二维数组给定N个站点的可达关系，请计算至少选择几个主站点出发，才能可达所有站点
 
+输入：
+4
+1 1 0 0
+1 1 0 0
+0 0 1 0
+0 0 0 1
+输出：
+3
+
+Process finished with exit code 0
+
+
      */
 
     /*
     回溯方法
      */
     public static int[][] s;
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         // 站点个数
@@ -69,9 +81,10 @@ public class Main21 {
 
 
     /*
-        还可以用并查集思想
+        求连通分量个数
+       可以用并查集思想
      */
-    public static void main2(){
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
 
@@ -82,81 +95,49 @@ public class Main21 {
             }
         }
 
-        int[] roots = new int[N];
-        for (int i = 0; i < N; i++) {
-            roots[i] = i;
-        }
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if(s[i][j] == 1){
-                    union(roots,i,j);
-                }
-            }
-        }
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < N; i++) {
-            set.add(findRoot(roots,i));
-        }
-        System.out.println(set.size());
-    }
-
-    public static int findRoot(int[] roots,int a){
-        if(roots[a] == a){
-            return a;
-        }else {
-            return findRoot(roots,roots[a]);
-        }
-    }
-    public static void union(int[] roots,int a,int b){
-        int root_a = findRoot(roots,a);
-        int root_b = findRoot(roots,b);
-        roots[root_a] = root_b;
-    }
-
-    public int getResult(int[][] matrix, int n){
-        UnionFindSet unionFindSet = new UnionFindSet(n);
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j<n; j++){
-                if (matrix[i][j] == 1){
-                    unionFindSet.union(i,j);
+        UnionFindSet ufs = new UnionFindSet(N);
+        for (int i = 0; i <N; i++){
+            for (int j = 0; j <N; j++){
+                if (s[i][j] == 1){
+                    ufs.union(i,j);
                 }
             }
         }
 
-        return unionFindSet.count;
+        int count = ufs.count;
+        System.out.println(count);
     }
 
-    /**
-     * 并查集
-     */
-    class UnionFindSet{
-        int[] fa;
-        int count;
+}
+/**
+ * 并查集
+ */
+class UnionFindSet{
+    int[] fa;
+    int count;
 
-        public UnionFindSet(int n){
-            this.count = n;
-            this.fa = new int[n];
-            for (int i = 0; i<n; i++){
-                this.fa[i] = i;
-            }
-        }
-
-        public int find(int x){
-            if (x != this.fa[x]){
-                return this.fa[x] = this.find(this.fa[x]);
-            }
-            return x;
-        }
-
-        public void union(int x, int y){
-            int x_fa = this.find(x);
-            int y_fa = this.find(y);
-
-            if (x_fa != y_fa){
-                this.fa[y_fa] = x_fa;
-                this.count--;
-            }
+    public UnionFindSet(int n){
+        this.count = n;
+        this.fa = new int[n];
+        for (int i = 0; i<n; i++){
+            this.fa[i] = i;
         }
     }
 
+    public int find(int x){
+        if (x != this.fa[x]){
+            return this.fa[x] = this.find(this.fa[x]);
+        }
+        return x;
+    }
+
+    public void union(int x, int y){
+        int x_fa = this.find(x);
+        int y_fa = this.find(y);
+
+        if (x_fa != y_fa){
+            this.fa[y_fa] = x_fa;
+            this.count--;
+        }
+    }
 }
