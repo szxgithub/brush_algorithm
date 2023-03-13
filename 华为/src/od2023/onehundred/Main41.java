@@ -52,10 +52,10 @@ public class Main41 {
 
         // 如果小球总数超过SUM, 设置一个容量最大值maxCapacity，将超过容量最大值的球拿出来，直到小于maxCapacity
         // 计算拿出来的小球数量
-
         List<Integer> res = new ArrayList<>();
         int total = Arrays.stream(bucketBallNums).sum();
 
+        // 去除超过maxCapacity最大值剩余的小球数量总和
         int remainTotal = 0;
         if (total > sum){
             // 不需要从maxCapacity=0开始，使用sum/bucket.length求得一个理想的值， 然后向后查找
@@ -83,6 +83,48 @@ public class Main41 {
         }else {
             System.out.println(res);
         }
+
+    }
+
+    /*
+    本题可以结合二分查找 优化
+     */
+    public String getResult(int sum, Integer[] arr, int n){
+        // 求数组元素之和
+        Integer total = Arrays.stream(arr).reduce((a, b) -> a + b).get();
+        // 如果未超过sum,无需取球
+        if (total <= sum){
+            return "[]";
+        }
+
+        Integer max_maxCapacity = Arrays.stream(arr).max((a, b) -> a - b).get();
+        int min_maxCapacity = sum/n;
+
+        int finalMin_maxCapacity = min_maxCapacity;
+        Integer[] ans = Arrays.stream(arr).map(value -> value > finalMin_maxCapacity ? value - finalMin_maxCapacity : 0).toArray(Integer[]::new);
+
+        while (max_maxCapacity - min_maxCapacity > 1){
+            int mid = (max_maxCapacity + min_maxCapacity)/2;
+            Integer[] tmp = new Integer[n];
+            int remain = total;
+            for (int i = 0; i < arr.length; i++){
+                int r = arr[i] > mid ? arr[i] - mid : 0;
+                remain -= r;
+                tmp[i] = r;
+            }
+
+            if (remain > total){
+                max_maxCapacity = mid;
+            }else if (remain < total){
+                min_maxCapacity = mid;
+                ans = tmp;
+            }else {
+                ans = tmp;
+                break;
+            }
+        }
+
+        return Arrays.toString(ans);
 
     }
 

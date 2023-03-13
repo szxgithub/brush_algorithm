@@ -16,6 +16,9 @@ public class Main44 {
 
      */
 
+    /*
+    逻辑分析 排序
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -28,6 +31,7 @@ public class Main44 {
         int x = sc.nextInt();
 
         int[] hotel = new int[n];
+        // index ---> [price, diff]
         Map<Integer,List<Integer>> map = new HashMap<>();
         for (int i = 0; i<hotel.length; i++){
             hotel[i] = sc.nextInt();
@@ -40,7 +44,7 @@ public class Main44 {
         list.sort((o1, o2) -> {
             // 按差价从低到高排序
             if (o1.getValue().get(1).equals(o2.getValue().get(1))){
-                // 如果差价相同，按价格排序
+                // 如果差价相同，按价格升序排序
                 return o1.getValue().get(0) - o2.getValue().get(0);
             }else {
                 return o1.getValue().get(1) - o2.getValue().get(1);

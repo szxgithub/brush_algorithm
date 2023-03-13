@@ -1,6 +1,8 @@
 package od2023.onehundred;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Main32 {
@@ -55,8 +57,54 @@ public class Main32 {
 
         System.out.println(wood[0]);
 
+    }
 
+    /*
+    利用优先队列 贪心思维解法
+     */
+    public int getResult(int m, int[] arr){
+        HashMap<Integer,Integer> woods = new HashMap<>();
 
+        for (Integer integer : arr){
+            if (woods.containsKey(integer)){
+                woods.put(integer,woods.get(integer)+1);
+            }else {
+                woods.put(integer,1);
+            }
+        }
+
+        // 按长度升序排序，长度越短，优先级越高
+        PriorityQueue<Integer[]> pq = new PriorityQueue<>((a,b)->a[0] - b[0]);
+
+        for (Integer wood : woods.keySet()){
+            pq.offer(new Integer[]{wood,woods.get(wood)});
+        }
+
+        while (m > 0){
+            if (pq.size() == 1){
+                Integer[] poll = pq.poll();
+                int len = poll[0];
+                int count = poll[1];
+                return len + m/count;
+            }
+
+            Integer[] min1 = pq.poll();
+            Integer[] min2 = pq.peek();
+
+            int diff =  min2[0] - min1[0];
+            int total = diff*min1[1];
+
+            if (total > m){
+                return min1[0] + m/min1[1];
+            }else if (total == m){
+                return min2[0];
+            }else {
+                m -= total;
+                min2[1] += min1[1];
+            }
+        }
+
+        return pq.peek()[0];
     }
 
 

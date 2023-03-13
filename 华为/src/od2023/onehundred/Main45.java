@@ -9,9 +9,6 @@ public class Main45 {
         重复代码查找方法：以字符串形式给定两行代码，找出两行代码中的“最长公共子串”
         如果不存在，则返回空字符串
 
-        最长公共子串
-
-
         输入：
         private_void_method
         public_void_method
@@ -19,7 +16,9 @@ public class Main45 {
      */
 
     /*
-    使用双层for循环截取字符串，并判断是否为长字符串的子串
+    暴力搜索
+    比较两个字符串的长短
+    使用双层for循环截取短字符串，并判断是否为长字符串的子串，没有的话，输出空字符串
      */
     public static void main(String[] args) {
 
@@ -27,21 +26,46 @@ public class Main45 {
 
         String str1 = sc.nextLine();
         String str2 = sc.nextLine();
+
+        String minStr = str1.length() >= str2.length() ? str2 : str1;
+        String maxStr = minStr.equals(str2) ? str1 : str2;
+
         String res = "";
         int max = Integer.MIN_VALUE;
-        for (int i =0; i < str1.length(); i++){
-            for (int j = i+2;  j<str2.length()+1; j++){
-                String substring = str2.substring(i, j);
-                if (str1.contains(substring)){
-                    if (substring.length() > max){
-                        max = substring.length();
-                        res = substring;
-                    }
+        for (int i =0; i < minStr.length(); i++){
+            for (int j = i+1;  j<=minStr.length(); j++){
+                String substring = minStr.substring(i, j);
+                if (maxStr.contains(substring) && substring.length() > max){
+                    max = substring.length();
+                    res = substring;
                 }
             }
         }
 
         System.out.println(res);
+    }
+
+    /*
+    双指针
+    满分答案
+     */
+    public static void main2(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str1 = sc.nextLine();
+        String str2 = sc.nextLine();
+        String resut = "";
+        int start = 0;
+        int end = 1;
+        while (end <= str2.length()){
+            String substring = str2.substring(start, end);
+            if (str1.contains(substring)){
+                resut = substring;
+            }else {
+                start++;
+            }
+            end++;
+        }
+        System.out.println(resut);
     }
 
     /*

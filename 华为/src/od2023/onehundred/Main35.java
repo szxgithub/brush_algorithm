@@ -27,7 +27,7 @@ public class Main35 {
      */
 
     /*
-        推荐该方法
+       逻辑分析，该方法时间复杂度不是最优的
      */
     public static void main(String[] args) {
 
@@ -56,6 +56,37 @@ public class Main35 {
         }
 
         System.out.println(count);
+    }
+
+    /**
+     *推荐该方法
+     * 逻辑分析
+     *
+     * 要求从字符串a中挑选能组成字符串b的字符串，最多能同时挑选多少
+     * @param a
+     * @param b
+     * @return
+     */
+    public int getResult(String a, String b){
+        HashMap<Character,Integer> map = new HashMap<>();
+        for (int i = 0; i <b.length(); i++){
+            char c = b.charAt(i);
+            map.put(c,i);
+        }
+
+        // count对象记录遍历字符串a的过程中，统计到符合顺序要求的b字符串中字符的出现的次数
+        int[] count = new int[b.length()];
+        for (int i = 0; i < a.length(); i++){
+            char c = a.charAt(i);
+            if (map.containsKey(c)){
+                Integer index = map.get(c);
+                if (index == 0 || count[index] < count[index - 1]){
+                    count[index]++;
+                }
+            }
+        }
+
+        return count[count.length - 1];
     }
 
 

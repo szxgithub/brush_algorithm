@@ -14,12 +14,24 @@ public class Main36 {
     2、花费时间一样，花费费用最少的核酸检测点排在前面
     3、时间费用一样，则ID值最小的排在前面
 
+输入：
+10 30
+14 50
+3
+1 10 19
+2 8 20
+3 21 3
+输出：
+2
+2 80 80
+1 190 100
+
      */
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // 当前时间小时数
+        // 当前时间小时分钟数
         int h1 = sc.nextInt();
         int m1 = sc.nextInt();
 
@@ -32,8 +44,11 @@ public class Main36 {
         // 核酸检测点ID，检测点距离张三的距离，检测点当前检测人数
         int[][] idcs = new int[n][3];
         for (int i = 0; i < n; i++) {
+            // 检测点ID
             idcs[i][0] = sc.nextInt();
+            // 检测点距离张三的距离
             idcs[i][1] = sc.nextInt();
+            // 检测点当前检测人数
             idcs[i][2] = sc.nextInt();
         }
 
@@ -60,7 +75,7 @@ public class Main36 {
                                     int count = idc[2];
 
                                     int money = distance * 10;
-                                    int road = distance * 10; // 花在路上的时间
+                                    int road = distance * 10; // 花在路上的时间 每公里距离花费时间10分钟
                                     int arrived = start + road; // 到达核酸检测点的时间
 
                                     // 如果在8：00之前就赶到了，那么其实要等待到8:00才能排队，这里其实花费的时间应该包括等待的时间
@@ -69,7 +84,7 @@ public class Main36 {
                                         road = arrived - start;
                                     }
 
-                                    // 出发时间，结束时间
+                                    // 出发时间，到达核酸检测点做核酸的开始时间
                                     int[] ran1 = {start, arrived};
 
                                     // 和[8:00, 10:00]的交集，每分钟净增2人

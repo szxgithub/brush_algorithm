@@ -22,6 +22,10 @@ public class Main34 {
         输出：32
      */
 
+    /*
+    逻辑分析  双层循环
+    只需要找到商品价格走势的上升区间，然后低价买入，高价卖出，即可求得最大利润
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);

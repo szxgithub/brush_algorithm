@@ -14,7 +14,15 @@ public class Main47 {
 
     当存在多个组合方案时，按如下规则排序取最大的一个组合方案
 
+    输入描述:
+        第一行为空格分隔的N个正整数，每个整数取值的范围是[1,13]，N的取值的范围为[1,1000]
+    输出描述：
+        经过重新排列的扑克牌数字列表，每个数字以空格分隔
 
+输入：
+4 4 2 1 2 1 3 3 3 4
+输出：
+4 4 4 3 3 2 2 1 1 3
 
      */
 
@@ -26,6 +34,7 @@ public class Main47 {
         String s = sc.nextLine();
         // 1 3 3 3 2 1 5
         String[] split = s.split(" ");
+        // 数字的范围是1-13
         int[] puke = new int[14];
         for (String num : split) {
             puke[Integer.parseInt(num)]++;
@@ -43,7 +52,8 @@ public class Main47 {
             }
             i--;
         }
-//        Collections.sort(zhadan);
+
+        // 相同类型组合牌牌面数字加总 由大到小排序
         zhadan.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -92,11 +102,31 @@ public class Main47 {
 
         // 三对+两对凑葫芦
         ArrayList<String> hulu = new ArrayList<>();
-        int size = Math.min(sanzhang.size(), duizi.size());
-        for (int j = 0; j < size; j++) {
-            hulu.add(sanzhang.get(0) + duizi.get(0));
-            sanzhang.remove(0);
-            duizi.remove(0);
+        while (sanzhang.size() > 0){
+            if (duizi.size() == 0 && sanzhang.size() == 1){
+                break;
+            }
+
+            // 最大的三张
+            String s1 = sanzhang.get(0);
+            // 第二大的三张
+            String s2 = sanzhang.get(1);
+
+            String s3 = duizi.get(0);
+
+            if (Integer.valueOf(s2) > Integer.valueOf(s3)){
+                // 拆分第二大的三张为一个对子和一个单张
+                String tmpDuizi = s2.substring(0, 2);
+                String tmpDanzhang = s2.substring(2, 3);
+                hulu.add(s1 + tmpDuizi);
+                danzhang.add(tmpDanzhang);
+                sanzhang.remove(0);
+                sanzhang.remove(0);
+            }else {
+                hulu.add(s1 + s3);
+                sanzhang.remove(0);
+                duizi.remove(0);
+            }
         }
 
         // 输出

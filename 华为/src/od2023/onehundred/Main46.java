@@ -13,11 +13,32 @@ public class Main46 {
 
     给定一个二维数组 ，对于每一个元素num[i]，找出距离最近的值相等的元素，输出横纵坐标差值的绝对值之和，如果没有输出-1
 
+    输入描述：
+        第一行二维数组的行
+        第二行二维数组的列
+        输入的数字以空格隔开
+    输出描述：
+        数组形式返回所有坐标值
+
+输入：
+3
+5
+0 3 5 4 2
+2 5 7 8 3
+2 5 4 2 4
+输出：
+[[-1, 4, 2, 3, 3], [1, 1, -1, -1, 4], [1, 1, 2, 3, 2]]
+
+Process finished with exit code 0
+
+
      */
 
 
     /*
     逻辑分析解决
+
+    时间复杂度O(m*n*k) m、n为数组行列，k为每个元素相同数字的个数
 
      */
     public static void main(String[] args) {
@@ -34,6 +55,7 @@ public class Main46 {
             }
         }
 
+        // arr[i][j] ---> [[i1,j1][i2,j2][i3,j3]...]
         HashMap<Integer, List<int[]>> map = new HashMap<>();
         for (int i = 0; i <arr.length; i++){
             for (int j = 0; j < arr[i].length; j++){
@@ -51,6 +73,7 @@ public class Main46 {
 
         List<List<Integer>> resList = new ArrayList<>();
         for (int i = 0;i <row; i++){
+            // 存放每一个元素的距离最近的且值相等的元素，与其对应的横纵坐标绝对值之和
             List<Integer> list = new ArrayList<>();
             for (int j = 0; j<col; j++){
                 int num = arr[i][j];
@@ -63,6 +86,7 @@ public class Main46 {
                 int min = Integer.MAX_VALUE;
                 for (int k = 0; k<listInts.size(); k++){
                     int[] intnum = listInts.get(k);
+                    // 距离为横纵坐标绝对值之和
                     int distance = Math.abs(intnum[0] - i) + Math.abs(intnum[1]-j);
                     if (distance == 0){
                         continue;

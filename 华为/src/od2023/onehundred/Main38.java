@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main38 {
 
@@ -19,6 +20,11 @@ public class Main38 {
         输出：4
      */
 
+    /*
+    逻辑分析
+    先统计误码频度最高的误码有哪些
+    然后遍历每个误码，计算子数组的长度， 比较得到最小的子数组长度
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -75,6 +81,30 @@ public class Main38 {
         System.out.println(min);
 
 
+    }
+
+    /*
+    推荐这个方法
+    这个方法和上面方法类似
+     */
+    public int getResult(int[] arr){
+        HashMap<Integer,List<Integer>> map = new HashMap<>();
+        for (int i = 0; i <arr.length; i++){
+            map.putIfAbsent(arr[i],new ArrayList<>(0));
+            map.get(arr[i]).add(i);
+        }
+
+        List<Integer> list = map.values().stream().sorted((a, b) -> {
+            if (a.size() != b.size()) {
+                return b.size() - a.size();
+            } else {
+                int len1 = a.get(a.size() - 1) - a.get(0);
+                int len2 = b.get(b.size() - 1) - b.get(0);
+                return len1 - len2;
+            }
+        }).limit(1).collect(Collectors.toList()).get(0);
+
+        return list.get(list.size() - 1) - list.get(0) + 1;
     }
 
 }

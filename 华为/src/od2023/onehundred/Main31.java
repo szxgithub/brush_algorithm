@@ -7,9 +7,14 @@ public class Main31 {
 
     /*
 
-    云短信平台优惠活动(最多获得的短信条数) todo
+    云短信平台优惠活动(最多获得的短信条数)
 
-    通过回溯将所有充值的情形模拟一遍，求出其中最大的短信数
+    输入描述：
+        第一行客户预算M
+        第二行给出出售价表，P1、P2、....Pn，
+        Pi表示充值i元获得的短信条数  1 <= Pi<= 1000 1<= n <= 100
+    输出描述：
+        最多获得的短信条数
 
     输入：
     15
@@ -19,6 +24,10 @@ public class Main31 {
 
      */
 
+    /*
+    通过回溯将所有充值的情形模拟一遍，求出其中最大的短信数
+    回溯算法解法
+     */
     public static int max = 0;
 
     public static void main(String[] args) {
@@ -51,6 +60,7 @@ public class Main31 {
      */
     private static void combine(String[] p, int m, ArrayList<Integer> list, int index) {
 
+        // 预算等于0，退出循环
         if(m == 0){
             int count = 0;
             for (int i = 0; i<list.size();i++){

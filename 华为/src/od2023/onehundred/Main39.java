@@ -19,56 +19,15 @@ public class Main39 {
     输出：
     输出小明指定工作时长内工作可获得的最大报酬
 
-    这道题是0-1背包问题，可以使用动态规划求解
-    工作时长相当于背包承重
-    每一项工作相当于物品，工作消耗的时长相当于物品重量，工作报酬相当于物品价值
-
      */
 
-
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        int T = sc.nextInt();
-        int n = sc.nextInt();
-
-        // 每项工作消耗时长
-        int[] times = new int[n];
-        // 每项工作的报酬
-        int[] values = new int[n];
-        for (int i = 0; i < n; i++) {
-            times[i] = sc.nextInt();
-            values[i] = sc.nextInt();
-        }
-
-        int res = handle(T, times, values);
-
-        System.out.println(res);
-
-    }
-
     /**
-     * 动态规划
-     * @param T         工作时长
-     * @param times     任务工作数组
-     * @param values    任务报酬数组
-     * @return
-     */
-    public static int handle(int T, int[] times, int[] values){
-
-        int[] dp = new int[T+1];    //相当于各个时间所能做的最大报酬
-
-        for(int i=0; i<times.length; i++){
-            for(int j=T; j>=times[i]; j--){
-                dp[j] = Math.max(dp[j], dp[j-times[i]] + values[i]);
-            }
-        }
-
-        return dp[T];
-    }
-
-    /**
+     *
+     * 这道题是0-1背包问题，可以使用动态规划求解
+     *  工作时长相当于背包承重
+     * 每一项工作相当于物品，工作消耗的时长相当于物品重量，工作报酬相当于物品价值
+     *
+     *
      * 根据0-1背包思想，采用动态规划
      * @param T  工作时长
      * @param tws  [该工作消耗时长，该工作的报酬]
@@ -79,7 +38,7 @@ public class Main39 {
         int maxI = tws.length + 1;
         int maxJ = T + 1;
 
-        //  工作时长为j时，前i项工作 获得的最大报酬
+        //  dp[i][j]， 前i项工作 工作时长为j时，获得的最大报酬
         int[][] dp = new int[maxI][maxJ];
 
         for (int i = 0; i < maxI; i++){

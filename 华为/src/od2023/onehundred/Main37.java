@@ -18,10 +18,11 @@ public class Main37 {
     1 1 1 1
     输出：
     2
-
-    深度优先搜索
      */
 
+    /*
+    深度优先搜索
+     */
     public static int[][] matrix;
     public static int N;
     public static int M;
@@ -45,7 +46,7 @@ public class Main37 {
             for (int j = 0; j<M; j++){
                 if (matrix[i][j] == 1){
                     matrix[i][j] = 0;
-                    clearHappy(i,j);
+                    dfs(i,j);
                     res++;
                 }
             }
@@ -55,57 +56,67 @@ public class Main37 {
 
     }
 
-    private static void clearHappy(int i, int j) {
+    private static void dfs(int i, int j) {
 
+        // 上
         if (i > 0){
+            // 正上
             if (matrix[i-1][j] == 1){
                 matrix[i-1][j] = 0;
-                clearHappy(i-1,j);
+                dfs(i-1,j);
             }
+            // 左上
             if (j > 0){
                 if (matrix[i-1][j-1] == 1){
                     matrix[i-1][j-1] = 0;
-                    clearHappy(i-1,j-1);
+                    dfs(i-1,j-1);
                 }
             }
+            // 右上
             if (j < M-1){
                 if (matrix[i-1][j+1] == 1){
                     matrix[i-1][j+1] = 0;
-                    clearHappy(i-1,j+1);
+                    dfs(i-1,j+1);
                 }
             }
         }
 
+        // 下
         if (i < N-1){
+            // 正下
             if (matrix[i+1][j] == 1){
                 matrix[i+1][j] = 0;
-                clearHappy(i+1,j);
+                dfs(i+1,j);
             }
+            // 左下
             if (j > 0){
                 if (matrix[i+1][j-1] == 1){
                     matrix[i+1][j-1] = 0;
-                    clearHappy(i+1,j-1);
+                    dfs(i+1,j-1);
                 }
             }
+            // 右下
             if (j < M-1){
                 if (matrix[i+1][j+1] == 1){
                     matrix[i+1][j+1] = 0;
-                    clearHappy(i+1,j+1);
+                    dfs(i+1,j+1);
                 }
             }
         }
 
+        // 左
         if (j > 0){
             if (matrix[i][j-1] == 1){
                 matrix[i][j-1] = 0;
-                clearHappy(i,j-1);
+                dfs(i,j-1);
             }
         }
 
+        // 右
         if (j < M-1){
             if (matrix[i][j+1] == 1){
                 matrix[i][j+1] = 0;
-                clearHappy(i,j+1);
+                dfs(i,j+1);
             }
         }
 
@@ -117,8 +128,14 @@ public class Main37 {
      */
     public int getResult(int[][] martix, int n, int m){
         UnionFindSet ufs = new UnionFindSet(n*m);
-        Integer[][] offsets = {{-1,-1},{-1,0},{-1,1},{0,-1},
-                                {0,1},{1,-1},{1,0},{1,1}};
+        Integer[][] offsets = {{-1,-1}, // 左上
+                                {-1,0}, // 正上
+                                {-1,1}, // 右上
+                                {0,-1}, //左
+                                {0,1},  // 右
+                                {1,-1}, // 左下
+                                {1,0},  // 正下
+                                {1,1}}; // 右下
 
         for (int i = 0; i<n; i++){
             for (int j = 0; j<m;j++){
