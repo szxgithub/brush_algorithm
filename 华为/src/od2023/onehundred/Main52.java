@@ -27,6 +27,7 @@ public class Main52 {
 
         Scanner sc = new Scanner(System.in);
 
+        // 打卡记录数
         int N = sc.nextInt();
         sc.nextLine();
 

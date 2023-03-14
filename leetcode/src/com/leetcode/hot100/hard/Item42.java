@@ -77,21 +77,24 @@ public class Item42 {
      */
     public int trap4(int[] height){
 
-        int sum = 0;
+        int left = 0, right = height.length-1;
+        int l_max = 0, r_max= 0;
+        int res = 0;
+        while (left < right){
 
-        int max_left = 0;
+            l_max = Math.max(l_max,height[left]);
+            r_max = Math.max(r_max,height[right]);
 
-        int[] max_right = new int[height.length];
-
-        for (int i = 1; i<height.length - 1; i++){
-            max_left = Math.max(max_left,height[i-1]);
-            int min = Math.min(max_left,max_right[i]);
-            if (min > height[i]){
-                sum = sum  + (min - height[i]);
+            if (l_max < r_max){
+                res += l_max - height[left];
+                left++;
+            }else {
+                res += r_max - height[right];
+                right--;
             }
         }
 
-        return sum;
+        return res;
 
     }
 

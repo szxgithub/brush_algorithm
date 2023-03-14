@@ -1,9 +1,6 @@
 package od2023.onehundred;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main62 {
     /*
@@ -20,17 +17,30 @@ public class Main62 {
     输出描述:
         找出相似的单词，按照字典序大小排列输出，中间以空格分开，如果不存在输出null
 
+输入：
+4
+abc
+dasd
+tad
+bca
+abc
+输出：
+abc bca
+
      */
 
+    /*
+    简单排序题
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
+        // 单词个数
         int N = sc.nextInt();
         sc.nextLine();
 
         String[] words = new String[N];
-
         for (int i = 0; i<N; i++){
             words[i] = sc.nextLine();
         }
@@ -41,13 +51,9 @@ public class Main62 {
         List<String> list = new ArrayList<>();
         for (int i=0; i<words.length; i++){
             if (words[i].length() ==  input.length()){
-                int count = 0;
-                for (int j =0; j<input.length(); j++){
-                    if (words[i].contains(input.charAt(j) + "")){
-                        count++;
-                    }
-                }
-                if (count == words[i].length()){
+                String s1 = sortStr(words[i]);
+                String s2 = sortStr(input);
+                if (s1.equals(s2)){
                     list.add(words[i]);
                 }
             }
@@ -67,6 +73,16 @@ public class Main62 {
             System.out.println(res.substring(0,res.length()-1));
         }
 
+    }
+
+    /*
+    转换成排序字符串
+     */
+    private static String sortStr(String words) {
+        char[] chars = words.toCharArray();
+        Arrays.sort(chars);
+        String s = String.valueOf(chars);
+        return s ;
     }
 
 }

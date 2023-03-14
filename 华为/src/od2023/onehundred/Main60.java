@@ -1,6 +1,7 @@
 package od2023.onehundred;
 
 import java.util.*;
+import java.util.function.ToIntFunction;
 
 public class Main60 {
 
@@ -11,10 +12,19 @@ public class Main60 {
     工位由序列F1,F2,...Fn组成，Fi值为0、1或2，其中0代表空置，1代表有人，2代表障碍物
     1、某一空位的友好度为左右连续老员工数之和
     2、为方便新员工学习求助，优先安排友好度高的空位
-
     给出工位序列，求所有空位中友好度的最大值
 
-    下面这个解法很巧妙
+
+    输入描述：
+        第一行为工位序列，F1 、F2...Fn组成 ， 1 <= n <= 10000, Fi值为0、1或2，其中0代表空置，1代表有人，2代表障碍物
+    输出描述：
+        所有空位中友好度的最大值，如果没有空位，返回0
+
+
+输入：
+1 1 0 1 2 1 0
+输出：
+3
 
 
      */
@@ -22,6 +32,8 @@ public class Main60 {
     /*
     逻辑分析
      */
+
+
 
     /*
     从左向右，从右向左计算
@@ -61,6 +73,14 @@ public class Main60 {
             }
         }
         return ans;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        String[] s = str.split(" ");
+        int result = getResult(s);
+        System.out.println(result);
     }
 
 }

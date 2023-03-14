@@ -1,5 +1,6 @@
 package od2023.onehundred;
 
+import javax.swing.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -20,12 +21,15 @@ public class Main58 {
     输出描述：
         求能转储的最大连续文件大小之和
 
+输入：
+1000
+100 300 500 400 400 150 100
+输出：
+950
+
 
      */
 
-    /*
-    采用 双指针 + 滑动窗口解法
-     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -38,25 +42,35 @@ public class Main58 {
         int[] ints = Arrays.stream(s).mapToInt(value -> Integer.valueOf(value)).toArray();
 
         // 求最大子序列和 且和不超过容量M
-        int left = 0;
-        int right = 0;
-        int sum = 0;
-        int max = Integer.MIN_VALUE;
-        while (max != M && (right < ints.length || sum > max)){
-            if (sum <= M){
-                max = Math.max(max,sum);
-                if (right < ints.length){
-                    sum += ints[right];
-                    right++;
-                }
+
+        int result = getResult(ints, M);
+        System.out.println(result);
+
+    }
+
+    /*
+    滑动窗口 + 双指针解法
+     */
+    public static int getResult( int[] arr, int m){
+
+        int l = 0, r = 0;
+        int sum = 0, max = 0;
+
+        while (r < arr.length){
+            int newSum = sum + arr[r];
+            if (newSum > m){
+                sum -= arr[l];
+                l++;
+            }else if (newSum < m){
+                sum += arr[r];
+                r++;
+                max = Math.max(sum,max);
             }else {
-                sum -= ints[left];
-                left++;
+                return m;
             }
         }
 
-        System.out.println(max);
-
+        return max;
     }
 
 }

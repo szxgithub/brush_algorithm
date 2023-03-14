@@ -11,9 +11,23 @@ public class Main55 {
 
     假设机房是一整排，M表示机柜，I表示间隔，请你返回这整排机柜，至少需要多少个电箱，如果无解，返回-1
 
+输入：
+IMIM
+输出：1
+
 
      */
 
+    /*
+    逻辑分析
+
+    遍历字符串
+    当碰到M时，判断后面是否为I
+    如果是I，直接安装电箱，且紧接后面的机柜可以公用此电箱，跳过，索引+2
+    如果不是I，则查看前面的是否为I
+    如果是I，则在前面安装
+    如果也不是I，则返回-1，表示无解
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -25,6 +39,7 @@ public class Main55 {
         for (int i =0; i<str.length(); i++) {
             char c = str.charAt(i);
             if (c == 'M'){
+                // 优先考虑右边是否可以放电箱
                 if (i + 1 < str.length() && str.charAt(i+1) == 'I'){
                     ans++;
                     i+=2;

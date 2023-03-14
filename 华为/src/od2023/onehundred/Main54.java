@@ -14,7 +14,19 @@ public class Main54 {
 
     给出源代码文件标识序列和文件大小序列，求解采用合理的缓存策略，最少需要的金币数
 
+    输入描述：
+        第一行缓存一个报告金币数M
+        第二行文件标识序列：F1 F2 ...Fn
+        第三行文件大小序列：S1,S2,S3...Sn
+    输出描述：
+        采用合理的缓存策略，需要的最少金币数
 
+输入：
+5
+1 2 2 1 2 3 4
+1 1 1 1 1 1 1
+输出：
+7
 
 
      */
@@ -38,24 +50,26 @@ public class Main54 {
         // 文件大小序列
         String[] S = str2.split(" ");
 
-        // 统计每种文件扫描成本之和
+        // 统计每种文件出现次数
         HashMap<Integer, Integer> map = new HashMap<>();
+        // 统计每种文件扫描成本
         HashMap<Integer, Integer> sizeMap = new HashMap<>();
         for (int i = 0; i<F.length; i++){
             Integer integer = Integer.valueOf(F[i]);
             Integer size = Integer.valueOf(S[i]);
-            map.put(integer,map.getOrDefault(integer,0) + size);
+            map.put(integer,map.getOrDefault(integer,0) + 1);
             sizeMap.computeIfAbsent(integer, (key) -> sizeMap.put(integer,size));
         }
 
         int sum = 0;
         for (Integer integer : map.keySet()){
-            // 如果文件的扫描成本之和 大于 缓存成本，则扫描一次，缓存一次
-            if (map.get(integer) > M){
-                sum += sizeMap.get(integer) + M;
-            }else {
-                sum += map.get(integer);
-            }
+
+            int saomiao = map.get(integer) * sizeMap.get(integer);
+            int cache = sizeMap.get(integer) + M;
+
+            // 比较扫描成本 和 缓存成本
+            sum += Math.min(saomiao,cache);
+
         }
 
         System.out.println(sum);

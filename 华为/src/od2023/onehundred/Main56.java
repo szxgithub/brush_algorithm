@@ -39,6 +39,7 @@ public class Main56 {
             ranges[i][1] = sc.nextInt();
         }
 
+        // 为了解决存在环状区间问题
         Integer last = Arrays.stream(ranges).map(range -> Math.max(range[0], range[1])).max((a, b) -> a - b).orElse(0);
 
         // 考虑到可能有[3，2]这种坐车区间，需要拆分为[3,4] 和 [1,2]
@@ -61,7 +62,9 @@ public class Main56 {
         // 小顶堆中存放区间的结束点，堆中的个数就是重叠区间的个数
         PriorityQueue<Integer> queue = new PriorityQueue<>();
 
+        // 存放最多人数
         int max = 0;
+        // 存放最多人数的站点编号
         int ans = tmp.get(0)[0];
         for (Integer[] range : tmp){
             int s = range[0];

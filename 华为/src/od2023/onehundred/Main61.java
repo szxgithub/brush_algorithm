@@ -1,6 +1,7 @@
 package od2023.onehundred;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,26 +17,26 @@ public class Main61 {
 
     服务之间没有循环依赖，若想对一个服务i进行集成测试，求最少需要等待多少时间
 
-    输入：
-    4
-    2 0 0 0
-    0 3 0 0
-    1 1 4 0
-    1 1 1 5
-    4
-    输出：
-        12
+输入：
+4
+2 0 0 0
+0 3 0 0
+1 1 4 0
+1 1 1 5
+4
+输出：
+12
 
 
      */
 
     /*
+    递归
     深度优先搜索
-
-
 
      */
     public static int n;
+    static int[] cache;
     public static int[][] matrix;
     public static void main(String[] args) {
 
@@ -55,13 +56,20 @@ public class Main61 {
         // 1<= k <= n
         int k = sc.nextInt();
 
+        // 增加记忆化缓存，优化搜索
+        cache = new int[matrix.length];
+        Arrays.fill(cache,-1);
+
         Integer handle = handle(k-1);
 
         System.out.println(handle);
 
     }
-
     public static Integer handle(int index){
+
+        if (cache[index] != -1){
+            return cache[index];
+        }
         // 遍历第K行
         List<Integer> times = new ArrayList<>();
         for (int i = 0; i <n; i++){
@@ -75,7 +83,11 @@ public class Main61 {
         for (int time : times){
             max = Math.max(max,time);
         }
+
+        cache[index] = max + matrix[index][index];
+
         return max + matrix[index][index];
     }
+
 
 }

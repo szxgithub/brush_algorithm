@@ -61,8 +61,8 @@ public class Main53 {
         // 新员工数量
         int N = Integer.parseInt(sc.nextLine());
 
-        String[] s = sc.nextLine().split(" ");
         // 每天打卡的员工人数
+        String[] s = sc.nextLine().split(" ");
         int[] nums = Arrays.stream(s).mapToInt(value -> Integer.valueOf(value)).toArray();
 
         HashMap<Integer,int[]> map = new HashMap<>();
