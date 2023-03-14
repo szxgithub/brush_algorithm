@@ -16,39 +16,6 @@ public class Main63 {
      */
 
     /*
-
-    动态规划 若博豆题解
-
-     */
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        String string = sc.nextLine();
-
-        int min = 0;
-        int countB = 0;
-
-        for (int i = 0; i < string.length(); i++) {
-
-            if (string.charAt(i) == 'B'){
-                //假设之前的子字符串经过修改已满足要求，当前位置的B并不会使字典序变化，只统计B的个数
-                countB ++;
-            }
-            if (string.charAt(i) == 'A') {
-                //方案1 : 把所有之前的B改为A
-                int candidate1 = countB;
-
-                //方案2：假设在当前位置以前的子字符串经过修改已满足要求，把当前位置的A改为B,即动态编程思想
-                int candidate2 = min + 1;
-
-                min = Math.min( candidate1, candidate2);
-            }
-        }
-
-        System.out.println(min);
-    }
-
-    /*
     动态规划
      */
     public static int getResult(String str){
@@ -61,6 +28,7 @@ public class Main63 {
 
         // 修改为全A 或者全B的修改次数取最小
         int ans = Math.min(A,total - A);
+        // 不适用dp数组，使用leftA变量，因为数组最长可能很长，容易爆内存
         int leftA = 0;
         for (int i = 0; i<total; i++){
             if (str.charAt(i) == 'A'){

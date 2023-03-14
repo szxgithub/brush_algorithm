@@ -13,6 +13,7 @@ public class Main66 {
 
     如何选取水库边界，使蓄水量最大
     山脉用正整数数组s表示，每个元素代表山脉的高度
+    如果出现多个满足条件的边界，应选取距离最近的一组边界
 
     输出边界下标，和最大蓄水量，如果无法蓄水，则返回0，此时不返回边界
 
@@ -99,6 +100,7 @@ public class Main66 {
     }
 
     /*
+    逻辑分析
     推荐这个代码 思路清晰
      */
     public static void main2(String[] args) {
@@ -106,22 +108,26 @@ public class Main66 {
         String[] strings = sc.nextLine().split(" ");
         int[] mountains = Arrays.stream(strings).mapToInt(Integer::parseInt).toArray();
 
+        // 最小山峰
         int min = Arrays.stream(mountains).min().getAsInt();
 
+        // 最大面积
         int max = 0;
         int maxLeft = 0;
         int maxRight = 0;
         for (int i = 0; i < mountains.length; i++){
             int left = mountains[i];
+            // 最小山峰为边界，无法构成蓄水池
             if (left == min){
                 continue;
             }
             for (int j = i+2; j < mountains.length; j++){
                 int right = mountains[j];
+                // 最小山峰为边界，无法构成蓄水池
                 if (right == min){
                     continue;
                 }
-                // 蓄水池的高度为边界最小值
+                // 蓄水池的高度为左右边界最小值
                 int height = Math.min(left,right);
                 int area = 0;
                 for (int k = i + 1; k <j;k++){

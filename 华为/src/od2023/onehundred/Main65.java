@@ -18,10 +18,13 @@ public class Main65 {
         如果过最终结果是多位数字，要优选选择输出不是0开头的最小数字
         如果拼出来的都是0开头的，输出最小的，且去掉前导0
 
-    使用经典的全排列算法
+
 
      */
 
+    /*
+     使用经典的全排列算法
+     */
     public static List<String> list = new ArrayList<>();
     public static boolean isExistZeroPrefix = false;
     public static void main2(String[] args) {
@@ -40,7 +43,7 @@ public class Main65 {
         }
 
         // 全排列
-        quanpailie(s, 0,s.length);
+        quanpailie(s, 0);
 
         int min = Integer.MAX_VALUE;
         for (int i =0 ; i<list.size(); i++){
@@ -50,7 +53,7 @@ public class Main65 {
         System.out.println(min);
     }
 
-    private static void quanpailie(String[] s, int index, int end) {
+    private static void quanpailie(String[] s, int index) {
 
         if (index == s.length){
             // 对于存在非0开头排列的要去掉0开头的排列
@@ -68,7 +71,7 @@ public class Main65 {
         }
         for (int i = index; i<s.length; i++){
             swap(s,i,index);
-            quanpailie(s,i+1,end);
+            quanpailie(s,i+1);
             swap(s,i,index);
         }
 
@@ -87,7 +90,7 @@ public class Main65 {
      */
     public static String getResult(String[] strs){
 
-        // 对于两个字符串a和b组合，比较大小
+        // 对于两个字符串a和b组合，比较大小 比较a+b与b+a的大小 排列
         Arrays.sort(strs,(a,b) -> (a+b).compareTo(b+a));
 
         if (strs[0].charAt(0) == '0'){

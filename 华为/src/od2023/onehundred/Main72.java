@@ -6,7 +6,7 @@ public class Main72 {
 
     /*
 
-    最佳对手
+    最佳对手 todo
 
     给定n个队伍的实力值，对其进行两两匹配，两支队伍实力差距在允许的最大差距d内，则可以匹配
 
@@ -72,8 +72,14 @@ public class Main72 {
 
     }
 
-    /*
-    组合之间进行搜索  再次组合
+    /**
+     * 进行组合之间的组合
+     *     组合之间进行搜索  再次组合
+     *
+     * @param diffs  组合
+     * @param index 起始索引
+     * @param path 存放组合的组合
+     * @param res  存放队伍组数量，队伍组差距的总和
      */
     public static void dfs(List<Integer[]> diffs, int index, LinkedList<Integer[]> path,List<Integer[]> res){
 

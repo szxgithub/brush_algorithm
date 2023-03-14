@@ -21,86 +21,86 @@ public class Main73 {
      提示：
         中转车最多跑一趟仓库
 
-    输入：
-    4
-    3 2 6 3
-    0 1 1 0
-    2
-    输出：
-        6
+    本题可以参考：Leetcode-1723
 
-
-    //todo  这道题挺麻烦
+输入：
+4
+3 2 6 3
+0 1 1 0
+2
+输出：
+6
      */
 
-    public static int k;
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
 
-        int len = sc.nextInt();
-        int[] goods = new int[len];
-        for (int i = 0; i<len; i++){
+        // 供货商数量
+        int n = sc.nextInt();
+
+        // 供货数数组
+        int[] goods = new int[n];
+        for (int i = 0; i < n; i++) {
             goods[i] = sc.nextInt();
         }
 
-        int[] types = new int[len];
-        for (int i = 0; i <len; i++){
+        // 供货货物类型
+        int[] types = new int[n];
+        for (int i = 0; i < n; i++) {
             types[i] = sc.nextInt();
         }
 
-        k = sc.nextInt();
+        // 单类中专车数量
+        int k = sc.nextInt();
 
-        List<Integer> listDry = new ArrayList<>();
-        List<Integer> listWet = new ArrayList<>();
-        int countDry = 0;
-        int countWet = 0;
-        for (int i = 0; i <len; i++){
-            int type = types[i];
-            int good = goods[i];
-            if (type == 0){
-                listDry.add(good);
-                countDry += good;
-            }else {
-                listWet.add(good);
-                countWet += good;
+        System.out.println(getResult(n, goods, types, k));
+    }
+
+    /**
+     * @param n 供货商数量
+     * @param goods 供货数数组
+     * @param types 表示对应货物类型，types[i]等于0或者1，其中0代表干货，1代表湿货
+     * @param k 表示单类中转车数量
+     * @return 中转车的统一限载货物数最小值为多少
+     */
+    public static int getResult(int n, int[] goods, int[] types, int k) {
+        // 干货列表
+        ArrayList<Integer> dry = new ArrayList<>();
+        // 湿货列表
+        ArrayList<Integer> wet = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            if (types[i] == 0) {
+                dry.add(goods[i]);
+            } else {
+                wet.add(goods[i]);
             }
         }
 
-        Collections.sort(listDry);
-        Collections.sort(listWet);
-
-        int minDry = 0;
-        int minWet = 0;
-        if (listDry.size() != 0){
-            minDry = handle(listDry,countDry);
-        }
-        if (listWet.size() != 0){
-            minWet = handle(listWet,countWet);
-        }
-
-        int res = Math.max(minDry,minWet);
-        System.out.println(res);
-
+        return Math.max(getMinMaxWeight(dry, k), getMinMaxWeight(wet, k));
     }
 
-    private static int handle(List<Integer> goodList, int count) {
-        // 最重货物
-        int maxList = goodList.get(goodList.size()-1);
-        // 平均每辆车放置的最低重量
-        int minWeight = count%k == 0 ? count/k : count/k + 1;
+    public static int getMinMaxWeight(ArrayList<Integer> weights, int k) {
+        int n = weights.size();
 
-        int min = Math.max(maxList,minWeight);
-        int max = count;
+        if (n <= k) {
+            return weights.stream().max((a, b) -> a - b).orElse(0);
+        }
 
-        // 二分搜索法
-        while (min < max){
-            int mid = (min + max)/2;
-            int[] vans = new int[k];
-            // 检查使用k辆车，统一限载为mid的情况下，是否可以全部中转完
-            if (check(goodList,0,vans,mid)){
+        weights.sort((a, b) -> b - a);
+
+        // 最小限载货量为最大值，因为小了，就意味着有一家货物会被拆分，不符合题意
+        int min = weights.get(0);
+        int max = weights.stream().reduce(Integer::sum).get();
+
+        // 根据二分搜索优化查找
+        while (min < max) {
+            int mid = (min + max) >> 1;
+
+            int[] buckets = new int[k];
+            if (check(0, weights, buckets, mid)) {
                 max = mid;
-            }else {
+            } else {
                 min = mid + 1;
             }
         }
@@ -108,27 +108,32 @@ public class Main73 {
         return min;
     }
 
-    /*
-    检查goods货物列表，使用限载为weight的vans辆货车能否全部中转完
+    /**
+     * 能否将单一类型的货物总数 划分到 k个 车中
+     * @param index
+     * @param weights
+     * @param buckets
+     * @param limit
+     * @return
      */
-    public static boolean check(List<Integer> goods, int index, int[] vans, int weight){
-        if (index == goods.size()){
+    public static boolean check(int index, ArrayList<Integer> weights, int[] buckets, int limit) {
+        if (index == weights.size()) {
             return true;
         }
 
-        for (int i = 0; i < vans.length; i++){
-            if (i > 0 && vans[i] == vans[i-1]){
-                continue;
-            }
-            if (vans[i] + goods.get(index) <= weight){
-                vans[i] = vans[i] + goods.get(index);
-                if (check(goods,index + 1, vans, weight)){
-                    return true;
-                }
-                vans[i] = vans[i] - goods.get(index);
+        int select = weights.get(index);
+        for (int i = 0; i < buckets.length; i++) {
+            if (buckets[i] + select <= limit) {
+                buckets[i] += select;
+                if (check(index + 1, weights, buckets, limit)) return true;
+                buckets[i] -= select;
+                if (buckets[i] == 0) return false;
             }
         }
+
         return false;
     }
+
+
 
 }

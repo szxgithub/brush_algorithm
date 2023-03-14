@@ -109,6 +109,7 @@ public class Main69 {
         int[][] ret = new int[m][n];
 
         // 先处理南向发射信号
+        // 先遍历列，再遍历行
         for (int j = 0; j < n; j++){
             LinkedList<Integer> stack = new LinkedList<>();
             for (int i = 0; i <m; i++){
@@ -136,6 +137,7 @@ public class Main69 {
          */
         StringJoiner sj = new StringJoiner(" ");
 
+        // 再处理东向的信号
         for (int i = 0; i <m; i++){
             LinkedList<Integer> stack = new LinkedList<>();
             for (int j = 0; j <n; j++){

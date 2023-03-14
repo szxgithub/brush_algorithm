@@ -78,8 +78,8 @@ public class Main74 {
      * @param res  所有组合结果
      * @param index 起始位置
      * @param count  每个字符出现次数统计
-     * @param num
-     * @param ans
+     * @param num  能组合的三角形个数
+     * @param ans  存放结果集，包含所有可能组合出来三角形的个数
      */
     private static void canCombine(ArrayList<Integer[]> res, int index, int[] count, int num, ArrayList<Integer> ans) {
 

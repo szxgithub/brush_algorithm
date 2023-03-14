@@ -21,14 +21,17 @@ public class Main70 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        // 单位时间数
         int N = sc.nextInt();
         sc.nextLine();
 
+        // 每单位时间产生日志数记录
         int[] records = new int[N];
         for (int i = 0; i<records.length; i++){
             records[i] = sc.nextInt();
         }
 
+        // 系统一天可以保持的最大日志总数
         int total = sc.nextInt();
 
         int result = getResult(N, records, total);

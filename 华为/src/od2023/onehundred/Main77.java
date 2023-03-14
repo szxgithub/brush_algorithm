@@ -2,7 +2,7 @@ package od2023.onehundred;
 
 import java.util.*;
 
-public class Item77 {
+public class Main77 {
 
     /*
 
