@@ -42,14 +42,16 @@ public class Main2 {
      */
 
     /*
+    这道题 比较麻烦，可能不考了
     逻辑分析
      */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
+        // 故障确认周期M、故障次数门限T、故障恢复周期P
         Integer[] mtp = Arrays.stream(sc.nextLine().split(" ")).map(Integer::parseInt).toArray(Integer[]::new);
-
+        //  一段周期采样数据列表
         Integer[] s = Arrays.stream(sc.nextLine().split(" ")).map(Integer::parseInt).toArray(Integer[]::new);
 
         int res = getResult(mtp[0],mtp[1],mtp[2],s);
@@ -58,6 +60,14 @@ public class Main2 {
 
     }
 
+    /**
+     *
+     * @param m 故障周期确认数
+     * @param t 故障次数门限值
+     * @param p 故障恢复周期数
+     * @param s 数组，元素为每个周期的采样数据
+     * @return
+     */
     private static int getResult(Integer m, Integer t, Integer p, Integer[] s) {
 
         // 起始位置
@@ -81,10 +91,12 @@ public class Main2 {
                     fault = 0;
                 }
 
+                // 如果错误次数达到门限值，则工具故障
                 if (fault == t){
                     cycle = 0;
                     fault = 0;
                     int p1 = p;
+                    // 产生故障后的P个周期内，采样数据一直为正常值，则故障恢复
                     while (i < s.length && p1 > 0){
                         if (isFault(s,i)){
                             p1 = p;
@@ -126,6 +138,12 @@ public class Main2 {
         return ans;
     }
 
+    /**
+     * 该方法 用于判断数据值是否错误
+     * @param s
+     * @param j
+     * @return
+     */
     public static boolean isFault(Integer[] s, int j){
         return s[j] <= 0 || (j >= 1 && (s[j] < s[j-1] || s[j]-s[j-1] >= 10));
     }

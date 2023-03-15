@@ -24,13 +24,18 @@ public class Main5 {
     输出描述：
         一个整数，表示给定区域各单元格中数字的累加总和
 
+    备注：行号为1-20，列号为A-Z
+
+
+     */
+
 
 
 
     /*
+    逻辑分析
     复杂字符串处理
      */
-
     public static String[][] strings;
 
     public static void main(String[] args) {

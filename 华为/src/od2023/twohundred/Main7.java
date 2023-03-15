@@ -8,7 +8,19 @@ public class Main7 {
     最少数量线段覆盖（区间交叠问题）
     给定坐标轴上的一组线段，线段的起点和终点均为整数，并且长度不小于1，请从中找到最少数量的线段，这些线段可以覆盖所有线段
 
-    排序贪心
+    输入描述：
+        第一行输入为所有线段的数量
+        后面每行为线段，格式为"x,y"
+    输出描述：
+        最少线段数量
+
+输入：
+3
+1,4
+2,5
+3,6
+输出：
+2
 
 
      */
@@ -50,6 +62,7 @@ public class Main7 {
     }
 
     /**
+     *深度优先搜索
      *
      * @param index     紧接着的一个线段的索引（因为排过序，前面的线段无需考虑）
      * @param left      前一线段的左坐标
@@ -63,6 +76,7 @@ public class Main7 {
         }else {
             for(int i=index; i<lineList.size(); i++){
                 Line line = lineList.get(i);
+                // 判断线段是否有重叠
                 if(line.left > left && line.left <= right && line.right > right){
                     handle( i+1, line.left, line.right, count+1);
                 }
@@ -91,6 +105,7 @@ public class Main7 {
     }
 
     /*
+    利用栈结构 100%通过
     贪心排序
      */
     public int getResult(Integer[][] ranges){

@@ -137,12 +137,23 @@ public class Main10 {
 
     }
 
-    /*
-   同样是BFS搜索，代码量少些
+
+    /**
+     * 同样是BFS搜索，代码量少些
+     *
+     * BFS利用队列结构
+     *
+     * @param arr
+     * @param m
+     * @param n
+     * @param tarI
+     * @param tarJ
+     * @return
      */
     public int getResult(int[] arr, int m, int n, int tarI, int tarJ){
         LinkedList<Integer[]> queue = new LinkedList<>();
 
+        // 找到信号源的位置，加入队列中
         for (int i = 0; i <m; i++){
             for (int j = 0; j <n; j++){
                 if (arr[i*n+j] > 0){
@@ -169,6 +180,7 @@ public class Main10 {
                 int newI = i + offset[0];
                 int newJ = j + offset[1];
 
+                // 判断四个方向的相邻坐标是否越界 以及是否是空旷位置
                 if (newI >= 0 && newI < m && newJ >= 0 && newJ < n && arr[newI*n + newJ] == 0){
                     arr[newI*n + newJ] = x;
                     queue.addLast(new Integer[]{newI,newJ});

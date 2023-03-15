@@ -49,8 +49,11 @@ public class Main11 {
 
         Scanner sc = new Scanner(System.in);
 
+        //城市数量
         int n = sc.nextInt();
+        // 可修建的两城市修建成本列表数
         int can = sc.nextInt();
+        // 必须修建的两城市列表（不包含成本）
         int must = sc.nextInt();
 
         int[][] cans = new int[can][3];
@@ -72,6 +75,10 @@ public class Main11 {
         System.out.println(res);
     }
 
+    /*
+        kruskal算法
+        该算法要求将所有的边按照权重值升序排序
+     */
     private static int getResult(int n, int[][] cans, int[][] musts) {
 
         UnionFindSet ufs = new UnionFindSet(n);

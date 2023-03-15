@@ -49,6 +49,8 @@ public class Main4 {
 
     /**
      *
+     * 四层循环 暴力求解
+     *
      * @param land
      * @param c  正方形的边长
      * @param k  目标电量
@@ -75,6 +77,33 @@ public class Main4 {
             }
         }
         return res;
+    }
+
+
+    /*
+    最优解
+    二维矩阵前缀和解法
+     */
+    public int getResult(int[][] matrix, int n, int m, int c, int k){
+        int[][] preSum = new int[n+1][m+1];
+
+        for (int i = 1; i <= n; i++){
+            for (int j = 1; j <= m; j++){
+                preSum[i][j] = preSum[i-1][j]  + preSum[i][j-1] - preSum[i-1][j-1] + matrix[i-1][j-1];
+            }
+        }
+
+        int ans = 0;
+
+        for (int i = c; i <=n; i++){
+            for (int j =c; j <= m; j++){
+                int square = preSum[i][j] - (preSum[i-c][j] + preSum[i][j-c]) + preSum[i-c][j-c];
+                if (square >= k){
+                    ans++;
+                }
+            }
+        }
+        return ans;
     }
 
 }

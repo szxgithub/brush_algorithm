@@ -26,8 +26,8 @@ public class Main13 {
 
 
     /*
-        这道题非常难，最好的解法是动态规划，这里用的是逻辑分析
-
+       这道题非常难，最好的解法是动态规划
+      这里用的是逻辑分析
      */
     public static void main(String[] args) {
 

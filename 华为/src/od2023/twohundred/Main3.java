@@ -54,33 +54,15 @@ public class Main3 {
     }
 
     /*
+    类似求解 最大区间重叠个数的问题
     采用优先队列
-     */
-    public static void main2(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-
-        int[][] ranges = new int[n][3];
-        for (int i =0; i<n; i++){
-            ranges[i][0] = sc.nextInt();
-            ranges[i][1] = sc.nextInt();
-            ranges[i][2] = sc.nextInt();
-        }
-
-        System.out.println(getResult(ranges));
-
-    }
-
-    /*
-    类似求解最大区间重叠个数的问题
      */
     private static int getResult(int[][] ranges) {
 
         // 先按起始点排序
         Arrays.sort(ranges,(a,b) -> a[0] - b[0]);
 
-        // 存放每个区间的结束位置和权重
+        // 存放每个区间的结束位置和权重   按结束位置升序
         PriorityQueue<Integer[]> queue = new PriorityQueue<>((a,b) -> a[0] - b[0]);
 
         int max = 0;

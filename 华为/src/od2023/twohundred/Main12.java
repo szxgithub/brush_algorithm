@@ -43,12 +43,13 @@ public class Main12 {
         // 节点的数量
         int size = Integer.parseInt(sc.nextLine());
 
+        // 输入每行的节点
         int[][] nodes = new int[size][];
-
         for (int i = 0; i<nodes.length; i++){
             nodes[i] = parseOneLine(sc.nextLine());
         }
 
+        // 要查询的位置
         int[] xy = parseOneLine(sc.nextLine());
 
         String result = doQuery(nodes,xy[0],xy[1]);
@@ -76,7 +77,7 @@ public class Main12 {
     }
 
     /**
-     *
+     * 这里采用DFS搜索
      * 求出n层所有数据并加入list集合中
      *
      * @param nodes  节点信息的二维数组
@@ -99,8 +100,8 @@ public class Main12 {
             return;
         }
 
+       // 各数组中下标为0的元素代表其值 后面的代表子节点， 所以从1开始遍历
         for (int i = 1; i < node.length; i++){
-            // 各数组中下标为0的元素代表其值 后面的代表子节点， 所以从1开始遍历
             handle(nodes,node[i],n-1,list);
         }
 

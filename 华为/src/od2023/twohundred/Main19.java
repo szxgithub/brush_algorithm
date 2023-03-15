@@ -35,14 +35,16 @@ public class Main19 {
         String[] split = str.split(",");
         int[] ints = Arrays.stream(split).mapToInt(value -> Integer.parseInt(value)).toArray();
 
-        // List<Integer> res = getResult1(M, ints);
-        String result3 = getResult3(M, ints);
+        List<Integer> res = getResult1(ints,M);
 
-        System.out.println(result3);
+        System.out.println(res);
 
     }
 
-    private static List<Integer> getResult1(int M, int[] ints) {
+    /*
+    循环 暴力求解
+     */
+    private static List<Integer> getResult1(int[] ints, int M) {
         List<Integer> res = new ArrayList<>();
         for (int i = 0; i< ints.length; i++){
             int[] tmp;
@@ -61,17 +63,6 @@ public class Main19 {
     }
 
 
-    public static void main2(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int M = sc.nextInt();
-        sc.nextLine();
-
-        String[] strs = sc.nextLine().split(",");
-        List<Integer> res = getResult2(M, strs);
-
-        System.out.println(res);
-    }
-
     /*
     双层for循环求出一定区间的最小值
      */
@@ -88,40 +79,7 @@ public class Main19 {
     }
 
     /*
-    这题最优解法，应该用滑动窗口
+    滑动窗口解法，待补充
     */
-    public static String getResult3( int m, int[] arr){
-        int min = Integer.MAX_VALUE;
-        for (int i = 0; i <m; i++){
-            min = Math.min(min,arr[i]);
-        }
-
-        ArrayList<Integer> ans  = new ArrayList<>();
-        ans.add(min);
-
-        int j = m;
-        while (j < arr.length){
-            if (arr[j - m] > min){
-                min = Math.min(min,arr[j]);
-            }else {
-                if (arr[j] <= min){
-                    min = arr[j];
-                }else {
-                    min = arr[j - m + 1];
-                    for (int i = j-m+2; i <= j; i++){
-                        min = Math.min(min,arr[i]);
-                    }
-                }
-            }
-            ans.add(min);
-            j++;
-        }
-
-        StringJoiner sj = new StringJoiner(",");
-        for (Integer an : ans){
-            sj.add(an + "");
-        }
-        return sj.toString();
-    }
 
 }

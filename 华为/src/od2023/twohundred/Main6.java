@@ -31,6 +31,7 @@ public class Main6 {
         str = str.substring(str.indexOf("[") + 1, str.length() - 1);
         String[] split = str.split("],\\[");
 
+        // 区间组
         List<int[]> list= new ArrayList<>();
         for (int i = 0; i< split.length; i++){
             String[] arr = split[i].split(",");
@@ -41,9 +42,11 @@ public class Main6 {
         String connectStr = sc.nextLine();
         connectStr = connectStr.substring(connectStr.indexOf("[") + 1, connectStr.length() - 1);
         String[] connect = connectStr.split(",");
+        // 连接器
         int[] connectNum = Arrays.stream(connect).mapToInt(value -> Integer.valueOf(value)).toArray();
         Arrays.sort(connectNum);
 
+        // 循环暴力破解
         HashMap<Integer,Integer> map = new HashMap<>();
         for (int i = 0; i<list.size(); i++){
             int[] first = list.get(i);
@@ -75,6 +78,9 @@ public class Main6 {
     }
 
     /*
+
+    逻辑分析
+
     首先区间排序
     然后相邻区间合并
     再统计新区间集合之间的距离

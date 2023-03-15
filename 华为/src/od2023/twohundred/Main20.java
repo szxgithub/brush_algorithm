@@ -54,7 +54,9 @@ public class Main20 {
     }
 
     /*
-    优化时间复杂度解法 利用栈结构找出数组每一个元素的下一个更大值
+    优化时间复杂度解法  时间复杂度O(n)
+    利用栈结构找出数组每一个元素的下一个更大值
+
      */
     public String getResult(int[] arr, int m){
         LinkedList<Integer[]> stack = new LinkedList<>();

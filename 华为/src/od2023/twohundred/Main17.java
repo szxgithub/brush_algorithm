@@ -49,6 +49,10 @@ public class Main17 {
     /*
     这道题有点像数学题
 
+   问题就是求解满足 a*x + b*y = t-s的所有解中绝对值最小的x
+   因此可以让x从0开始尝试，1，-1或2，-2，直到找到一个x能够让 (t-s - a*x)%y == 0
+   本题1 <= s,t,a,b <= 105
+
      */
     public static int getResult(int s, int t, int a, int b){
         int x = 0;
