@@ -21,18 +21,26 @@ public class Main30 {
    输出描述：
         输出的是组装办法数量，int类型
 
+输入：
+2 3
+5
+输出：
+2
+
      */
 
     /*
     使用回溯算法
      */
+    public static int M;
+    public static int min;
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        // 输入数组为连续整数
+        // 输入数组N，为连续整数
         String[] strings = sc.nextLine().split(" ");
-        int M = sc.nextInt();
+        M = sc.nextInt();
 
         Integer[] arr = Arrays.stream(strings).map(Integer::parseInt).toArray(Integer[]::new);
 
@@ -42,9 +50,10 @@ public class Main30 {
     }
 
     public static int getResult(Integer[] arr, int m){
+        // 排除N数组中比M大的数字， 减少搜索时间复杂度
         Integer[] newArr = Arrays.stream(arr).filter(val -> val <= m).toArray(Integer[]::new);
-        int min = newArr[0];
-        return dfs(newArr,0,m,0,min,0);
+        min = newArr[0];
+        return dfs(newArr,0,0,0);
 
     }
 
@@ -52,22 +61,22 @@ public class Main30 {
      *
      * @param arr  数组元素
      * @param index 选取元素的起始位置
-     * @param m  要求组装的和
      * @param sum 累加和
-     * @param min  元素最小值
      * @param count 组合数量统计
      * @return
      */
-    public static int dfs(Integer[] arr,int index, int m, int sum, int min, int count){
-        if (sum > m){
+    public static int dfs(Integer[] arr,int index,int sum, int count){
+        if (sum > M){
             return count;
         }
-        if (sum == m || (m - sum < min && m - sum > 0)){
+        if (sum == M || (M - sum < min && M - sum > 0)){
             return ++count;
         }
 
+        // 同一个元素可以重复取
         for (int i = index; i < arr.length; i++){
-            count = dfs(arr,i,m,sum + arr[i],min,count);
+            sum += arr[i];
+            count = dfs(arr,i,sum,count);
         }
         return count;
     }

@@ -16,10 +16,15 @@ public class Main33 {
         第一行输入N、L，N表示numbers的大小， L表示子数组的最小长度
         之后N行表示数组中的N个数
     输出描述：
-        输出子数组的位置，中间用空格隔开
+        输出子数组的位置和大小，中间用空格隔开
 
      */
 
+
+    /*
+    若博豆 逻辑分析
+    通过率45%
+     */
     // 最大几何平均值
     public static double max;
     // 正在处理数据的索引
@@ -39,12 +44,12 @@ public class Main33 {
             numbers[i] = sc.nextDouble();
         }
 
-        // K个数的几何平均值为K个数的乘积的K次方
+
         int resIndex = 0;
         int resLen = 0;
-        // 最小长度为L，最大为N
+        // 最小长度为L，最大为N, 遍历L-N之间每一种可能
         for (int i = L; i <=N; i++){
-            if (handle(i,numbers)){
+            if (handle(numbers,i)){
                 resIndex = index;
                 resLen = i;
             }
@@ -60,7 +65,7 @@ public class Main33 {
      * @param doubles      输入的正数数组
      * @return
      */
-    public static boolean handle(int len, double[] doubles){
+    public static boolean handle(double[] doubles, int len){
 
         //len长度数组的最大乘积
         double maxInLen = 1;
@@ -74,12 +79,14 @@ public class Main33 {
         double count = maxInLen;    //各数组中数字的乘积
         for(int i=len; i<doubles.length; i++){
             count *= doubles[i]/doubles[i - len];
-            if(count > maxInLen){       //count大于maxInLen需要更新index和maxInLen
+            if(count > maxInLen){
+                //count大于maxInLen需要更新index和maxInLen
                 index = i - len + 1;
                 maxInLen = count;
             }
         }
 
+        // K个数的几何平均值为K个数的乘积的K次方
         double CFG = Math.pow( maxInLen, (double) 1/len);   //求出乘积的Len次方根
 
         if(CFG > max){

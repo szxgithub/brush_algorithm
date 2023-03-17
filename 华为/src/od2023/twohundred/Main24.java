@@ -34,8 +34,8 @@ public class Main24 {
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
-        int[] arr= new int[n];
 
+        int[] arr= new int[n];
         for (int i = 0; i<n; i++){
             arr[i] = sc.nextInt();
         }
@@ -85,6 +85,7 @@ public class Main24 {
      */
     public static int disjoint(List<Integer[]> ranges){
         int count  =  1;
+        // 将区间按右边界升序
         ranges.sort((a,b) -> a[1] - b[1]);
         Integer t = ranges.get(0)[1];
         for (int i = 1; i <ranges.size(); i++){

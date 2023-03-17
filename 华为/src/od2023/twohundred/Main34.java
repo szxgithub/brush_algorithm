@@ -10,6 +10,7 @@ public class Main34 {
 
     工单调度策略
     当小区通信设备上报时，系统会自动生成待处理的订单
+    设计一种调度策略，根据现状完成所有的工单，工程师获得积分最多
 
     输入描述：
         第一行为一个整数N，表示工单的数量
@@ -17,6 +18,21 @@ public class Main34 {
 
     输出描述：
         输出一个整数，可以获得的最大积分
+
+输入：
+7
+1 6
+1 7
+3 2
+3 1
+2 4
+2 5
+6 1
+输出：
+15
+
+Process finished with exit code 0
+
 
      */
     public static void main(String[] args) {
@@ -37,6 +53,7 @@ public class Main34 {
 
     /**
      *
+     * 逻辑分析
      * 利用一个优先队列
      *
      * @param n 工单数量
@@ -54,7 +71,9 @@ public class Main34 {
         // 记录拿到的积分
         int ans = 0;
         for (int[] wo : wos) {
+            // 工单结束时间
             int endTime = wo[0];
+            // 工单最大分数
             int score = wo[1];
 
             if (endTime >= curTime + 1) {
@@ -62,6 +81,7 @@ public class Main34 {
                 ans += score;
                 curTime++;
             } else {
+
                 if (pq.size() == 0) {
                     continue;
                 }

@@ -30,83 +30,76 @@ public class Main23 {
 
 
     /*
-    逻辑分析题
+    逻辑分析题、
+
+    先对文本进行多余空格去除，同时记录多余空格的位置
+    遍历关键词坐标，让其与多余空格坐标比较
+        有几个多余空格坐标在关键词坐标前，坐标就更新减多少
+
      */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        String string = sc.nextLine().trim();   //去除首位空格
-        String[] strings = sc.nextLine().split(",");
+        String s1 = sc.nextLine().trim();   //去除首尾空格
 
-        List<String> wordsList = new ArrayList<>();     //单词集合
-        List<int[]> zuobiaoList = new ArrayList<>();    //坐标集合
-        int lettersCount = 0;   //单词字符的总个数（用来计算坐标的）
-        boolean isInBrackets = false;   //是否在引号内
-        int indexWord = 0;      //字符串索引
-        int indexZuobiao = 0;   //坐标索引
-        boolean isOver = false;     //是否遍历完成
-        String temp = "";
+        String resStr = "";
+        List<Integer> count = new ArrayList<>();
 
-        while (!isOver){
-
-            String[] indexs = strings[indexZuobiao].split(" ");
-            int startIndex = Integer.parseInt(indexs[0]);   //开始坐标
-            int enbIndex = Integer.parseInt(indexs[1]);     //末尾坐标
-            if(indexZuobiao < strings.length - 1) indexZuobiao ++;
-
-            int newStartIndex;      //新的起始位置
-            int newEndIndex;        //新的末尾位置
-
-            for(int j=indexWord; j<string.length(); j++){
-
-                char c = string.charAt(j);      //当前字符
-                if(c == ' '){
-                    if(isInBrackets){
-                        temp += c;  //在引号内空格需要拼接
-                        continue;
-                    }
-                    if(temp != ""){
-                        lettersCount += temp.length();  //计算总字符串长度
-                        wordsList.add(temp);    //作为单词直接加入集合
-                        temp = "";      //temp用完需要置空
-                    }
-                }else if(c == '\''){
-                    isInBrackets = !isInBrackets;   //在引号内切换
-                    temp += c;      //引号也需要拼接
-                }else {
-                    temp += c;      //其他情况直接拼接
+        int flag = 0;
+        for (int i = 0; i < s1.length()-1; i++){
+            if (s1.charAt(i) == '\''){
+                flag++;
+            }
+            if (flag%2 == 0){
+                if (s1.charAt(i) == ' ' && s1.charAt(i+1) == ' '){
+                    count.add(i);
+                    continue;
                 }
+            }
+            resStr += s1.charAt(i);
+        }
+        // 处理完多余空格的字符串
+        resStr += s1.charAt(s1.length() - 1);
 
-                if(j == string.length() - 1){   //遍历到最后一个字符，说明遍历完成了
-                    if(temp != "") wordsList.add(temp);     //最后一个字符串也需要
-                    isOver = true;
-                }
-
-                if(j == startIndex){    //需要统计坐标了
-                    //新起始坐标=单词个数（相当于空格个数）+字符串总长度+（如果引号内还需要temp的长度-1）
-                    newStartIndex = wordsList.size() + lettersCount + (isInBrackets ? temp.length() - 1 : 0);
-                    //新终点坐标=单词长度+新的起始坐标
-                    newEndIndex = enbIndex - startIndex + newStartIndex;
-                    zuobiaoList.add(new int[]{newStartIndex, newEndIndex});
-                    indexWord = j + 1;  //字符串索引更新
-                    break;
-                }
+        String s2 = sc.nextLine();
+        String[] s2_1 = s2.split(",");
+        List<Integer> resIndex = new ArrayList<>();
+        for (String s : s2_1){
+            String[] t = s.split(" ");
+            for (int i = 0; i < t.length; i++){
+                int tem = Integer.parseInt(t[i]);
+                resIndex.add(tem - fun(count,tem));
             }
         }
 
-        String res = "";
-        for(String s : wordsList){
-            res += s + " ";
+        System.out.println(resStr);
+        System.out.print("[");
+        for (int i = 0; i < resIndex.size() - 1; i++){
+            System.out.print(resIndex.get(i));
+            if (i%2 == 0){
+                System.out.print(", ");
+            }else {
+                System.out.print("][");
+            }
         }
+        System.out.print(resIndex.get(resIndex.size() - 1) + "]");
+    }
 
-        System.out.println(res.substring(0, res.length()-1));
-        String resIndex = "";
-        for(int[] ints : zuobiaoList){
-            resIndex += "[" + ints[0] + "," + ints[1] + "]";
+    /**
+     * 求出之前多余的空格
+     * @param list
+     * @param num
+     * @return
+     */
+    public static int fun(List<Integer> list, int num){
+        int result = 0;
+        for (Integer integer : list){
+            if (integer < num){
+                result++;
+            }
         }
-
-        System.out.println(resIndex);
+        return result;
     }
 
 

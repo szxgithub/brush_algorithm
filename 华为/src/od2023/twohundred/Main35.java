@@ -17,6 +17,16 @@ public class Main35 {
     输出描述：
         根据返回树根节点，按照层序遍历二叉树打印的结果
 
+输入：
+[[0,0],[0,0],[1,1],[1,0],[0,0]]
+输出：
+[-1, 0, 1, 3, null, 2]
+
+输入：
+[[0,0],[1,0],[1,0],[2,1],[2,1],[2,1],[2,0],[3,1],[2,0]]
+输出：
+[-1, 0, null, 1, 2, 6, 8, 3, 4, null, null, null, null, null, null, 7]
+
 
      */
 
@@ -27,7 +37,21 @@ public class Main35 {
         String str = sc.nextLine();
 
         // 处理输入字符串
+        String[] split = str.replace("]", "")
+                .replace("[", "").split(",");
+        int[] ints = Arrays.stream(split).mapToInt(Integer::valueOf).toArray();
+        int length = ints.length;
+        int row = length/2;
+        Integer[][] arr = new Integer[row][2];
+        for (int i = 0; i<row; i++){
+            for (int j = 0; j < 2; j++){
+                arr[i][j] = ints[i*2 + j];
+            }
+        }
+
         //调用getResult方法
+        String result = getResult(arr);
+        System.out.println(result);
     }
 
     public static String getResult(Integer[][] opeartions){
@@ -67,7 +91,7 @@ public class Main35 {
 
         LinkedList<Node> queue = new LinkedList<>();
         queue.add(tree.get(0).get(0));
-        // 层序遍历
+        // 从根节点开始层序遍历
         while (queue.size() > 0){
             Node node = queue.removeFirst();
             if (node != null){
@@ -79,8 +103,8 @@ public class Main35 {
             }
         }
 
+        // 去除末尾的null， 最后的null子节点不用输出
         while (true){
-            // 最后的null子节点不用输出
             if (ans.getLast() == null){
                 ans.removeLast();
             }else {
@@ -97,8 +121,11 @@ public class Main35 {
     }
 }
 class Node{
+    // 节点的值
     int val;
+    // 左子节点
     Node lc;
+    // 右子节点
     Node rc;
     public Node(int val){
         this.val = val;

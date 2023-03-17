@@ -14,6 +14,18 @@ public class Main29 {
     输出描述：
         对于每组数据，输出最小施肥机的效能k,无多余空格
 
+输入：
+5 7
+5 7 9 15 10
+输出：
+9
+
+输入：
+3 1
+2 3 4
+输出：
+-1
+
 
 
      */
@@ -39,7 +51,7 @@ public class Main29 {
         int l = 1;  //最低能效
         int r = Arrays.stream(fields).max().getAsInt();     //最高能效
         while(l < r){
-            int mid = (l + r) / 2;      //取中位数
+            int mid = (l + r) / 2;
             if(check(mid, fields) <= n){    //判断能效施肥满足天数要求
                 r = mid;    //满足要求，右边界缩小
             }else{
@@ -55,7 +67,7 @@ public class Main29 {
     }
 
     /**
-     * 判断mid能效需要几天完成施肥
+     * 判断mid能效 需要几天完成施肥
      * @param mid       能效
      * @param fields    面积数组
      * @return

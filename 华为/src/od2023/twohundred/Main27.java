@@ -21,6 +21,10 @@ public class Main27 {
 
      */
 
+    /*
+    逻辑分析
+    这是我直接的解法
+     */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -52,7 +56,8 @@ public class Main27 {
     }
 
     /*
-    通过回溯算法对所有充电设备求和
+    通过回溯算法
+    对所有充电设备求和
      */
     public static int p_max;
     public static int max;

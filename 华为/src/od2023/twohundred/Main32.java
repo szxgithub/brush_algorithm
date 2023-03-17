@@ -30,7 +30,8 @@ public class Main32 {
     }
 
     /*
-    基于回溯的全排列求解  对于本题一共有9格数字，9! = 362880个，数量级还好，可以暴力求解
+    基于回溯的全排列求解
+     对于本题一共有9格数字，9! = 362880个，数量级还好，可以暴力求解
      */
     private static void getResult(Integer[] arr) {
 
@@ -41,6 +42,7 @@ public class Main32 {
 
         dfs(arr,used,path,res);
 
+        // 对输出的排列进行升序排序
         res.sort((a,b) ->{
             for (int i = 0; i <9; i++){
                 if (!Objects.equals(a[i],b[i])){
@@ -87,28 +89,39 @@ public class Main32 {
         }
     }
 
+    /*
+    检查排列是否满足每行、每列以及两个对角线上的三数之积相等
+     */
     public static boolean check(LinkedList<Integer> path){
         Integer[] a = path.toArray(new Integer[0]);
+        // 第一行元素之积
         int r1 = a[0]*a[1]*a[2];
 
+        // 第二行元素之积
         int r2 = a[3]*a[4]*a[5];
         if (r1 != r2) return false;
 
+        // 第三行元素之积
         int r3 = a[6]*a[7]*a[8];
         if (r1 != r3) return false;
 
+        // 第一列元素之积
         int c1 = a[0]*a[3]*a[6];
         if (r1 != c1) return false;
 
+        // 第二列元素之积
         int c2 = a[1]*a[4]*a[7];
         if (r1 != c2) return false;
 
+        // 第三列元素之积
         int c3 = a[2]*a[5]*a[8];
         if (r1 != c3) return false;
 
+        // 对角线元素之积
         int s1 = a[0]*a[4]*a[8];
         if (r1 != s1) return false;
 
+        // 对角线元素之积
         int s2 = a[2]*a[4]*a[6];
         if (r1 != s2) return false;
 
