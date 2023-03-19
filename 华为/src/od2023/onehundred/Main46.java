@@ -84,6 +84,7 @@ Process finished with exit code 0
                 }
 
                 int min = Integer.MAX_VALUE;
+                // 遍历相同元素的坐标位置，计算横纵坐标差值的绝对值之和
                 for (int k = 0; k<listInts.size(); k++){
                     int[] intnum = listInts.get(k);
                     // 距离为横纵坐标绝对值之和
@@ -96,6 +97,7 @@ Process finished with exit code 0
                 list.add(min);
             }
 
+            // 计算好一行每列的结果，保存
             resList.add(list);
         }
 

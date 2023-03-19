@@ -18,6 +18,12 @@ public class Main42 {
         一个整数K
     备注：
         1 <= n <= 100
+        新图像的像素会自动截取到[0,255]范围，当新像素值 < 0，其值会更改为0，当新像素值>255，其值会更改为255
+
+输入：
+129 130 129 130
+输出：
+-2
 
 
      */
@@ -29,7 +35,22 @@ public class Main42 {
     如果想让0接近中位，应该加上128，如果想让255接近中位，赢减去127
     因此K的范围应该在-127-128之间，遍历该范围，将遍历值加到像素点上，求平均值
      */
-    public int getResult(Integer[] arr){
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        String str = sc.nextLine();
+
+        Integer[] arr = Arrays.stream(str.split(" ")).map(value -> Integer.valueOf(value)).toArray(Integer[]::new);
+
+        int result = getResult(arr);
+
+        System.out.println(result);
+
+    }
+
+    public static int getResult(Integer[] arr){
         int len = arr.length;
         double minDiff = Integer.MAX_VALUE;
         Integer ans = null;

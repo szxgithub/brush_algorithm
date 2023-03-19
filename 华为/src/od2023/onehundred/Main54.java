@@ -9,8 +9,7 @@ public class Main54 {
 
     静态代码扫描服务
     如果文件大小为N，则扫描成本为N个金币
-    扫描报告的缓存成本和文件大小无关，每缓存一个报告则需要M个金币
-    扫描报告缓存后，后继再碰到则不需要扫描成本
+    扫描报告的缓存成本和文件大小无关，每缓存一个报告则需要M个金币，扫描报告缓存后，后继再碰到则不需要扫描成本
 
     给出源代码文件标识序列和文件大小序列，求解采用合理的缓存策略，最少需要的金币数
 
@@ -58,6 +57,7 @@ public class Main54 {
             Integer integer = Integer.valueOf(F[i]);
             Integer size = Integer.valueOf(S[i]);
             map.put(integer,map.getOrDefault(integer,0) + 1);
+            // 记录每个文件的扫描成本
             sizeMap.computeIfAbsent(integer, (key) -> sizeMap.put(integer,size));
         }
 

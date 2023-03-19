@@ -15,12 +15,19 @@ public class Main51 {
 
     请你帮忙写一个程序在谜底库中找到正确的谜底，谜面是多个单词，找不到的话，返回not found
 
+    输入描述：
+        谜面单词列表，以”,"分隔
+        谜底单词列表，以”,"
+    输出描述：
+        匹配到的正确单词列表，以“，”分隔
+        如果找不到，返回"not found"
 
-    输入：
-    bdni,wooood
-    bind,wrong,wood
-    输出：
-    bind,wood
+
+输入：
+bdni,wooood
+bind,wrong,wood
+输出：
+bind,wood
 
      */
 

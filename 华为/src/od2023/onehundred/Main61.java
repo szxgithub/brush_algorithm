@@ -1,9 +1,6 @@
 package od2023.onehundred;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main61 {
 
@@ -60,21 +57,29 @@ public class Main61 {
         cache = new int[matrix.length];
         Arrays.fill(cache,-1);
 
-        Integer handle = handle(k-1);
+        // 从指定的服务k开始搜索
+        Integer handle = dfs(k-1);
 
         System.out.println(handle);
 
     }
-    public static Integer handle(int index){
+
+    /*
+    利用递归
+    深度优先搜索
+     */
+    public static Integer dfs(int index){
 
         if (cache[index] != -1){
             return cache[index];
         }
-        // 遍历第K行
+
+        // 存放第k个服务依赖的服务，每个服务的启动耗时
         List<Integer> times = new ArrayList<>();
+        // 遍历第K行
         for (int i = 0; i <n; i++){
             if (matrix[index][i] == 1 && index != i){
-                times.add(handle(i));
+                times.add(dfs(i));
             }
         }
 
@@ -88,6 +93,5 @@ public class Main61 {
 
         return max + matrix[index][index];
     }
-
 
 }

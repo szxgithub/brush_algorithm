@@ -9,10 +9,10 @@ public class Main45 {
         重复代码查找方法：以字符串形式给定两行代码，找出两行代码中的“最长公共子串”
         如果不存在，则返回空字符串
 
-        输入：
-        private_void_method
-        public_void_method
-        输出：_void_method
+输入：
+private_void_method
+public_void_method
+输出：_void_method
      */
 
     /*

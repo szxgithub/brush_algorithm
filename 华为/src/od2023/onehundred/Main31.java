@@ -42,7 +42,7 @@ public class Main31 {
         // 售价表序列
         String[] P = str.split(" ");
 
-        combine(P,M,new ArrayList<>(),0);
+        backtracking(P,M,new ArrayList<>(),0);
 
         System.out.println(max);
 
@@ -58,7 +58,7 @@ public class Main31 {
      * @param list  充值获得短信条数的集合
      * @param index 出售价表的索引
      */
-    private static void combine(String[] p, int m, ArrayList<Integer> list, int index) {
+    private static void backtracking(String[] p, int m, ArrayList<Integer> list, int index) {
 
         // 预算等于0，退出循环
         if(m == 0){
@@ -71,7 +71,7 @@ public class Main31 {
             for (int i = index; i <p.length; i++){
                 int x = Integer.valueOf(p[i]);
                 list.add(x);
-                combine(p,m-(i+1),list,i+1);
+                backtracking(p,m-(i+1),list,i+1);
                 list.remove(list.size()-1);
             }
         }

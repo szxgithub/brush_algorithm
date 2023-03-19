@@ -108,7 +108,9 @@ public class Main25 {
         int total = m * n;
 
         // ufs.count是连通分量的个数，如果只有一个连通分量，那么代表所有的点都可达
-        if (ufs.count == 1) return total;
+        if (ufs.count == 1){
+            return total;
+        }
 
         // 这个for循环是有必要的，确保每个点都指向祖先
         for (int i = 0; i < total; i++) {

@@ -49,6 +49,7 @@ public class Main26 {
                     max = Math.max(max,100-jisuan(i));
                     break;
                 }else {
+                    // 不到100条，不是必须上报，先计算出当前最大值，保存
                     max = Math.max(max,count - jisuan(i));
                 }
             }

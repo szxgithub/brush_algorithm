@@ -15,6 +15,11 @@ public class Main3 {
     输出：
     an is This aelpp
 
+输入：
+My sister is in the house not in the yard
+输出：
+in in eht eht My is not adry ehosu eirsst
+
      */
 
     public static void main(String[] args) {

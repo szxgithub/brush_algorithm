@@ -14,6 +14,16 @@ public class Main33 {
     该子串每个字母出现的次数不小于s1对应的字母
 
 
+输入：
+ab
+aabcd
+1
+输出：
+0
+     */
+
+    /*
+    循环暴力求解 逻辑分析
      */
     public static void main(String[] args) {
 

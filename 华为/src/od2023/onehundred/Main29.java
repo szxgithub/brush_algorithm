@@ -21,48 +21,6 @@ public class Main29 {
      */
 
     /*
-    暴力解法，逻辑分析
-     */
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        // 报纸上的
-        String str1 = sc.nextLine();
-        // 匿名信的
-        String str2 = sc.nextLine();
-
-        String[] newspaper = str1.split(" ");
-        String[] letter = str2.split(" ");
-
-        int count = 0;
-        for (int i = 0; i<letter.length; i++){
-            char[] chars2 = letter[i].toCharArray();
-            Arrays.sort(chars2);
-            String tmpS2 = Arrays.toString(chars2);
-            for (int j = 0; j <newspaper.length; j++){
-                char[] chars1 = newspaper[j].toCharArray();
-                if (chars1.length != chars2.length){
-                    continue;
-                }else {
-                    Arrays.sort(chars1);
-                    String tmpS1 = Arrays.toString(chars1);
-                    if (tmpS2.equals(tmpS1)){
-                        count++;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (count == letter.length){
-            System.out.println(true);
-        }else {
-            System.out.println(false);
-        }
-
-    }
-
-    /*
     逻辑分析
     推荐这种解法， 利用一个map统计报纸中单词的个数
     时间复杂度O(n)

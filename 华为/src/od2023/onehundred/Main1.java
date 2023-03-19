@@ -100,6 +100,7 @@ public class Main1 {
             }
         }
 
+        // 循环每个链路，针对每个链路进行选择符合的要求
         for(int i=0; i<lists.size(); i++){
             handle( lists.get(i), new ArrayList<>(), 0, 1);
         }
@@ -138,6 +139,8 @@ public class Main1 {
     }
 
     /**
+     * 回溯法
+     *
      * 申请n个处理器的所有可能性
      * @param firstOrSecond 选中的链路
      * @param list          存放申请的处理器结果列表

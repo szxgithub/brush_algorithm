@@ -31,16 +31,13 @@ public class Main60 {
 
     /*
     逻辑分析
-     */
-
-
-
-    /*
     从左向右，从右向左计算
      */
     public static int getResult(String[] arr){
         HashMap<Integer,Integer> map = new HashMap<>();
         int friendShip = 0;
+
+        // 一轮循环结束后，map里面统计了所有空位的左边的连续老员工人数
         for (int i = 0; i< arr.length; i++){
             switch (arr[i]){
                 case "0":

@@ -1,5 +1,6 @@
 package od2023.onehundred;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 public class Main41 {
 
     /*
-    取出尽量少的球（开放日活动） todo
+    取出尽量少的球（开放日活动）
 
     某部门开展Family Day开放日活动，其中有个从桶里取球的游戏，游戏规则如下：
     有个N个容量一样的小桶等距排开
@@ -17,116 +18,85 @@ public class Main41 {
     要求所有桶的小球总数不超过SUM，如果超过SUM，则需要对所有桶设置一个统一的容量最大值maxCapacity
     请你根据输入的数据，计算从每个小桶里拿出的小球数量
 
+    输入描述：
+        第一行两个数字，第一个数字SUM，第二个数字数组长度
+        第二行数组元素
+    输出描述：
+        找到一个maxCapacity，保证取出的球最少，输出每个桶取出的球组成的数组
 
-    输入：
-    3 3
-    1 2 3
-    输出：
-    [0, 1, 2]
 
-    输入：
-    14 7
-    2 3 2 5 5 1 4
-    输出：
-    [0, 1, 0, 3, 3, 0, 2]
+输入：
+3 3
+1 2 3
+输出：
+[0, 1, 2]
+
+输入：
+14 7
+2 3 2 5 5 1 4
+输出：
+[0, 1, 0, 3, 3, 0, 2]
 
      */
 
     /*
-    根据题意模拟  从maxCapacity=1开始
+    二分查找
+    根据题意模拟
      */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        // 所有桶的小球总数不超过SUM
-        int sum = sc.nextInt();
+        int SUM = sc.nextInt();
+        int ballNumsLen = sc.nextInt();
+        sc.nextLine();
+        String[] strings = sc.nextLine().split(" ");
 
-        // N个小桶
-        int N = sc.nextInt();
-
-        int[] bucketBallNums = new int[N];
-        for (int i =0 ;i <bucketBallNums.length; i++){
-            bucketBallNums[i] = sc.nextInt();
+        int[] ballNums = Arrays.stream(strings).mapToInt(Integer::parseInt).toArray();
+        //球的总数
+        BigDecimal ballCount = new BigDecimal(0);
+        for( int i=0; i<ballNums.length; i++){
+            ballCount = ballCount.add(new BigDecimal(ballNums[i]));
         }
+        //球的总数大于SUM时需要处理
+        if(ballCount.compareTo(new BigDecimal(SUM)) == 1){
 
-        // 如果小球总数超过SUM, 设置一个容量最大值maxCapacity，将超过容量最大值的球拿出来，直到小于maxCapacity
-        // 计算拿出来的小球数量
-        List<Integer> res = new ArrayList<>();
-        int total = Arrays.stream(bucketBallNums).sum();
+            //maxCapacity的最小值
+            int min = SUM/ballNums.length;
+            //maxCapacity的最大值
+            int max = Arrays.stream(ballNums).max().getAsInt();
 
-        // 去除超过maxCapacity最大值剩余的小球数量总和
-        int remainTotal = 0;
-        if (total > sum){
-            // 不需要从maxCapacity=0开始，使用sum/bucket.length求得一个理想的值， 然后向后查找
-            int maxCapacity = total/N - 1;
-            while (remainTotal <= sum){
-                remainTotal = 0;
-                maxCapacity++;
-                for (int i =0; i<bucketBallNums.length; i++){
-                    if (bucketBallNums[i] >= maxCapacity){
-                        remainTotal += maxCapacity;
-                    }else {
-                        remainTotal += bucketBallNums[i];
-                    }
+            //各个管子移除的球的个数数组
+            int[] tempOut = new int[ballNums.length];
+            while (min < max){
+                //中位数
+                int mid = (min + max) / 2;
+                //取出的球的总数
+                BigDecimal outCount = new BigDecimal(0);
+                //每个管子都需要移除mid个球
+                for(int i=0; i<ballNums.length; i++){
+                    tempOut[i] = ballNums[i] - mid > 0 ? ballNums[i] - mid : 0;
+                    outCount = outCount.add(new BigDecimal(tempOut[i]));
                 }
-            }
-            maxCapacity--;
-            for (int i =0; i < bucketBallNums.length; i++){
-                if (maxCapacity >= bucketBallNums[i]){
-                    res.add(0);
+
+                //剩余的球的总数
+                BigDecimal remainCount = ballCount.subtract(outCount);
+
+                if(remainCount.compareTo(new BigDecimal(SUM)) == 0){
+                    break;
+                }else if(remainCount.compareTo(new BigDecimal(SUM)) == 1){
+                    //剩下的球大于SUM
+                    max = mid;
                 }else {
-                    res.add(bucketBallNums[i] - maxCapacity);
+                    min = mid + 1;
                 }
             }
-            System.out.println(res);
+
+            System.out.println( Arrays.toString(tempOut));
         }else {
-            System.out.println(res);
+            System.out.println("[]");
         }
 
     }
-
-    /*
-    本题可以结合二分查找 优化
-     */
-    public String getResult(int sum, Integer[] arr, int n){
-        // 求数组元素之和
-        Integer total = Arrays.stream(arr).reduce((a, b) -> a + b).get();
-        // 如果未超过sum,无需取球
-        if (total <= sum){
-            return "[]";
-        }
-
-        Integer max_maxCapacity = Arrays.stream(arr).max((a, b) -> a - b).get();
-        int min_maxCapacity = sum/n;
-
-        int finalMin_maxCapacity = min_maxCapacity;
-        Integer[] ans = Arrays.stream(arr).map(value -> value > finalMin_maxCapacity ? value - finalMin_maxCapacity : 0).toArray(Integer[]::new);
-
-        while (max_maxCapacity - min_maxCapacity > 1){
-            int mid = (max_maxCapacity + min_maxCapacity)/2;
-            Integer[] tmp = new Integer[n];
-            int remain = total;
-            for (int i = 0; i < arr.length; i++){
-                int r = arr[i] > mid ? arr[i] - mid : 0;
-                remain -= r;
-                tmp[i] = r;
-            }
-
-            if (remain > total){
-                max_maxCapacity = mid;
-            }else if (remain < total){
-                min_maxCapacity = mid;
-                ans = tmp;
-            }else {
-                ans = tmp;
-                break;
-            }
-        }
-
-        return Arrays.toString(ans);
-
-    }
-
 
 }

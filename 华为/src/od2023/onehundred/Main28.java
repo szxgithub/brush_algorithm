@@ -9,14 +9,35 @@ public class Main28 {
 
     /*
 
-    任务调度
+    任务调度（若博豆没有收录）
 
-    现有一个CPU 和 一些任务需要处理，已提前获知某个任务的ID，优先级，所需执行时间 和 到达时间
+    现有一个CPU 和 一些任务需要处理，已提前获知某个任务的ID，优先级，所需执行时间， 到达时间
     CPU同时只能运行一个任务，请编写一个任务调度程序
 
-    输入有若干行，每一行有四个数字，分别为任务ID, 任务优先级， 执行时间 和 到达时间
 
-    输出，按照任务执行结束的顺序  任务ID，任务结束时间
+
+    输入描述：
+        输入有若干行，每一行有四个数字，分别为任务ID, 任务优先级， 执行时间 和 到达时间
+    输出描述：
+        输出，按照任务执行结束的顺序  任务ID，任务结束时间
+
+
+输入：
+1 3 5 1
+2 1 5 10
+3 2 7 12
+4 3 2 20
+5 4 9 21
+6 4 2 22
+#
+输出
+1 6
+3 19
+5 30
+6 32
+4 33
+2 35
+
 
      */
 
@@ -25,9 +46,12 @@ public class Main28 {
 
         LinkedList<Task> list = new LinkedList<>();
 
-        while (sc.hasNextLine()) {
+        while (sc.hasNext()) {
             String s = sc.nextLine();
-            if ("".equals(s)) break;
+            // 为了输入跳出循环使用
+            if ("".equals(s)){
+                break;
+            }
             Integer[] arr = Arrays.stream(s.split(" ")).map(Integer::parseInt).toArray(Integer[]::new);
             Task task = new Task(arr[0], arr[1], arr[2], arr[3]);
             list.add(task);
@@ -42,6 +66,7 @@ public class Main28 {
      * @param tasks 任务列表
      */
     public static void getResult(LinkedList<Task> tasks) {
+        // 堆顶的元素始终是优先级最高的任务
         PriorityQueue<Task> pq =
                 new PriorityQueue<>(
                         (a, b) -> a.priority != b.priority ? b.priority - a.priority : a.arrived - b.arrived);
@@ -56,7 +81,8 @@ public class Main28 {
             int curtTask_endTime = curTime + curtTask.need; // 当前正在运行任务的“理想”结束时间
 
             if (curtTask_endTime > nextTask.arrived) { // 如果当前正在运行任务的理想结束时间  超过了  下一个任务的开始时间
-                curtTask.need -= nextTask.arrived - curTime; // 先不看优先级，先将当前任务可以运行的时间减去
+                // 更新当前任务还需要执行时间
+                curtTask.need -= nextTask.arrived - curTime;
                 curTime = nextTask.arrived;
             } else { // 如果当前正在运行任务的理想结束时间  没有超过  下一个任务的开始时间，则当前任务可以执行完
                 pq.poll(); // 当前任务出队

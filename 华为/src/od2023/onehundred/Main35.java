@@ -18,18 +18,18 @@ public class Main35 {
 
     求最多可同时从A中挑选多少组能组成B的字符串
 
-    输入：
-    ababcecfdc
-    abc
-    输出：
-    2
+输入：
+ababcecfdc
+abc
+输出：
+2
 
      */
 
     /*
        逻辑分析，该方法时间复杂度不是最优的
      */
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
@@ -58,6 +58,18 @@ public class Main35 {
         System.out.println(count);
     }
 
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        String strF = sc.nextLine();    //父字符串
+        String strS = sc.nextLine();    //子字符串
+
+        int result = getResult(strF, strS);
+
+        System.out.println(result);
+    }
+
     /**
      *推荐该方法
      * 逻辑分析
@@ -67,7 +79,8 @@ public class Main35 {
      * @param b
      * @return
      */
-    public int getResult(String a, String b){
+    public static int getResult(String a, String b){
+        //B中不会存在重复字母
         HashMap<Character,Integer> map = new HashMap<>();
         for (int i = 0; i <b.length(); i++){
             char c = b.charAt(i);

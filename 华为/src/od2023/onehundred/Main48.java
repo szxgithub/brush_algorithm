@@ -21,7 +21,7 @@ public class Main48 {
      */
 
     /*
-    逻辑分析
+    简单逻辑分析
     只有两个任务，所以可以用一层for循环搞定
      */
     public static void main(String[] args) {

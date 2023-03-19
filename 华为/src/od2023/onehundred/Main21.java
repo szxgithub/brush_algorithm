@@ -23,8 +23,6 @@ public class Main21 {
 输出：
 3
 
-Process finished with exit code 0
-
 
      */
 
@@ -65,9 +63,15 @@ Process finished with exit code 0
 
     }
 
+    /**
+     * 寻找跟index站点相连通的站点
+     * @param set
+     * @param index
+     */
     private static void dfs(Set<Integer> set, int index) {
 
         for (int i =0; i<s.length; i++){
+            // 已连通的站点无需判断
             if (set.contains(i)){
                 continue;
             }

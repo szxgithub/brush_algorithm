@@ -14,6 +14,18 @@ public class Main36 {
     2、花费时间一样，花费费用最少的核酸检测点排在前面
     3、时间费用一样，则ID值最小的排在前面
 
+    输入描述：
+        H1 M1  当前时间
+        H2 M2  完成时间
+        N      检测点个数
+        ID1 D1 C1  核算点ID，距离，排队人数
+        ID2 D2 C2
+        ...
+    输出描述：
+        N  满足要求的个数
+        I2 T2 M3  表示 ID，耗时，花费
+        ...
+
 输入：
 10 30
 14 50
@@ -74,7 +86,7 @@ public class Main36 {
                                     int distance = idc[1];
                                     int count = idc[2];
 
-                                    int money = distance * 10;
+                                    int money = distance * 10;  // 每公里花费10元钱
                                     int road = distance * 10; // 花在路上的时间 每公里距离花费时间10分钟
                                     int arrived = start + road; // 到达核酸检测点的时间
 

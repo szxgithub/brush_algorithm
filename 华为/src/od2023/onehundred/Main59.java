@@ -13,6 +13,13 @@ public class Main59 {
 
     返回发现新词的数量
 
+    输入描述：
+        待挖掘文本内容content
+        输入词word
+    输出描述：
+        在content中找到的所有word新词的数量
+
+
     输入：
     qweebaewqd
     qwe
@@ -21,7 +28,7 @@ public class Main59 {
      */
 
     /*
-    滑动窗口
+    滑动窗口  这里代码写的滑动窗口效率没有多大提升，本质上相当于双层for循环
      */
     public static void main(String[] args) {
 
@@ -40,6 +47,7 @@ public class Main59 {
         int count =0;
 
         while (right <= content.length()){
+            // 截取word长度的子串
             String temp = content.substring(left,right);
             char[] charTemp = temp.toCharArray();
 

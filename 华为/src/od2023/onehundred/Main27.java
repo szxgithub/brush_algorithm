@@ -24,6 +24,13 @@ public class Main27 {
     输出描述：
         总最快检测效率
 
+
+输入：
+2 2
+200 200
+输出：
+400
+
      */
 
     /*
@@ -85,6 +92,7 @@ public class Main27 {
         }
 
         while (y > 0){
+            // 如果队列为空，或者所有采样员搭配志愿者数量已达到最大，则结束
             if (pq.isEmpty() || pq.peek().volunteer == 4){
                 break;
             }
@@ -107,7 +115,7 @@ public class Main27 {
     }
 
     /*
-    增加一名志愿者能提升的效率
+    增加一名志愿者，采样员还能提升的效率
      */
     public double getAdd(Sampler sampler){
         if (sampler.volunteer == 0){
@@ -119,6 +127,9 @@ public class Main27 {
         }
     }
 
+    /*
+    采样员类
+     */
     class Sampler{
         int volunteer = 0;
         double base = 0;

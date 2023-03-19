@@ -87,6 +87,7 @@ X X X X
                             region.clear();
                         }else if (max < zuobiao.size()){
                             region.clear();
+                            // 更新结果为最大的单入口区域，坐标
                             region.add(new int[]{rukou[0],rukou[1],zuobiao.size()});
                             max = zuobiao.size();
                         }
@@ -122,7 +123,7 @@ X X X X
      */
     public static void dfs(int x, int y, List<int[]> list){
 
-        // 坐标位于边界上
+        // 判断坐标是否位于边界上
         if (x == 0 || x == m-1 || y==0 || y == n-1){
             count++;
             rukou[0] = x;

@@ -17,6 +17,13 @@ public class Main56 {
     输出描述：
         人数最多时园区站点编号，最多人数相同时，返回编号最小的站点
 
+输入：
+3
+1 3
+2 4
+1 4
+输出：
+2
 
      */
 
@@ -39,7 +46,7 @@ public class Main56 {
             ranges[i][1] = sc.nextInt();
         }
 
-        // 为了解决存在环状区间问题
+        // 找出最后一个站点，为了解决存在环状区间问题，将环状区间进行拆分
         Integer last = Arrays.stream(ranges).map(range -> Math.max(range[0], range[1])).max((a, b) -> a - b).orElse(0);
 
         // 考虑到可能有[3，2]这种坐车区间，需要拆分为[3,4] 和 [1,2]

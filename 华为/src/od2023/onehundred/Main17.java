@@ -15,8 +15,16 @@ public class Main17 {
 
     中心位置的值为数组的下标索引
 
+输入：
+2 5 3 6 5 6
+输出：
+3
+
      */
 
+    /*
+    双指针解法
+     */
     public static void main2(String[] args) {
         Scanner sc= new Scanner(System.in);
         String str = sc.nextLine();
@@ -54,6 +62,8 @@ public class Main17 {
     }
 
     /*
+
+     前缀积解法
 
     求左右两侧的前缀积
     再遍历数组，比较其左右两侧的前缀积相同，则输出其坐标

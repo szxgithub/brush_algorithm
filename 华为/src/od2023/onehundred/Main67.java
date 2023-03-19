@@ -5,14 +5,24 @@ import java.util.*;
 public class Main67 {
 
     /*
-        网上商城优惠活动（一） todo
+        网上商城优惠活动（一）
         有三种优惠券可以用，满减卷，打折卷，和 无门槛卷
 
         每满100元优惠10元，无使用数限制，如100-199可以使用过1张减10，200-299可以使用2张减20，以此类推
+        92折券，1次使用一张, 如果是小数，向下取整
+        无门槛5元优惠券，无使用次数限制
+
 
         本题与第14道题优惠券打折非常相似，区别在于关于满减券的使用不同，导致最终实现结果也不同
+        本题的意思是满100，最多使用一张，满200最多使用2张，以此类推...
 
-
+        输入描述：
+            优惠券的数量，满减、打折、无门槛
+            购物人数
+            之后每一行表示某个人购物优惠前的价格
+        输出描述：
+            每行输出每个人每次购物优惠后的最低价格以及使用的优惠券总数量
+            每行的输出顺序 和 输入的顺序保持一致
 
 
      */
@@ -25,94 +35,67 @@ public class Main67 {
         先打折 后无门槛
 
 输入：
-    3 2 5
-    3
-    100
-    200
-    400
+3 2 5
+3
+100
+200
+400
 输出：
-    65 6
-    155 7
-    338 4
+65 6
+155 7
+338 4
 
      */
 
-    public static int manjian;
-    public static int dazhe;
-    public static int wumenkan;
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
         //各个优惠券数量
-        manjian = sc.nextInt();
-        dazhe = sc.nextInt();
-        wumenkan = sc.nextInt();
-        sc.nextLine();
+        int m = sc.nextInt();
+        int d = sc.nextInt();
+        int w = sc.nextInt();
 
         // 表示有n个人购物
         int n = sc.nextInt();
-        sc.nextLine();
-
-        List<int[]> list = new ArrayList<>();
-        for(int i=0; i<n; i++){
-
-            // 打折之前的商品总价
-            double money = sc.nextInt();
-            sc.nextLine();
-
-            //首先使用满减的张数
-            int quanMJ = money/100 > manjian ? manjian : (int) (money / 100);
-
-            /**
-             * key：活动后的价格
-             * value：使用优惠券的张数
-             */
-            Map<Double, Integer> map = new HashMap<>();
-            double manjianToDz = Double.MAX_VALUE;
-            double dzToManjian = Double.MAX_VALUE;
-            double dazheWMK = Double.MAX_VALUE;
-
-            if(dazhe > 0){  //有打折券的情况
-                //先满减后打折
-                manjianToDz = Manjian(money) * 0.92;
-                map.put( manjianToDz, quanMJ + 1);
-
-                //先打折后满减
-                dzToManjian = Manjian(money*0.92);
-                //先打折后满减使用的满减券
-                int quanMJAfterDZ = (int) (money * 0.92 / 100 > manjian ? manjian : money * 0.92 / 100);
-                if( map.containsKey(dzToManjian)){
-                    map.put( dzToManjian, map.get(dzToManjian) > quanMJAfterDZ + 1 ? quanMJAfterDZ + 1 : map.get(dzToManjian));
-                }else {
-                    map.put( dzToManjian, 1 + quanMJAfterDZ);
-                }
-
-                //先打折后无门槛
-                dazheWMK = money * 0.92 - wumenkan * 5;
-                if( map.containsKey(dazheWMK)){
-                    map.put( dazheWMK, map.get(dazheWMK) > wumenkan + 1 ? wumenkan + 1 : map.get(dazheWMK));
-                }else {
-                    map.put( dazheWMK, 1 + wumenkan);
-                }
-            }
-
-            //先满减后无门槛
-            double manjianWMK = Manjian(money) - wumenkan * 5;
-            if( map.containsKey(manjianWMK)){
-                map.put( manjianWMK, map.get(manjianWMK) > quanMJ + wumenkan ? quanMJ + wumenkan : map.get(manjianWMK));
-            }else {
-                map.put( manjianWMK, quanMJ + wumenkan);
-            }
-
-            double min = Math.min( Math.min(manjianToDz, dzToManjian), Math.min(manjianWMK, dazheWMK)); //求出最小价格
-
-            list.add(new int[]{(int) Math.floor(min),map.get(min)});
+        int[] arr = new int[n];
+        for (int i = 0; i<arr.length; i++){
+            arr[i] = sc.nextInt();
         }
 
-        for (int[] ans : list){
-            System.out.println(ans[0] + " " + ans[1]);
+        for(int i=0; i<n; i++){
+
+            Integer[][] ans = new Integer[4][2];
+
+            int price = arr[i];
+
+            int[] manjian = manjian(price, m);
+
+            int[] dazhe =  dazhe(price, d);
+
+            int[] manjian_dazhe = dazhe(manjian[0], d);
+            ans[0][0] = manjian_dazhe[0];
+            ans[0][1] = m - manjian[1] + d - manjian_dazhe[1];
+
+            int[] dazhe_manjian = manjian(dazhe[0], m);
+            ans[1][0] = dazhe_manjian[0];
+            ans[1][1] = d - dazhe[1] + m - dazhe_manjian[1];
+
+            int[] manjian_wmk = wmk(manjian[0], w);
+            ans[2][0] = manjian_wmk[0];
+            ans[2][1] = m - manjian[1] + w - manjian_wmk[1];
+
+            int[] dazhe_wmk = wmk(dazhe[0], w);
+            ans[3][0] = dazhe_wmk[0];
+            ans[3][1] = d - dazhe[1] + w - dazhe_wmk[1];
+
+            Arrays.sort(ans,(a,b)->{
+                return a[0] == b[0] ? a[1] - b[1] : a[0] - b[0];
+            });
+
+            System.out.println(ans[0][0] + " " + ans[0][1]);
+
         }
 
     }
@@ -122,12 +105,33 @@ public class Main67 {
      * @param money
      * @return
      */
-    public static double Manjian(double money){
-
-        if(money/100 >= manjian){
-            return money - manjian*10;
+    public static int[] manjian(int money, int n){
+        if(money/100 >= n){
+            int price = money - n * 10;
+            int remain = 0;
+            return  new int[]{price,remain};
         }else {
-            return money - (money/100)*10;
+            int price = money - (money / 100) * 10;
+            int remain = n - (money/100);
+            return  new int[]{price,remain};
         }
     }
+
+    public static int[] dazhe(int money, int n){
+        if ( n >= 1){
+            money = (int) Math.floor(money*0.92);
+        }
+        return new int[]{money,n-1};
+    }
+
+    public static int[] wmk(int money, int n){
+        while (money > 0 && n > 0){
+            money = money - 5;
+            money = Math.max(0,money);
+            n--;
+        }
+        return new int[]{money,n};
+    }
+
+
 }

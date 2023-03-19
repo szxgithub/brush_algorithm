@@ -7,7 +7,7 @@ public class Main73 {
 
     /*
 
-    统一限载货物数最小值
+    统一限载货物数最小值  todo
     火车站货物中转站负责将货物运往仓库，小明在中转战负责调度2K辆中转车（K辆干货，K辆湿货）
 
     输入描述：
@@ -132,6 +132,78 @@ public class Main73 {
         }
 
         return false;
+    }
+
+    /**
+     * 考虑装货顺序
+     * 满分100%
+     *
+     * @param n 供货商数量
+     * @param goods  供货数数组
+     * @param types  供货类型
+     * @param k  中转车数量
+     * @return
+     */
+    public int getResult2(int n, int[] goods, int[] types, int k){
+        int minLimit = 0;
+        int maxLimit = 0;
+        for (int i = 0; i <n; i++){
+            minLimit = Math.max(minLimit,goods[i]);
+            maxLimit += goods[i];
+        }
+
+        while (minLimit <= maxLimit){
+            int limit = (minLimit + maxLimit)/2;
+            if (canLimit(limit,n,goods,types,k)){
+                maxLimit = limit - 1;
+            }else {
+                minLimit = limit + 1;
+            }
+        }
+
+        return minLimit;
+    }
+
+    /**
+     * 判断是否可以完成装载，能完成，说明是一个解
+     * @param limit
+     * @param n
+     * @param goods
+     * @param types
+     * @param k
+     * @return
+     */
+    public boolean canLimit(int limit, int n, int[] goods, int[] types, int k){
+        int dryCarCount  = 0, wetCarCount = 0;
+        int dryCarSum = 0, wetCarSum = 0;
+
+        for (int i = 0; i < n; i++){
+            if (types[i] == 0){
+                if (dryCarSum + goods[i] <= limit){
+                    dryCarSum += goods[i];
+                }else {
+                    if (dryCarCount + 1 == k){
+                        return false;
+                    }else {
+                        dryCarCount += 1;
+                        dryCarSum = goods[i];
+                    }
+                }
+            }else {
+                if (wetCarSum + goods[i] <= limit){
+                    wetCarSum += goods[i];
+                }else {
+                    if (wetCarCount + 1 == k){
+                        return false;
+                    }else {
+                        wetCarCount += 1;
+                        wetCarSum = goods[i];
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
 

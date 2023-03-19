@@ -14,9 +14,20 @@ public class Main52 {
     1、实际设备 与 注册设备号不一致
     2、同一个员工两个打卡时间小于60分钟，且打卡距离超过5km
 
-    给定打卡记录的字符串数组checkRecords
+    给定打卡记录的字符串数组checkRecords，要求输出异常的打卡记录
 
-    要求输出异常的打卡记录
+    输入描述：
+        输入N，打卡记录数
+        之后N行为打卡记录
+    输出描述：
+        输出异常的打卡记录
+
+输入：
+2
+100000,10,1,ABCD,ABCD
+100001,80,10,ABCE,ABCE
+输出：
+NULL
 
      */
 
@@ -50,6 +61,8 @@ public class Main52 {
                 resList.add(record1.toString());
                 continue;
             }
+
+            // 查找工号相同的打卡记录 判断打卡时间间隔与打卡距离是否符合要求
             for(int j=i+1; j<list.size(); j++){
                 Record record2 = list.get(j);
                 if(record2.id != record1.id){   //两个工号不一致不需要进行比较

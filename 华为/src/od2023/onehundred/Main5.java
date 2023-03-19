@@ -62,12 +62,14 @@ public class Main5 {
         // 记录窗口内部最多的颜色数量
         int max= 0;
 
+        // 统计第一个窗口的数量
         for (int i = l; i < r; i++){
             Integer integer = arr[i];
             map.put(integer,map.get(integer) + 1);
             max = Math.max(max,map.get(integer));
         }
 
+        // 开始滑动窗口
         while (r < arr.length){
             Integer add = arr[r++];
             Integer remove = arr[l++];

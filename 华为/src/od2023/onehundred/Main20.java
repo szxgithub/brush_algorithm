@@ -69,7 +69,7 @@ public class Main20 {
                 if (isMerge){
                     treeSet1.addAll(treeSet2);
                     list.remove(j);
-                    // 从头开始再遍历
+                    // 从头开始再遍历 i++后为0
                     i = -1;
                     break;
                 }

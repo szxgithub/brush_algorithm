@@ -13,12 +13,12 @@ public class Main50 {
     若干条多国货币金额，需要转换成人民币分，汇总后输出
 
 
-    输入：
-    2
-    20CNY53fen
-    53HKD87cents
-    输出：
-    6432
+输入：
+2
+20CNY53fen
+53HKD87cents
+输出：
+6432
 
      */
 
@@ -51,6 +51,7 @@ public class Main50 {
         map.put('p',100/12d);
 
         double sum = 0;
+        // 遍历每种金额记录
         for (int i =0; i<strs.length; i++){
             String str = strs[i];
             String num = "";

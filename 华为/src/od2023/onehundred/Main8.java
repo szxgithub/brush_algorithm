@@ -12,6 +12,12 @@ public class Main8 {
     给定一个数组nums，将元素分为若干个组，使得每组和相等，
     求出满足条件的所有分组中，组内元素和的最小值
 
+    输入描述：
+        第一行输入m
+        接着输入m个数，表示此数组nums
+    输出描述：
+        最小拆分数组和
+
      */
 
     public static void main(String[] args) {
@@ -38,6 +44,7 @@ public class Main8 {
             sum += ele;
         }
 
+        // 因为有m个元素，最多分成m个组，使每组和相等
         while (m > 0) {
             LinkedList<Integer> link_cp = new LinkedList<>(link);
             if (canPartitionMSubsets(link_cp, sum, m)){
@@ -68,8 +75,18 @@ public class Main8 {
         return partition(link, 0, buckets, subSum);
     }
 
+    /**
+     * 将列表中的元素划分到k个桶中，要求每个桶里的和为subSum
+     * @param link
+     * @param index
+     * @param buckets
+     * @param subSum
+     * @return
+     */
     public static boolean partition(LinkedList<Integer> link, int index, int[] buckets, int subSum) {
-        if (index == link.size()) return true;
+        if (index == link.size()){
+            return true;
+        }
 
         int select = link.get(index);
 

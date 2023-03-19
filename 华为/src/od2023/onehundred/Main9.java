@@ -55,9 +55,9 @@ public class Main9 {
     /**
      * 深度优先搜索  这里没有回溯
      *
-     * @param index  字母索引
-     * @param numStr 输入的数字字符串
-     * @param temp  字母组合
+     * @param numStr  输入的数字字符串
+     * @param index   数字字符索引
+     * @param temp    字母组合
      */
     private static void handle(String numStr, int index, String temp){
         if (temp.length() == numStr.length()){

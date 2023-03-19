@@ -14,6 +14,17 @@ public class Main10 {
 
     在所有潜在密码中最长的是真正的密码，如果多个长度相同的真正密码，取字典序最大的返回
 
+    输入描述：
+        密码本是由一个字符串数组组成，不同元素使用空格隔开
+    输出描述：
+        一个字符串
+
+输入：
+b eredderd bw bww bwwl bwwlm bwwln
+输出：
+bwwln
+
+
      */
 
     public static void main(String[] args) {
@@ -31,6 +42,7 @@ public class Main10 {
         for (int i = arr.length-1; i>= 0; i--){
             String str = arr[i];
             for (int j = str.length() - 1; j>= 1; j--){
+                // 判断每一个新密码是否在密码本中存在
                 if (!hashSet.contains(str.substring(0,j))){
                     continue outer;
                 }
@@ -39,6 +51,7 @@ public class Main10 {
             return;
         }
 
+        // 如果没有输出空字符串
         System.out.println("");
 
     }

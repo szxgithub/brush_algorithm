@@ -22,13 +22,13 @@ public class Main71 {
         输出描述：
             板卡上每块芯片的占用情况
 
-    输入：
-      8
-      2
-      ACABA
-    输出：
-      11111000
-      11111111
+输入：
+8
+2
+ACABA
+输出：
+11111000
+11111111
 
      */
 
@@ -62,6 +62,7 @@ public class Main71 {
             }
             for (int j = 0; j<N; j++){
                 int used = chip[j];
+                // 判断芯片剩余容量是否满足配置
                 if (M - used >= conf){
                     chip[j] += conf;
                     break;

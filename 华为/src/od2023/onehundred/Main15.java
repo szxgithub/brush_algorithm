@@ -14,6 +14,14 @@ public class Main15 {
     给定两个数组a,b 若a[i] = b[j] 则称[i,j]为一个二元组，求在给定的数组中，二元组的个数
     若不存在相等的值，则输出0，所采用的算法时间复杂度需要小于O(n^2)，否则会超时
 
+输入：
+6
+1 1 2 2 4 5
+3
+2 2 4
+输出：
+5
+
      */
 
     /*
@@ -24,13 +32,12 @@ public class Main15 {
         Scanner sc = new Scanner(System.in);
 
         int n1 = sc.nextInt();
-        int n2 = sc.nextInt();
-
         int[] A = new int[n1];
         for (int i = 0; i<n1; i++){
             A[i] = sc.nextInt();
         }
 
+        int n2 = sc.nextInt();
         int[] B = new int[n2];
         for (int i = 0; i<n2; i++){
             B[i] = sc.nextInt();

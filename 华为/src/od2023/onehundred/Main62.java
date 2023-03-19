@@ -40,6 +40,7 @@ abc bca
         int N = sc.nextInt();
         sc.nextLine();
 
+        // 给定单词列表，需要从中找出相似单词
         String[] words = new String[N];
         for (int i = 0; i<N; i++){
             words[i] = sc.nextLine();

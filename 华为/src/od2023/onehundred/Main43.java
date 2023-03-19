@@ -60,7 +60,7 @@ public class Main43 {
                 return;
             }
 
-            // 比较里程碑版本
+            // 先判断里程版本是否存在，然后比较里程碑版本
             if (splitA2.length == 2 && splitB2.length == 2){
                 System.out.println(splitA2[1].compareTo(splitB2[1]) >= 0 ? a:b);
             }else {

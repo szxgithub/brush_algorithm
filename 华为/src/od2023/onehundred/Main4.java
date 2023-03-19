@@ -24,6 +24,9 @@ public class Main4 {
 
      */
 
+    /*
+    本题其实就是“求最小覆盖子串”，可参考leetcode-76
+     */
     public static void main2(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -45,6 +48,7 @@ public class Main4 {
             entry.setValue(entry.getValue() - count);
         }
 
+        // 输出待更换连续走位的最小可能长度
         int min = Integer.MAX_VALUE;
         for (int i = 0; i<len; i++){
             char c = str.charAt(i);
@@ -55,6 +59,7 @@ public class Main4 {
                     char tmp = str.charAt(j);
                     copyMap.put(tmp,copyMap.get(tmp) - 1);
                     res++;
+                    // 如果不是完美走位，则跳出，
                     if (isTrue(copyMap)){
                         break;
                     }
@@ -70,6 +75,9 @@ public class Main4 {
 
     }
 
+    /*
+    检查当前字符串是否已经达到完美子串
+     */
     public static boolean isTrue(Map<Character,Integer> map){
         for (Integer i : map.values()){
             if (i > 0){

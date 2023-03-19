@@ -19,6 +19,14 @@ public class Main39 {
     输出：
     输出小明指定工作时长内工作可获得的最大报酬
 
+输入：
+40 3
+20 10
+20 20
+20 5
+输出：
+30
+
      */
 
     /**
@@ -33,7 +41,27 @@ public class Main39 {
      * @param tws  [该工作消耗时长，该工作的报酬]
      * @return  最大报酬
      */
-    public int getResult(int T, int[][] tws){
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int T = sc.nextInt();
+        int n = sc.nextInt();
+
+        int[][] arr = new int[n][2];
+        for (int i = 0; i< arr.length; i++){
+            arr[i][0] = sc.nextInt();
+            arr[i][1] = sc.nextInt();
+        }
+
+
+        int result = getResult(arr, T);
+        System.out.println(result);
+
+    }
+
+    public static int getResult(int[][] tws, int T){
 
         int maxI = tws.length + 1;
         int maxJ = T + 1;

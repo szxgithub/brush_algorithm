@@ -17,6 +17,21 @@ public class Main68 {
 
     返回最大的发行版集中发行版的数量
 
+    输入描述：
+        第一行输入发行版的总数量N
+        之后每行表示各发行版间是否直接相关
+    输出描述：
+        输出最大的发行版集中发行版的数量（发行版集是一个或多个相互存在关联的发行版）
+
+输入：
+4
+1 1 0 0
+1 1 1 0
+0 1 1 0
+0 0 0 1
+输出：
+3
+
      */
 
     public static int n;
@@ -66,7 +81,9 @@ public class Main68 {
     }
 
     /*
-    也可也用并查集求解，输出最大连通分量的节点数
+    满分
+    也可也用并查集求解，
+    求各个连通分量的节点数，输出最大连通分量的节点数
      */
     public static int getResult(int[][] matrix, int n) {
         UnionFindSet ufs = new UnionFindSet(n);
