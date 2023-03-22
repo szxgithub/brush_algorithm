@@ -1,7 +1,6 @@
 package od2023.twohundred;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main27 {
 
@@ -25,7 +24,7 @@ public class Main27 {
     逻辑分析
     这是我直接的解法
      */
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
@@ -105,6 +104,40 @@ public class Main27 {
                 sum -= ints[i];
             }
         }
+    }
+
+    /*
+    通过双层for循环来求出所有符合要求的组合的输出总功率
+     */
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // 充电设备个数
+        int n = sc.nextInt();
+        // 每个设备充电功率
+        List<Integer> numbers = new ArrayList<>();
+        for (int i=0; i<n; i++) {
+            numbers.add(sc.nextInt());
+        }
+        // 充电站最大输出功率
+        int p_max = sc.nextInt();
+
+        int max = 0;
+
+        for (int i = 0; i<numbers.size(); i++){
+            int sum  = 0;
+            for (int j = i; j <numbers.size(); j++){
+                sum += numbers.get(j);
+                if (sum <= p_max){
+                    max = Math.max( max, sum);
+                }else {
+                    sum -= numbers.get(j);
+                }
+            }
+        }
+
+        System.out.println(max);
     }
 
 }

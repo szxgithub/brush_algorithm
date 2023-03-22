@@ -18,6 +18,7 @@ public class Main24 {
          第二行为N个用空格分开的整数
     输出描述：
         一个整数，表示满足要求的最多的组内子序列的数目
+
 输入：
 10
 8 8 9 1 9 6 3 9 1 0
@@ -58,6 +59,7 @@ public class Main24 {
             dp[i] = dp[i-1] + arr[i];
         }
 
+        // 利用前缀和求差，求出所有连续子序列的和
         for (int i = 0; i <n; i++){
             for (int j = i; j <n; j++){
                 if (i == 0){

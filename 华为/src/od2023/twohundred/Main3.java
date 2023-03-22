@@ -11,6 +11,7 @@ public class Main3 {
     任务混部(最大化控制资源成本)
 
     有taskNum项任务，每个任务都有开始时间startTime、结束时间endTime、并行度parallelism三个属性
+    并行度是指这个任务运行时将会占用的服务器数量
 
     请计算完成一批任务，最少需要多少服务器，从而最大化控制资源成本
 
@@ -33,14 +34,15 @@ public class Main3 {
         int[][] tasks = new int[taskNum][3];
 
         for (int i =0; i<taskNum; i++){
-            tasks[i][0] = sc.nextInt();
-            tasks[i][1] = sc.nextInt();
-            tasks[i][2] = sc.nextInt();
+            tasks[i][0] = sc.nextInt(); // 开始时间
+            tasks[i][1] = sc.nextInt(); // 结束时间
+            tasks[i][2] = sc.nextInt(); // 并行度
         }
 
         int max = Integer.MIN_VALUE;
         for (int i =0; i<taskNum; i++){
             for (int j = i+1; j <taskNum; j++){
+                // 判断是否存在重叠区间
                 if (tasks[i][1] > tasks[j][0] && tasks[i][0] < tasks[j][0]){
                     max = Math.max(max,tasks[i][2] + tasks[j][2]);
                 }else {
@@ -82,6 +84,7 @@ public class Main3 {
                 }
             }
 
+            // 队列中每个数组两个元素，区间的结束位置和并行度
             queue.offer(new Integer[]{end,p});
             sum += p;
 

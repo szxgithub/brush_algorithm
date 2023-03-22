@@ -31,8 +31,6 @@ public class Main34 {
 输出：
 15
 
-Process finished with exit code 0
-
 
      */
     public static void main(String[] args) {

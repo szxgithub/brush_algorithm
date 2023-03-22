@@ -34,7 +34,10 @@ public class Main20 {
 
         Scanner sc = new Scanner(System.in);
 
+        // 员工的数量
         int n = sc.nextInt();
+
+        // 每位员工分配的随机数字
         int[] nums = new int[n];
         for (int i =0; i<nums.length; i++){
             nums[i] = sc.nextInt();
@@ -42,12 +45,14 @@ public class Main20 {
 
         for (int i =0 ;i<nums.length; i++){
             for (int j =i+1; j < nums.length; j++){
+                //找到第一个数字比自己数字大的，那么前面的员工就可以获得 “距离*数字差值”的奖金
                 if (nums[j] > nums[i]){
                     nums[i] = (nums[j] - nums[i])*(j-i);
                 }
             }
         }
 
+        // 输出每位员工最终分的奖金数量
         String collect = Arrays.stream(nums).mapToObj(String::valueOf).collect(Collectors.joining(" "));
         System.out.println(collect);
 
@@ -87,6 +92,7 @@ public class Main20 {
         for (int i = 0; i < arr.length; i++){
           Integer idx = nextBigger[i];
           if (idx == -1){
+              // 说明前面不存在比它大的元素
               ans.add(arr[i]);
           }else {
               ans.add((idx-i)*(arr[idx] - arr[i]));

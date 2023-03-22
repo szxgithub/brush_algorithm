@@ -31,6 +31,7 @@ public class Main18 {
         // n个基站
         int n = sc.nextInt();
 
+        // n个站点直接的距离关系  用二维数组表示
         int[][] nums = new int[n][n];
         for (int i =0;i <n; i++){
             for (int j = 0; j<n; j++){
@@ -43,6 +44,7 @@ public class Main18 {
             int min = Integer.MAX_VALUE;
             int nextIndex = 0;
             for (int j = 0; j<n; j++){
+                // 找到一条距离当前基站i最近的的基站
                 if (nums[i][j] != 0 && min > nums[i][j]){
                     min = nums[i][j];
                     nextIndex = j;

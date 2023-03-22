@@ -19,12 +19,19 @@ public class Main22 {
     输出描述：
         输出A有多少个子数组是K-优雅数组
 
+输入：
+7 2
+1 2 3 1 2 3 1
+输出：
+10
+
      */
 
     /*
     滑动窗口的解题思想
+    若博豆的题解  似乎不是满分
      */
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
@@ -73,21 +80,43 @@ public class Main22 {
 
     }
 
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // 数组的长度
+        int n = sc.nextInt();
+        // 优雅阈值
+        int k = sc.nextInt();
+
+        Integer[] nums = new Integer[n];
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = sc.nextInt();
+        }
+
+        Integer result = getResult(nums, n, k);
+        System.out.println(result);
+
+    }
+
     /*
     双指针  推荐这个方法
      */
-    public Integer getResult(Integer[] arr, Integer n, Integer k){
+    public static Integer getResult(Integer[] arr, Integer n, Integer k){
         int ans = 0;
         int l = 0;
         int r = 0;
+        // 窗口
         HashMap<Integer,Integer> count = new HashMap<>();
 
         while (l <n && r <n){
             Integer c = arr[r];
             count.put(c,count.getOrDefault(c,0) + 1);
             if (count.get(c) >= k){
+                // 从当前r往后到数组末尾，全部符合
                 ans += n -r;
 
+                // 左指针移动，同时更新窗口内记录的字符数量
                 count.put(arr[l],count.get(arr[l]) - 1);
                 l++;
 

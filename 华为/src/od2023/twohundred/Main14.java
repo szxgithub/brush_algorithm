@@ -20,12 +20,19 @@ public class Main14 {
     输出描述：
         满足差异值大于相似值的对数
 
+
+输入：
+4
+4 3 5 2
+输出：
+4
+
      */
 
     /*
     暴力求解 逻辑非常简单 时间复杂度O(n^2)
      */
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 

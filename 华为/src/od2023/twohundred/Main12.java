@@ -11,19 +11,26 @@ public class Main12 {
     /*
 
     查找树中元素
-
     根据输入的坐标x,y，将查询到的内容输出，{内容}，若查不到，输出{}
+    其中x表示节点所在的层数，根节点位于第0层，根节点的子节点位于第1层，依次类推，从左到右，第一个节点偏移0，第二个节点偏移1，依次类推
 
-    输入：
-    6
-    10 1 2
-    -21 3 4
-    23 5
-    14
-    35
-    66
-    1 1
-    输出：{23}
+    输入描述：
+        先录入节点数量
+        然后逐行录入节点
+        最后录入查询的位置
+    输出描述：
+        查询到内容时，输出{内容}，若查不到，输出{}
+
+输入：
+6
+10 1 2
+-21 3 4
+23 5
+14
+35
+66
+1 1
+输出：{23}
 
 
 
@@ -57,6 +64,14 @@ public class Main12 {
 
     }
 
+
+    /**
+     *
+     * @param nodes
+     * @param x  要查询的节点的层数
+     * @param y  要查询的节点在x层内的偏移
+     * @return
+     */
     private static String doQuery(int[][] nodes, int x, int y) {
 
         if (x < 0 || y < 0){
@@ -87,6 +102,7 @@ public class Main12 {
      */
     private static void handle(int[][] nodes, int index, int n, List<Integer> list){
 
+        // 取出index层的节点
         int[] node = nodes[index];
 
         // 表示已经找到目标层次了
@@ -95,7 +111,7 @@ public class Main12 {
             return;
         }
 
-        // 说明没有子节点
+        // 说明index层只有一个节点，且该节点没有子节点
         if (node.length == 1){
             return;
         }

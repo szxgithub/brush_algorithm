@@ -16,15 +16,19 @@ public class Main23 {
          单词的开始和结束下标保证涵盖一个完整的单词，中间不会有多余的空格
 
 
+     输入描述：
+        第一行，待去除多余空格的文本
+        第二行，关键词的开始和结束坐标，关键词以逗号区分，关键词内的开始和结束位置以单空格区分
+     输出描述：
+        第一行，去除多余空格的文本
+        第二行，关键词更新坐标后的新坐标
 
-    输入：
-    Life is painting a  picture, not doing 'a sum'.
-    8 15,20 26,43 45
-    输出：
-    Life is painting a picture, not doing 'a sum'.
-    [8,15][19,25][42,44]
-
-    //todo
+输入：
+Life is painting a  picture, not doing 'a sum'.
+8 15,20 26,43 45
+输出：
+Life is painting a picture, not doing 'a sum'.
+[8,15][19,25][42,44]
 
      */
 
@@ -41,9 +45,11 @@ public class Main23 {
 
         Scanner sc = new Scanner(System.in);
 
-        String s1 = sc.nextLine().trim();   //去除首尾空格
+        //去除首尾空格
+        String s1 = sc.nextLine().trim();
 
         String resStr = "";
+        // 记录要删除的多余空格的位置
         List<Integer> count = new ArrayList<>();
 
         int flag = 0;
@@ -52,6 +58,7 @@ public class Main23 {
                 flag++;
             }
             if (flag%2 == 0){
+                // 判断是否存在多余空格字符
                 if (s1.charAt(i) == ' ' && s1.charAt(i+1) == ' '){
                     count.add(i);
                     continue;
@@ -67,10 +74,10 @@ public class Main23 {
         List<Integer> resIndex = new ArrayList<>();
         for (String s : s2_1){
             String[] t = s.split(" ");
-            for (int i = 0; i < t.length; i++){
-                int tem = Integer.parseInt(t[i]);
-                resIndex.add(tem - fun(count,tem));
-            }
+            int tem0 = Integer.parseInt(t[0]);
+            resIndex.add(tem0 - fun(count,tem0));
+            int tem1 = Integer.parseInt(t[1]);
+            resIndex.add(tem1 - fun(count,tem1));
         }
 
         System.out.println(resStr);
@@ -87,7 +94,7 @@ public class Main23 {
     }
 
     /**
-     * 求出之前多余的空格
+     * 求出num位置之前多余的空格数
      * @param list
      * @param num
      * @return

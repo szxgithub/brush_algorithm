@@ -19,11 +19,15 @@ public class Main17 {
     输出描述：
         输出一个整数
 
-      输入：  1 10 5 2
-       输出： 1
+输入：
+1 10 5 2
+输出：
+1
 
-       输入：11 33 4 10
-       输出： 2
+输入：
+11 33 4 10
+输出：
+2
 
 
      */
@@ -41,7 +45,7 @@ public class Main17 {
         int a = ints[2];
         int b = ints[3];
 
-        int res = 0;
+        int res;
         res = getResult(s, t, a, b);
         System.out.println(res);
     }
@@ -55,6 +59,7 @@ public class Main17 {
 
      */
     public static int getResult(int s, int t, int a, int b){
+        // 求x的最小值 即a的最少使用次数
         int x = 0;
         int diff = t - s;
 

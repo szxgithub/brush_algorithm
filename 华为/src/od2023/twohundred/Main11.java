@@ -75,16 +75,23 @@ public class Main11 {
         System.out.println(res);
     }
 
-    /*
-        kruskal算法
-        该算法要求将所有的边按照权重值升序排序
+    /**
+     * kruskal算法 基于边找最小生成树
+     *         该算法要求将所有的边按照权重值升序排序
+     *
+     * @param n  城市的数量
+     * @param cans  可建高铁城市成本列表
+     * @param musts  必建高铁城市列表
+     * @return
      */
     private static int getResult(int n, int[][] cans, int[][] musts) {
 
+        // 定义一个并查集
         UnionFindSet ufs = new UnionFindSet(n);
 
         HashMap<String,Integer> cansMap = new HashMap<>();
 
+        // key:城市id-城市id  value: 成本
         for (int[] can : cans){
             int city1 = can[0], city2 = can[1], fee = can[2];
             String key = city1 < city2 ?  city1 + "-" + city2 : city2 + "-" + city1;
@@ -119,6 +126,8 @@ public class Main11 {
             }
         }
 
+
+        // 连通分量个数大于1个，说明存在无法可达的两个城市
         if (ufs.count > 1){
             return -1;
         }

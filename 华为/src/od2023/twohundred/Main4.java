@@ -87,6 +87,7 @@ public class Main4 {
     public int getResult(int[][] matrix, int n, int m, int c, int k){
         int[][] preSum = new int[n+1][m+1];
 
+        // 求解二维矩阵前缀和
         for (int i = 1; i <= n; i++){
             for (int j = 1; j <= m; j++){
                 preSum[i][j] = preSum[i-1][j]  + preSum[i][j-1] - preSum[i-1][j-1] + matrix[i-1][j-1];
@@ -95,6 +96,7 @@ public class Main4 {
 
         int ans = 0;
 
+        // 根据二维矩阵前缀和计算 区域面积
         for (int i = c; i <=n; i++){
             for (int j =c; j <= m; j++){
                 int square = preSum[i][j] - (preSum[i-c][j] + preSum[i][j-c]) + preSum[i-c][j-c];

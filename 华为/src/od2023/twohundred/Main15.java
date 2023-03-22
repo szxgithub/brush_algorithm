@@ -14,6 +14,10 @@ public class Main15 {
         2、花括号中的字符串加数字N，表示字符串重复N次
         3、字符后加N，花括号后加N，支持任意的嵌套，例如：{A3B1{C}3}3
 
+    输入描述：
+        输入一行压缩后的字符串
+    输出描述：
+        输出压缩前的字符串
 
 输入：
 {A3B1{C}3}3
@@ -26,7 +30,7 @@ AAABCCCAAABCCCAAABCCC
     /*
     利用数据结构栈 完成该复杂字符串处理
     满分
- */
+    */
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -37,6 +41,9 @@ AAABCCCAAABCCCAAABCCC
 
     }
 
+    /*
+    {A3B1{C}3}3
+     */
     private static String getResult(String str) {
         Stack<String> stack = new Stack<>();
         for (int i= 0; i < str.length(); i++){

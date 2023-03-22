@@ -109,6 +109,7 @@ public class Main7 {
     贪心排序
      */
     public int getResult(Integer[][] ranges){
+        // 对线段进行排序，起点升序
         Arrays.sort(ranges,(a,b)->a[0]-b[0]);
         LinkedList<Integer[]> stack = new LinkedList<>();
         stack.add(ranges[0]);
@@ -147,6 +148,8 @@ public class Main7 {
                 }
             }
         }
+
+        // 栈里面线段的数量，能够覆盖所有的线段范围
         return stack.size();
     }
 

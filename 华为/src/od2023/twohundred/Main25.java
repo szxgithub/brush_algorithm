@@ -65,6 +65,7 @@ YES
             for(int j=0; j<m; j++){
                 map[i][j] = string.charAt(j);
                 mapCopy[i][j] = map[i][j];
+                // 找到jungle家的坐标
                 if(map[i][j] == 'S'){
                     x = i;
                     y = j;
@@ -95,7 +96,7 @@ YES
 
         if(list.size() > 1){    //至少走过两个格子才能判断是否转弯
             int[] ints = list.get(list.size()-2);   //获取路过的倒数第二个格子
-            if(ints[0] != x && ints[1] != y){   //如果横纵坐标没有相同的，则表示转过弯
+            if(ints[0] != x && ints[1] != y){   //如果横纵坐标都没有相同的，则表示转过弯
                 turn ++;
             }
         }

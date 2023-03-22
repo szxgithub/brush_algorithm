@@ -12,21 +12,21 @@ public class Main8 {
 
     最大平分数组
 
-    给定一个数组nums, 将元素分为若干个组，使得每组和相等，求出满足条件得所有分组中，组内元素和得最小值, 最大的平分组个数
+    给定一个数组nums, 将元素分为若干个组，使得每组和相等，求出满足条件的所有分组中，组内元素和得最小值, 最大的平分组个数
 
     第一行输入m 接着输入m个数，表示此数组 数据范围 1<=M<=50  1<=nums[i] <= 50
 
 
-    输入：
-    7
-    4 3 2 3 5 2 1
-    输出：4
+输入：
+7
+4 3 2 3 5 2 1
+输出：4
 
-    输入：
-    9
-    5 2 1 5 2 1 5 2 1
-    输出：
-    4
+输入：
+9
+5 2 1 5 2 1 5 2 1
+输出：
+4
 
      */
 
@@ -56,6 +56,7 @@ public class Main8 {
 
     private static int getResult(List<Integer> collect, int m) {
 
+        // 降序排序
         collect.sort((a,b)->b-a);
 
         int sum = 0;
@@ -89,14 +90,14 @@ public class Main8 {
             return false;
         }
 
-        // 每个子集之和
+        // 可以划分的每个子集之和
         int subSum = sum/m;
 
         if (subSum < linkCp.get(0)){
             return false;
         }
 
-        // 去除掉不用划分的等于均值的单个子集和
+        // 去除掉不用划分的等于subSum的单个子集和
         while (linkCp.size() > 0 && linkCp.get(0) == subSum){
             linkCp.removeFirst();
             m--;
@@ -109,6 +110,14 @@ public class Main8 {
 
     }
 
+    /**
+     * 这里采用回溯思想
+     * @param linkCp
+     * @param index
+     * @param buckets
+     * @param subSum
+     * @return
+     */
     private static boolean partition(LinkedList<Integer> linkCp, int index, int[] buckets, int subSum) {
 
         if (index == linkCp.size()){
