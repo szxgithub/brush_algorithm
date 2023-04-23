@@ -1,7 +1,5 @@
 package easy;
 
-import com.sun.javafx.binding.StringFormatter;
-
 public class Item2347 {
 
     /*
